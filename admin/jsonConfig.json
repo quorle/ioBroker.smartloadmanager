@@ -1,8 +1,8 @@
 {
-    "i18n": true,
-    "type": "panel",
-    "label": "Adapter-Einstellungen",
-    "items": [
+  "i18n": true,
+  "type": "panel",
+  "label": "Adapter-Einstellungen",
+  "items": [
     {
       "type": "group",
       "label": "Einspeisung",
@@ -25,6 +25,7 @@
           "id": "verbraucher",
           "label": "Zuschaltbare Verbraucher",
           "sortable": true,
+          "addText": "Verbraucher hinzufügen",
           "items": [
             {
               "type": "text",
@@ -35,13 +36,15 @@
               "type": "selectID",
               "id": "datenpunkt",
               "label": "Steuer-Datenpunkt",
-              "filter": "state"
+              "filter": "state",
+              "default": ""
             },
             {
               "type": "number",
               "id": "leistung",
               "label": "Verbrauch (Watt)",
-              "min": 1
+              "min": 1,
+              "default": 100
             },
             {
               "type": "select",
@@ -56,7 +59,8 @@
             {
               "type": "checkbox",
               "id": "vollzuschaltung",
-              "label": "Nur bei 100% Zuschalten (z.B. Wallbox)"
+              "label": "Nur bei 100% Zuschalten (z. B. Wallbox)",
+              "default": false
             }
           ]
         }
