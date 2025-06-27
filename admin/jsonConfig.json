@@ -1,16 +1,66 @@
 {
-	"i18n": true,
-	"type": "panel",
-	"items": {
-		"option1": {
-			"type": "checkbox",
-			"label": "option1",
-			"newLine": true
-		},
-		"option2": {
-			"type": "text",
-			"label": "option2",
-			"newLine": true
-		}
-	}
+    "i18n": true,
+    "type": "panel",
+    "label": "Adapter-Einstellungen",
+    "items": [
+    {
+      "type": "group",
+      "label": "Einspeisung",
+      "items": [
+        {
+          "type": "selectID",
+          "id": "einspeisungId",
+          "label": "Einspeisungs-Datenpunkt",
+          "filter": "state",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": "Verbraucher",
+      "items": [
+        {
+          "type": "array",
+          "id": "verbraucher",
+          "label": "Zuschaltbare Verbraucher",
+          "sortable": true,
+          "items": [
+            {
+              "type": "text",
+              "id": "name",
+              "label": "Name"
+            },
+            {
+              "type": "selectID",
+              "id": "datenpunkt",
+              "label": "Steuer-Datenpunkt",
+              "filter": "state"
+            },
+            {
+              "type": "number",
+              "id": "leistung",
+              "label": "Verbrauch (Watt)",
+              "min": 1
+            },
+            {
+              "type": "select",
+              "id": "regelTyp",
+              "label": "Regeltyp",
+              "default": "binary",
+              "options": [
+                { "label": "Ein/Aus", "value": "binary" },
+                { "label": "Prozentregelung", "value": "percent" }
+              ]
+            },
+            {
+              "type": "checkbox",
+              "id": "vollzuschaltung",
+              "label": "Nur bei 100% Zuschalten (z.B. Wallbox)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
