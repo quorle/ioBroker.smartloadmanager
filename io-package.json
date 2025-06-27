@@ -79,6 +79,10 @@
 	"einspeisungId": "",
     "verbraucher": []
 	},
+	"admin": {
+    "type": "json",
+    "adminTab": false
+	},
 	"objects": [],
 	"instanceObjects": []
 }
