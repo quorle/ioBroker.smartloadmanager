@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
-const utils = require('@iobroker/adapter-core');
+const utils = require("@iobroker/adapter-core");
 
 class Nulleinspeisung extends utils.Adapter {
     constructor(options = {}) {
-        super({ ...options, name: 'nulleinspeisung' });
+        super({ ...options, name: "nulleinspeisung" });
     }
 
     async onReady() {
         const einspeisungId = this.config.einspeisungId;
         if (!einspeisungId) {
-            this.log.error('Einspeisungs-Datenpunkt nicht konfigiert.');
+            this.log.error("Einspeisungs-Datenpunkt nicht konfigiert.");
             return;
         }
 
@@ -18,14 +18,14 @@ class Nulleinspeisung extends utils.Adapter {
         this.log.info(`Beobachte: ${einspeisungId}`);
 
         const state = await this.getForeignStateAsync(einspeisungId);
-        if (state && typeof state.val === 'number') {
+        if (state && typeof state.val === "number") {
             await this.regleVerbraucher(state.val);
         }
     }
 
     async onStateChange(id, state) {
         if (!state || state.ack !== true) return;
-        if (id === this.config.einspeisungId && typeof state.val === 'number') {
+        if (id === this.config.einspeisungId && typeof state.val === "number") {
             await this.regleVerbraucher(state.val);
         }
     }
@@ -37,9 +37,9 @@ class Nulleinspeisung extends utils.Adapter {
 
         if (einspeisung >= 0) {
             for (const v of verbraucher) {
-                const { datenpunkt: dp, leistung, name, regelTyp = 'binary', vollzuschaltung = false } = v;
+                const { datenpunkt: dp, leistung, name, regelTyp = "binary", vollzuschaltung = false } = v;
 
-                if (regelTyp === 'percent') {
+                if (regelTyp === "percent") {
                     const prozent = vollzuschaltung
                         ? (freieLeistung >= leistung ? 100 : 0)
                         : Math.min(100, Math.floor((freieLeistung / leistung) * 100));
@@ -60,9 +60,9 @@ class Nulleinspeisung extends utils.Adapter {
         } else {
             let bezug = Math.abs(einspeisung);
             for (const v of [...verbraucher].reverse()) {
-                const { datenpunkt: dp, leistung, name, regelTyp = 'binary' } = v;
+                const { datenpunkt: dp, leistung, name, regelTyp = "binary" } = v;
 
-                if (regelTyp === 'percent') {
+                if (regelTyp === "percent") {
                     const state = await this.getForeignStateAsync(dp);
                     const alt = state?.val || 0;
                     const aktuellWatt = (alt / 100) * leistung;
