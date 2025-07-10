@@ -1,6 +1,6 @@
 {
   "name": "iobroker.nulleinspeisung",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
   "author": {
     "name": "quorle",
