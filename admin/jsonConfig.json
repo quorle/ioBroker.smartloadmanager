@@ -1,70 +1,122 @@
 {
-  "i18n": true,
-  "type": "panel",
-  "label": "Adapter-Einstellungen",
-  "items": [
-    {
-      "type": "group",
-      "label": "Einspeisung",
-      "items": [
-        {
-          "type": "selectID",
-          "id": "einspeisungId",
-          "label": "Einspeisungs-Datenpunkt",
-          "filter": "state",
-          "default": ""
-        }
-      ]
-    },
-    {
-      "type": "group",
-      "label": "Verbraucher",
-      "items": [
-        {
-          "type": "array",
-          "id": "verbraucher",
-          "label": "Zuschaltbare Verbraucher",
-          "sortable": true,
-          "addText": "Verbraucher hinzufügen",
-          "items": [
-            {
-              "type": "text",
-              "id": "name",
-              "label": "Name"
-            },
-            {
-              "type": "selectID",
-              "id": "datenpunkt",
-              "label": "Steuer-Datenpunkt",
-              "filter": "state",
-              "default": ""
-            },
-            {
-              "type": "number",
-              "id": "leistung",
-              "label": "Verbrauch (Watt)",
-              "min": 1,
-              "default": 100
-            },
-            {
-              "type": "select",
-              "id": "regelTyp",
-              "label": "Regeltyp",
-              "default": "binary",
-              "options": [
-                { "label": "Ein/Aus", "value": "binary" },
-                { "label": "Prozentregelung", "value": "percent" }
-              ]
-            },
-            {
-              "type": "checkbox",
-              "id": "vollzuschaltung",
-              "label": "Nur bei 100% Zuschalten (z. B. Wallbox)",
-              "default": false
-            }
-          ]
-        }
-      ]
-    }
-  ]
+	"i18n": true,
+	"type": "tabs",
+	"items": {
+		"_main": {
+			"type": "panel",
+			"label": "Haupteinstellungen",
+			"items": {
+				"einspeisungId": {
+					"type": "objectId",
+					"label": "Einspeisungs-Datenpunkt",
+					"default": "",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 6
+				},
+				"delaySeconds": {
+					"type": "number",
+					"label": "Verzögerung zwischen Schaltungen (Sekunden)",
+					"default": 60,
+					"min": 10,
+					"max": 600,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 6
+				},
+				"delaySeconds_Prozent": {
+					"type": "number",
+					"label": "Verzögerung zwischen Schaltungen (Sekunden) für Prozentregelung",
+					"default": 60,
+					"min": 10,
+					"max": 600,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 6
+				},
+				"grundlast": {
+					"type": "number",
+					"label": "Grundlast - Schwelle für Ein-/Ausschalten der Verbraucher",
+					"default": 100,
+					"min": 0,
+					"max": 10000,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 6
+				}
+			}
+		},
+		"_verbraucher": {
+			"type": "panel",
+			"label": "Zuschaltbare Verbraucher",
+			"items": {
+				"verbraucher": {
+					"type": "table",
+					"label": "Verbraucher Liste",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"showSecondAddAt": 10,
+					"items": [
+						{
+							"type": "checkbox",
+							"attr": "enabled",
+							"title": "Aktiv"
+						},
+						{
+							"type": "text",
+							"attr": "name",
+							"title": "Name"
+						},
+						{
+							"type": "objectId",
+							"attr": "datenpunkt",
+							"title": "Steuer-Datenpunkt"
+						},
+						{
+							"type": "number",
+							"attr": "leistung",
+							"title": "Gesamtleistung des Verbrauchers (Watt)",
+							"min": 1
+						},
+						{
+							"type": "number",
+							"attr": "einschaltpunkt",
+							"title": "Einschaltung (Watt)",
+							"min": 1
+						},
+						{
+							"type": "number",
+							"attr": "abschaltpunkt",
+							"title": "Abschaltung (Watt)",
+							"min": 0
+						},
+						{
+							"type": "select",
+							"attr": "regelTyp",
+							"title": "Regeltyp",
+							"options": [
+								{ "value": "binary", "label": "Ein/Aus" },
+								{ "value": "percent", "label": "Prozentregelung" }
+							],
+							"default": "binary"
+						},
+						{
+							"type": "number",
+							"attr": "minProzentStart",
+							"title": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
+							"min": 0,
+							"max": 100,
+							"default": 10
+						}
+					]
+				}
+			}
+		}
+	}
 }

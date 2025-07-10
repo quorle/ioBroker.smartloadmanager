@@ -1,88 +1,97 @@
 {
-	"common": {
-		"name": "nulleinspeisung",
-		"version": "0.0.1",
-		"news": {
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"uk": "Початкова версія",
-				"zh-cn": "首次出版"
-			}
-		},
-		"titleLang": {
-			"en": "Nulleinspeisung",
-			"de": "Nulinspeisung",
-			"ru": "Nulleinspeisung",
-			"pt": "Nulleinspeisung",
-			"nl": "Nulleinspeisung",
-			"fr": "NULLEINSPEISUNG",
-			"it": "Nulleinspeisung",
-			"es": "Nulleinspeisung",
-			"pl": "Nulleinspeisung",
-			"uk": "Nulleinspeisung",
-			"zh-cn": "Nulleinspeisung"
-		},
-		"desc": {
-			"en": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
-			"de": "Mit diesem Adapter können Geräte über den PV-Überschuss gesteuert werden und somit Null-Einspeisung erreichen.",
-			"ru": "Этот адаптер позволяет управлять устройствами с помощью избытка PV и, таким образом, достигать нулевой подачи.",
-			"pt": "Este adaptador permite que os dispositivos sejam controlados por excedente PV e, assim, obtenha uma alimentação zero.",
-			"nl": "Met deze adapter kunnen apparaten worden geregeld via PV-overschot en dus nul feed-in bereiken.",
-			"fr": "Cet adaptateur permet de contrôler les appareils via un excédent PV et donc d'atteindre zéro alimentation.",
-			"it": "Questo adattatore consente di controllare i dispositivi tramite surplus PV e quindi ottenere zero alimentazione.",
-			"es": "Este adaptador permite controlar los dispositivos a través del excedente fotovoltaico y, por lo tanto, lograr la alimentación cero.",
-			"pl": "Ten adapter umożliwia kontrolowanie urządzeń za pośrednictwem nadwyżki PV, a tym samym osiągnąć zerowe paszę.",
-			"uk": "Цей адаптер дозволяє контролювати пристрої через надлишок PV і, таким чином, досягти нульового подачі.",
-			"zh-cn": "该适配器允许通过PV剩余控制设备，从而实现零进料。"
-		},
-		"authors": ["quorle <quorle12@gmail.com>"],
-		"keywords": ["Überschuss", "Einspeisung", "PV-Anlage"],
-		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "nulleinspeisung.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.nulleinspeisung/main/admin/nulleinspeisung.png",
-		"readme": "https://github.com/quorle/ioBroker.nulleinspeisung/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"mode": "daemon",
-		"type": "logic",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=6.0.11"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": "7.0.23"
-			}
-		]
-	},
-	"native": {
-	"einspeisungId": "",
-    "verbraucher": []
-	},
-	"admin": {
-    "type": "json",
-    "adminTab": false
-	},
-	"objects": [],
-	"instanceObjects": []
+    "common": {
+        "name": "nulleinspeisung",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "uk": "Початкова версія",
+                "zh-cn": "首次出版"
+            }
+        },
+        "titleLang": {
+            "en": "Nulleinspeisung",
+            "de": "Nulleinspeisung",
+            "ru": "Nulleinspeisung",
+            "pt": "Nulleinspeisung",
+            "nl": "Nulleinspeisung",
+            "fr": "NULLEINSPEISUNG",
+            "it": "Nulleinspeisung",
+            "es": "Nulleinspeisung",
+            "pl": "Nulleinspeisung",
+            "uk": "Nulleinspeisung",
+            "zh-cn": "Nulleinspeisung"
+        },
+        "desc": {
+            "en": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
+            "de": "Mit diesem Adapter können Geräte über den PV-Überschuss gesteuert werden und somit Null-Einspeisung erreichen.",
+            "ru": "Этот адаптер позволяет управлять устройствами с помощью избытка PV и, таким образом, достигать нулевой подачи.",
+            "pt": "Este adaptador permite que os dispositivos sejam controlados por excedente PV e, assim, obtenha uma alimentação zero.",
+            "nl": "Met deze adapter kunnen apparaten worden geregeld via PV-overschot en dus nul feed-in bereiken.",
+            "fr": "Cet adaptateur permet de contrôler les appareils via un excédent PV et donc d'atteindre zéro alimentation.",
+            "it": "Questo adattatore consente di controllare i dispositivi tramite surplus PV e quindi ottenere zero alimentazione.",
+            "es": "Este adaptador permite controlar los dispositivos a través del excedente fotovoltaico y, por lo tanto, lograr la alimentación cero.",
+            "pl": "Ten adapter umożliwia kontrolowanie urządzeń za pośrednictwem nadwyżki PV, a tym samym osiągnąć zerowe paszę.",
+            "uk": "Цей адаптер дозволяє контролювати пристрої через надлишок PV і, таким чином, досягти нульового подачі.",
+            "zh-cn": "该适配器允许通过PV剩余控制设备，从而实现零进料。"
+        },
+        "authors": [
+            "quorle <quorle12@gmail.com>"
+        ],
+        "keywords": [
+            "Überschuss",
+            "Einspeisung",
+            "PV-Anlage",
+            "Null Einspeisung",
+            "Nulleinspeisung",
+            "Zero Feed-In"
+        ],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "nulleinspeisung.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.nulleinspeisung/main/admin/nulleinspeisung.png",
+        "readme": "https://github.com/quorle/ioBroker.nulleinspeisung/blob/main/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "mode": "daemon",
+        "type": "logic",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.0.23"
+            }
+        ]
+    },
+    "native": {
+        "einspeisungId": "",
+        "einschaltgrenze": "",
+        "abschaltgrenze": "",
+        "verbraucher": [],
+        "grundlast": "",
+        "delaySeconds": ""
+    },
+    "objects": [],
+    "instanceObjects": []
 }

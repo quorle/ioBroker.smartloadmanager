@@ -1,5 +1,26 @@
 {
 	"nulleinspeisung adapter settings": "Adapter settings for nulleinspeisung",
-	"option1": "option1",
-	"option2": "option2"
+	"feedId": "feedId",
+	"consumer": "consumer",
+	"data point": "data point",
+	"perfomance": "perfomance",
+	"ruleType": "ruleType",
+	"full connection": "full connection",
+	"Main settings": "Main settings",
+	"Feed-in data point": "Feed-in data point",
+	"Delay between switching operations (seconds)": "Delay between switching operations (seconds)",
+	"Base load - threshold for switching consumers on/off": "Base load - threshold for switching consumers on/off",
+	"Switchable consumers": "Switchable consumers",
+	"Consumer List": "Consumer List",
+	"checkbox": "checkbox",
+	"Name": "Name",
+	"Tax data point": "Tax data point",
+	"Total power of the consumer (watts)": "Total power of the consumer (watts)",
+	"Power": "Power",
+	"switch-on point": "switch-on point",
+	"Switching on (Watts)": "Switching on (Watts)",
+	"switch-off point": "switch-off point",
+	"Shutdown (Watts)": "Shutdown (Watts)",
+	"RuleType": "RuleType",
+	"Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!"
 }
