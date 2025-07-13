@@ -139,11 +139,6 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 	### **WORK IN PROGRESS**
 -->
 
-### 0.0.3 (2025-07-13)
-
-- (quorle) Added „Einspeisewert negativ“-Option zur Definition der Vorzeichenlogik von Einspeisewerten.
-- (quorle) Adjusted calculation logic and consumer update mechanism for correct interpretation based on sign configuration.
-
 ### 0.0.2 (2025-07-10)
 
 - (quorle) initial release
