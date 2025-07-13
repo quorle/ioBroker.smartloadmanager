@@ -6,7 +6,7 @@
 			"type": "panel",
 			"label": "Haupteinstellungen",
 			"items": {
-				"einspeisungId": {
+				"FeedInDataPoint": {
 					"type": "objectId",
 					"label": "Einspeisungs-Datenpunkt",
 					"default": "",
@@ -14,6 +14,11 @@
 					"sm": 12,
 					"md": 6,
 					"lg": 6
+				},
+				"feedinNegativ": {
+					"type": "checkbox",
+					"label": "Einspeisewert negativ",
+					"default": false
 				},
 				"delaySeconds": {
 					"type": "number",
@@ -26,7 +31,7 @@
 					"md": 6,
 					"lg": 6
 				},
-				"delaySeconds_Prozent": {
+				"delaySecondsProzent": {
 					"type": "number",
 					"label": "Verzögerung zwischen Schaltungen (Sekunden) für Prozentregelung",
 					"default": 60,
@@ -37,7 +42,7 @@
 					"md": 6,
 					"lg": 6
 				},
-				"grundlast": {
+				"baseload": {
 					"type": "number",
 					"label": "Grundlast - Schwelle für Ein-/Ausschalten der Verbraucher",
 					"default": 100,
@@ -50,11 +55,11 @@
 				}
 			}
 		},
-		"_verbraucher": {
+		"_consumer": {
 			"type": "panel",
 			"label": "Zuschaltbare Verbraucher",
 			"items": {
-				"verbraucher": {
+				"consumer": {
 					"type": "table",
 					"label": "Verbraucher Liste",
 					"xs": 12,
@@ -75,30 +80,30 @@
 						},
 						{
 							"type": "objectId",
-							"attr": "datenpunkt",
+							"attr": "datapoint",
 							"title": "Steuer-Datenpunkt"
 						},
 						{
 							"type": "number",
-							"attr": "leistung",
+							"attr": "performance",
 							"title": "Gesamtleistung des Verbrauchers (Watt)",
 							"min": 1
 						},
 						{
 							"type": "number",
-							"attr": "einschaltpunkt",
+							"attr": "switchOnPoint",
 							"title": "Einschaltung (Watt)",
 							"min": 1
 						},
 						{
 							"type": "number",
-							"attr": "abschaltpunkt",
+							"attr": "switchOffPoint",
 							"title": "Abschaltung (Watt)",
 							"min": 0
 						},
 						{
 							"type": "select",
-							"attr": "regelTyp",
+							"attr": "ruletype",
 							"title": "Regeltyp",
 							"options": [
 								{ "value": "binary", "label": "Ein/Aus" },
@@ -108,7 +113,7 @@
 						},
 						{
 							"type": "number",
-							"attr": "minProzentStart",
+							"attr": "minPercentStart",
 							"title": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
 							"min": 0,
 							"max": 100,

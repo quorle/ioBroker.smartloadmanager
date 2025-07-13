@@ -27,6 +27,7 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 - ✅ Reihenfolgenverwaltung (Last-In-First-Out Abschaltung)
 - ✅ Konfigurierbare Grundlast, Ein- und Abschaltgrenzen sowie Schaltverzögerungen
 - ✅ Hysterese-Vermeidung durch separate Ein- und Ausschaltgrenzen
+- ✅ Umschaltbare Vorzeichenlogik für Einspeisewert (negativ = Einspeisung / positiv = Netzbezug oder umgekehrt)
 
 ---
 
@@ -41,6 +42,15 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 | **Einschaltgrenze**         | Überschuss in Watt, ab dem Verbraucher zugeschaltet werden                            |
 | **Abschaltgrenze**          | Unterschuss in Watt, ab dem Verbraucher abgeschaltet werden                           |
 | **Verzögerung (Sekunden)**  | Zeitverzögerung bei der Abschaltung, um kurzfristige Schwankungen abzufangen          |
+| **Einspeisewert negativ**   | Legt fest, wie der Einspeisewert interpretiert wird:                                  |
+|                             | Wenn **aktiviert** (true), gilt:                                                      |
+|                             | **- negativ = Einspeisung**                                                           |
+|                             | **- positiv = Netzbezug**                                                             |
+
+Wenn deaktiviert (false), gilt:
+
+- negativ = Netzbezug
+- positiv = Einspeisung
 
 ---
 
@@ -61,18 +71,28 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 
 ## 📊 Funktionsweise
 
-1. **Einspeisung > Grundlast + Einschaltgrenze**  
+1. **Vorzeichenlogik (Einspeisewert negativ)**
+   Abhängig von der Aktivierung der Einstellung „Einspeisewert negativ“ wird der Messwert wie folgt interpretiert:
+
+    | Einstellung aktiv (true) Einstellung deaktiviert (false) |
+    | -------------------------------------------------------- | --------------------- |
+    | Negativ = Einspeisung                                    | Negativ = Netzbezug   |
+    | Positiv = Netzbezug                                      | Positiv = Einspeisung |
+
+Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder Zähler den Überschuss unterschiedlich ausweisen.
+
+2. **Einspeisung > Grundlast + Einschaltgrenze**  
    ➔ Verbraucher werden gemäß aufsteigender Leistungsgröße zugeschaltet, soweit der Überschuss ausreicht.
 
-2. **Einspeisung < Grundlast - Abschaltgrenze**  
+3. **Einspeisung < Grundlast - Abschaltgrenze**  
    ➔ Nach konfigurierter Verzögerung werden Verbraucher in umgekehrter Zuschalt-Reihenfolge abgeschaltet, bis das Defizit ausgeglichen ist.
 
-3. **Prozentregelung (z.B. Wallbox)**
+4. **Prozentregelung (z.B. Wallbox)**
    ➔ Geräte mit „Regeltyp: Prozentregelung“ erhalten eine lineare prozentuale Steuerung basierend auf dem aktuellen Überschuss im Verhältnis zur konfigurierten Gesamtleistung.
    ➔ Bei Überschuss > Gesamtleistung wird auf 100 % geregelt, bei niedrigem Überschuss entsprechend heruntergeregelt bis ggf. auf 0 %.
    ➔ Das Rückregeln kann mit **DelaySeconds_Prozent** verzögert werden, um sanfte Übergänge zu gewährleisten.
 
-4. **Innerhalb Hysterese**  
+5. **Innerhalb Hysterese**  
    ➔ Keine Änderung; laufende Abschalt-Timer werden abgebrochen.
 
 ---
@@ -118,6 +138,12 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### 0.0.3 (2025-07-13)
+
+- (quorle) Added „Einspeisewert negativ“-Option zur Definition der Vorzeichenlogik von Einspeisewerten.
+- (quorle) Adjusted calculation logic and consumer update mechanism for correct interpretation based on sign configuration.
+
 ### 0.0.2 (2025-07-10)
 
 - (quorle) initial release
