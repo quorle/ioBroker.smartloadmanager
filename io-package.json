@@ -1,101 +1,123 @@
 {
-	"common": {
-		"name": "nulleinspeisung",
-		"version": "0.0.2",
-		"news": {
-			"0.0.2": {
-				"en": "initial release\nAdded true/false switching logic for consumers. Readme adjusted.\nAdded percentage control for controllable consumers such as wallboxes including DelaySeconds_Percent.",
-				"de": "erstausstrahlung\nHinzugefügt echte/falsche Schaltlogik für Verbraucher. Readme angepasst.\nZusätzliche prozentuale Kontrolle für steuerbare Verbraucher wie Wallboxen einschließlich DelaySeconds_Percent.",
-				"ru": "первоначальное освобождение\nЛожная/правильная логика переключения для потребителей. Ридме скорректировал.\nДополнительный процентный контроль для контролируемых потребителей, таких как настенные коробки, включая DelaySeconds_Percent.",
-				"pt": "libertação inicial\nAdicionada verdadeira/falsa lógica de comutação para os consumidores. Readme ajustado.\nAdicionado controle percentual para consumidores controláveis, como wallboxes, incluindo DelaySeconds_Percent.",
-				"nl": "eerste release\nToegevoegd true/false switching logica voor consumenten. Lees verder.\nToegevoegd percentage controle voor beheersbare consumenten zoals wallboxen inclusief DelaySeconds_Percent.",
-				"fr": "libération initiale\nAjout de la logique de commutation true/faux pour les consommateurs. Je me suis réajusté.\nAjout d'un contrôle de pourcentage pour les consommateurs contrôlables tels que les boîtes murales, y compris DelaySeconds_Pourcentage.",
-				"it": "rilascio iniziale\nAggiunta vera / falsa logica di commutazione per i consumatori. Readme corretto.\nAggiunta di controllo percentuale per i consumatori controllabili come scatole da parete tra cui DelaySeconds_Percent.",
-				"es": "liberación inicial\nAñadido verdadera/falsa lógica de cambio para los consumidores. Readme ajustado.\nControl porcentual añadido para consumidores controlables tales como cajas de pared incluyendo DelaySeconds_porcent.",
-				"pl": "początkowe zwolnienie\nDodano prawdziwą / fałszywą logikę przełączania dla konsumentów. Readme dostosowany.\nDodano procentową kontrolę dla konsumentów kontrolowanych, takich jak tapety, w tym DelaySeconds _ Procent.",
-				"uk": "початковий реліз\nДодана логічна логіка для споживачів. Готове налаштування.\nДодано контроль відсотка для керованих споживачів, таких як настінні коробки, включаючи DelaySeconds_Percent.",
-				"zh-cn": "初步释放\n为消费者添加真/假切换逻辑. 调整了读数.\n对可控消费者添加百分比控制, 如墙盒包括Delayseconds_Percent."
-			},
-			"0.0.1": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "Начальная версия",
-				"pt": "lançamento inicial",
-				"nl": "Eerste uitgave",
-				"fr": "Première version",
-				"it": "Versione iniziale",
-				"es": "Versión inicial",
-				"pl": "Pierwsze wydanie",
-				"uk": "Початкова версія",
-				"zh-cn": "首次出版"
-			}
-		},
-		"titleLang": {
-			"en": "Nulleinspeisung",
-			"de": "Nulleinspeisung",
-			"ru": "Nulleinspeisung",
-			"pt": "Nulleinspeisung",
-			"nl": "Nulleinspeisung",
-			"fr": "NULLEINSPEISUNG",
-			"it": "Nulleinspeisung",
-			"es": "Nulleinspeisung",
-			"pl": "Nulleinspeisung",
-			"uk": "Nulleinspeisung",
-			"zh-cn": "Nulleinspeisung"
-		},
-		"desc": {
-			"en": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
-			"de": "Mit diesem Adapter können Geräte über den PV-Überschuss gesteuert werden und somit Null-Einspeisung erreichen.",
-			"ru": "Этот адаптер позволяет управлять устройствами с помощью избытка PV и, таким образом, достигать нулевой подачи.",
-			"pt": "Este adaptador permite que os dispositivos sejam controlados por excedente PV e, assim, obtenha uma alimentação zero.",
-			"nl": "Met deze adapter kunnen apparaten worden geregeld via PV-overschot en dus nul feed-in bereiken.",
-			"fr": "Cet adaptateur permet de contrôler les appareils via un excédent PV et donc d'atteindre zéro alimentation.",
-			"it": "Questo adattatore consente di controllare i dispositivi tramite surplus PV e quindi ottenere zero alimentazione.",
-			"es": "Este adaptador permite controlar los dispositivos a través del excedente fotovoltaico y, por lo tanto, lograr la alimentación cero.",
-			"pl": "Ten adapter umożliwia kontrolowanie urządzeń za pośrednictwem nadwyżki PV, a tym samym osiągnąć zerowe paszę.",
-			"uk": "Цей адаптер дозволяє контролювати пристрої через надлишок PV і, таким чином, досягти нульового подачі.",
-			"zh-cn": "该适配器允许通过PV剩余控制设备，从而实现零进料。"
-		},
-		"authors": ["quorle <quorle12@gmail.com>"],
-		"keywords": ["Überschuss", "Einspeisung", "PV-Anlage", "Null Einspeisung", "Nulleinspeisung", "Zero Feed-In"],
-		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "nulleinspeisung.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.nulleinspeisung/main/admin/nulleinspeisung.png",
-		"readme": "https://github.com/quorle/ioBroker.nulleinspeisung/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"mode": "daemon",
-		"type": "logic",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=6.0.11"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.0.23"
-			}
-		]
-	},
-	"native": {
-		"FeedInDataPoint": "",
-		"switchOnPoint": "",
-		"switchOffPoint": "",
-		"consumer": [],
-		"baseload": "",
-		"delaySeconds": ""
-	},
-	"objects": [],
-	"instanceObjects": []
+  "common": {
+    "name": "nulleinspeisung",
+    "version": "0.0.3-alpha.0",
+    "news": {
+      "0.0.3-alpha.0": {
+        "en": "Readme changed",
+        "de": "Reader geändert",
+        "ru": "Readme изменился",
+        "pt": "Readme mudou",
+        "nl": "Lezen gewijzigd",
+        "fr": "Lecture modifiée",
+        "it": "Readme è cambiato",
+        "es": "El texto cambió",
+        "pl": "Readme się zmienił",
+        "uk": "Змінено",
+        "zh-cn": "读取器已更改"
+      },
+      "0.0.2": {
+        "en": "initial release\nAdded true/false switching logic for consumers. Readme adjusted.\nAdded percentage control for controllable consumers such as wallboxes including DelaySeconds_Percent.",
+        "de": "erstausstrahlung\nHinzugefügt echte/falsche Schaltlogik für Verbraucher. Readme angepasst.\nZusätzliche prozentuale Kontrolle für steuerbare Verbraucher wie Wallboxen einschließlich DelaySeconds_Percent.",
+        "ru": "первоначальное освобождение\nЛожная/правильная логика переключения для потребителей. Ридме скорректировал.\nДополнительный процентный контроль для контролируемых потребителей, таких как настенные коробки, включая DelaySeconds_Percent.",
+        "pt": "libertação inicial\nAdicionada verdadeira/falsa lógica de comutação para os consumidores. Readme ajustado.\nAdicionado controle percentual para consumidores controláveis, como wallboxes, incluindo DelaySeconds_Percent.",
+        "nl": "eerste release\nToegevoegd true/false switching logica voor consumenten. Lees verder.\nToegevoegd percentage controle voor beheersbare consumenten zoals wallboxen inclusief DelaySeconds_Percent.",
+        "fr": "libération initiale\nAjout de la logique de commutation true/faux pour les consommateurs. Je me suis réajusté.\nAjout d'un contrôle de pourcentage pour les consommateurs contrôlables tels que les boîtes murales, y compris DelaySeconds_Pourcentage.",
+        "it": "rilascio iniziale\nAggiunta vera / falsa logica di commutazione per i consumatori. Readme corretto.\nAggiunta di controllo percentuale per i consumatori controllabili come scatole da parete tra cui DelaySeconds_Percent.",
+        "es": "liberación inicial\nAñadido verdadera/falsa lógica de cambio para los consumidores. Readme ajustado.\nControl porcentual añadido para consumidores controlables tales como cajas de pared incluyendo DelaySeconds_porcent.",
+        "pl": "początkowe zwolnienie\nDodano prawdziwą / fałszywą logikę przełączania dla konsumentów. Readme dostosowany.\nDodano procentową kontrolę dla konsumentów kontrolowanych, takich jak tapety, w tym DelaySeconds _ Procent.",
+        "uk": "початковий реліз\nДодана логічна логіка для споживачів. Готове налаштування.\nДодано контроль відсотка для керованих споживачів, таких як настінні коробки, включаючи DelaySeconds_Percent.",
+        "zh-cn": "初步释放\n为消费者添加真/假切换逻辑. 调整了读数.\n对可控消费者添加百分比控制, 如墙盒包括Delayseconds_Percent."
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "uk": "Початкова версія",
+        "zh-cn": "首次出版"
+      }
+    },
+    "titleLang": {
+      "en": "Nulleinspeisung",
+      "de": "Nulleinspeisung",
+      "ru": "Nulleinspeisung",
+      "pt": "Nulleinspeisung",
+      "nl": "Nulleinspeisung",
+      "fr": "NULLEINSPEISUNG",
+      "it": "Nulleinspeisung",
+      "es": "Nulleinspeisung",
+      "pl": "Nulleinspeisung",
+      "uk": "Nulleinspeisung",
+      "zh-cn": "Nulleinspeisung"
+    },
+    "desc": {
+      "en": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
+      "de": "Mit diesem Adapter können Geräte über den PV-Überschuss gesteuert werden und somit Null-Einspeisung erreichen.",
+      "ru": "Этот адаптер позволяет управлять устройствами с помощью избытка PV и, таким образом, достигать нулевой подачи.",
+      "pt": "Este adaptador permite que os dispositivos sejam controlados por excedente PV e, assim, obtenha uma alimentação zero.",
+      "nl": "Met deze adapter kunnen apparaten worden geregeld via PV-overschot en dus nul feed-in bereiken.",
+      "fr": "Cet adaptateur permet de contrôler les appareils via un excédent PV et donc d'atteindre zéro alimentation.",
+      "it": "Questo adattatore consente di controllare i dispositivi tramite surplus PV e quindi ottenere zero alimentazione.",
+      "es": "Este adaptador permite controlar los dispositivos a través del excedente fotovoltaico y, por lo tanto, lograr la alimentación cero.",
+      "pl": "Ten adapter umożliwia kontrolowanie urządzeń za pośrednictwem nadwyżki PV, a tym samym osiągnąć zerowe paszę.",
+      "uk": "Цей адаптер дозволяє контролювати пристрої через надлишок PV і, таким чином, досягти нульового подачі.",
+      "zh-cn": "该适配器允许通过PV剩余控制设备，从而实现零进料。"
+    },
+    "authors": [
+      "quorle <quorle12@gmail.com>"
+    ],
+    "keywords": [
+      "Überschuss",
+      "Einspeisung",
+      "PV-Anlage",
+      "Null Einspeisung",
+      "Nulleinspeisung",
+      "Zero Feed-In"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "nulleinspeisung.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.nulleinspeisung/main/admin/nulleinspeisung.png",
+    "readme": "https://github.com/quorle/ioBroker.nulleinspeisung/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "logic",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.0.23"
+      }
+    ]
+  },
+  "native": {
+    "FeedInDataPoint": "",
+    "switchOnPoint": "",
+    "switchOffPoint": "",
+    "consumer": [],
+    "baseload": "",
+    "delaySeconds": ""
+  },
+  "objects": [],
+  "instanceObjects": []
 }
