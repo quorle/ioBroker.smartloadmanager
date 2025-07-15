@@ -74,10 +74,10 @@ Wenn deaktiviert (false), gilt:
 1. **Vorzeichenlogik (Einspeisewert negativ)**
    Abhängig von der Aktivierung der Einstellung „Einspeisewert negativ“ wird der Messwert wie folgt interpretiert:
 
-    | Einstellung aktiv (true) Einstellung deaktiviert (false) |
-    | -------------------------------------------------------- | --------------------- |
-    | Negativ = Einspeisung                                    | Negativ = Netzbezug   |
-    | Positiv = Netzbezug                                      | Positiv = Einspeisung |
+| Einstellung aktiv (true) Einstellung deaktiviert (false) |                       |
+| -------------------------------------------------------- | --------------------- |
+| Negativ = Einspeisung                                    | Negativ = Netzbezug   |
+| Positiv = Netzbezug                                      | Positiv = Einspeisung |
 
 Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder Zähler den Überschuss unterschiedlich ausweisen.
 
@@ -110,8 +110,7 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 **Berechnung (Wallbox, Prozentregelung):**
 
 - Überschuss = 500 - 100 = 400 W
-- 400 W / 3500 W = ca. 11 % Ladeleistung
-  \_ Wallbox wird auf 11 % gesetzt (abhängig von unterstütztem minimalem Ladestrom der Wallbox).
+- 400 W / 3500 W = ca. 11 % Ladeleistung Wallbox wird auf 11 % gesetzt (abhängig von unterstütztem minimalem Ladestrom der Wallbox).
 
 ---
 
@@ -138,7 +137,6 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
 ### 0.0.3 (2025-07-13)
 
 - (quorle) Added „Einspeisewert negativ“-Option zur Definition der Vorzeichenlogik von Einspeisewerten.
