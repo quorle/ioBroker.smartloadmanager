@@ -138,7 +138,7 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 	###**WORK IN PROGRESS**
 -->
 
-###**WORK IN PROGRESS**
+### **WORK IN PROGRESS**
 
 ### 0.0.3 (2025-07-13)
 
