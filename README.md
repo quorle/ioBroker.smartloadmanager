@@ -137,6 +137,7 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
 ### **WORK IN PROGRESS**
 
 ### 0.0.3 (2025-07-13)
