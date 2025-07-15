@@ -139,6 +139,7 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 -->
 
 ### **WORK IN PROGRESS**
+- Readme changed
 
 ### 0.0.3 (2025-07-13)
 
