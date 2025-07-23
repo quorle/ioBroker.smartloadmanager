@@ -1,14 +1,6 @@
 // @ts-nocheck
 "use strict";
 
-/**
- * Adapter: nulleinspeisung
- * Autor: dein Projekt
- * Beschreibung:
- * Dynamische Zuschaltung und Rückregelung von Verbrauchern
- * inklusive Prozentregelung (z.B. Wallboxen) ohne Überschreiben von State-Änderungen.
- */
-
 const utils = require("@iobroker/adapter-core");
 
 class Nulleinspeisung extends utils.Adapter {
@@ -20,7 +12,7 @@ class Nulleinspeisung extends utils.Adapter {
 
 		this.verbraucherListe = [];
 		this.einspeisungDatapoint = null;
-		this.prozentTimer = {};
+		this.prozentTimer = null;  // <-- als einzelner Timer
 		this.eingeschalteteVerbraucher = [];
 		this.stateChangeTimeout = null;
 		this.checkRunning = false;
@@ -35,139 +27,123 @@ class Nulleinspeisung extends utils.Adapter {
 		try {
 			this.log.info("=== Adapter gestartet - PID: " + process.pid + " ===");
 
-			// Prüfe Konfiguration
 			if (!this.config.einspeisungId) {
 				this.log.error("Keine EinspeisungId gesetzt!");
 				return;
 			}
 			this.einspeisungDatapoint = this.config.einspeisungId;
 
-			// Lade konfigurierte Verbraucher
 			this.verbraucherListe = Array.isArray(this.config.verbraucher)
 				? this.config.verbraucher.filter((v) => v && v.enabled && v.datenpunkt && v.leistung > 0)
 				: [];
 
 			this.log.info("Verbraucher geladen: " + this.verbraucherListe.map((v) => v.name).join(", "));
 
-			// Prüfe Existenz der Verbraucher-Datenpunkte
 			await this.checkAndCreateVerbraucherObjects();
-
-			// Initialisiere Status der Verbraucher (eingeschaltet / ausgeschaltet)
 			await this.initializeVerbraucherStatus();
 
-			// Erstelle Datenpunkte für alle Properties der Verbraucher
 			await this.createVerbraucherStates();
 
-			// Abonniere States
 			await this.subscribeStatesAsync("*");
-
-			// Abonniere Einspeisung-Datenpunkt
 			await this.subscribeForeignStatesAsync(this.einspeisungDatapoint);
 		} catch (error) {
 			this.log.error("Fehler in onReady: " + error.message);
 		}
 	}
 
-	/**
-	 * Erstellt alle States pro Verbraucher, überschreibt jedoch KEINE bestehenden Werte.
-	 */
 	async createVerbraucherStates() {
 		for (let i = 0; i < this.verbraucherListe.length; i++) {
 			const v = this.verbraucherListe[i];
 			const channelId = `verbraucher.${i}_${v.name.replace(/\s+/g, "_")}`;
 
-			// Channel anlegen, falls nicht vorhanden
 			await this.setObjectNotExistsAsync(channelId, {
 				type: "channel",
 				common: { name: v.name },
 				native: {},
 			});
 
-			// Alle Properties als State anlegen (ohne Überschreiben bestehender Werte)
-			for (const [key, value] of Object.entries(v)) {
-				await this.setObjectNotExistsAsync(`${channelId}.${key}`, {
-					type: "state",
-					common: {
-						name: `${v.name} ${key}`,
-						type: typeof value,
-						role: "state",
-						read: true,
-						write: true,
-					},
-					native: {},
-				});
+			await this.setObjectNotExistsAsync(`${channelId}.steuerungsmodus`, {
+				type: "state",
+				common: {
+					name: `${v.name} Steuerungsmodus`,
+					type: "number",
+					role: "level.mode",
+					read: true,
+					write: true,
+					states: { 0: "Aus", 1: "Manuell Ein", 2: "Automatik" },
+					def: 2,
+				},
+				native: {},
+			});
 
-				// Schreibe initial nur, wenn State-Wert noch nicht existiert
-				const existing = await this.getStateAsync(`${this.namespace}.${channelId}.${key}`);
-				if (!existing) {
-					await this.setStateAsync(`${channelId}.${key}`, { val: value, ack: true });
-					this.log.debug(`Initialer Wert gesetzt: ${channelId}.${key} = ${value}`);
-				}
+			const modeExisting = await this.getStateAsync(`${this.namespace}.${channelId}.steuerungsmodus`);
+			if (!modeExisting) {
+				await this.setStateAsync(`${channelId}.steuerungsmodus`, { val: 2, ack: true });
+				this.log.debug(`Initialer Steuerungsmodus gesetzt: ${channelId}.steuerungsmodus = 2`);
 			}
 		}
 	}
 
-	/**
-	 * Wird bei jeder State-Änderung aufgerufen.
-	 */
 	async onStateChange(id, state) {
 		if (state && !state.ack) {
 			this.log.debug(`State geändert: ${id} => ${state.val}`);
 
-			// Prüfe, ob State zu einem Verbraucher gehört
-			const match = id.match(/verbraucher\.(\d+)_.*?\.(.+)/);
+			const match = id.match(/verbraucher\.(\d+)_.*?\.steuerungsmodus/);
 			if (match) {
 				const index = parseInt(match[1]);
-				const key = match[2];
+				const modus = state.val;
 
-				if (this.verbraucherListe[index] && key in this.verbraucherListe[index]) {
-					this.verbraucherListe[index][key] = state.val;
+				if (this.verbraucherListe[index]) {
+					const v = this.verbraucherListe[index];
 
-					// Aktualisiere auch in der Adapterkonfiguration
-					if (Array.isArray(this.config.verbraucher) && this.config.verbraucher[index]) {
-						this.config.verbraucher[index][key] = state.val;
-						this.log.debug(
-							`Adapterkonfiguration aktualisiert: verbraucher[${index}].${key} = ${state.val}`,
-						);
+					// Timer abbrechen, falls aktiv
+					if (v.timer) {
+						clearTimeout(v.timer);
+						v.timer = null;
+						this.log.debug(`${v.name}: bestehender Timer bei Moduswechsel gelöscht.`);
+					}
+
+					if (modus === 0) {
+						this.log.info(`${v.name}: Steuerungsmodus auf AUS gesetzt.`);
+						if (v.regelTyp === "percent") {
+							await this.setForeignStateAsync(v.datenpunkt, 0);
+							this.log.info(`${v.name}: Prozent auf 0 gesetzt.`);
+						} else {
+							await this.schalteVerbraucherMitDelay(v, false);
+						}
+					} else if (modus === 1) {
+						this.log.info(`${v.name}: Steuerungsmodus auf MANUELL EIN gesetzt.`);
+						if (v.regelTyp === "percent") {
+							await this.setForeignStateAsync(v.datenpunkt, 100);
+							this.log.info(`${v.name}: Prozent auf 100 gesetzt.`);
+						} else {
+							await this.schalteVerbraucherMitDelay(v, true);
+						}
+					} else if (modus === 2) {
+						this.log.info(`${v.name}: Steuerungsmodus auf AUTOMATIK gesetzt.`);
+						// Automatik läuft in checkVerbraucher bzw. regelProzentVerbraucher
 					}
 				}
 			}
-		}
 
-		// Reagiere auf Änderung der Einspeisung
-		if (id === this.einspeisungDatapoint && state) {
-			if (this._lastEinspeisungWert === state.val) return;
-			this._lastEinspeisungWert = state.val;
+			if (id === this.einspeisungDatapoint) {
+				// Sofort binary-Verbraucher prüfen
+				await this.checkVerbraucher();
 
-			if (this.stateChangeTimeout) clearTimeout(this.stateChangeTimeout);
+				// Prozentregelung mit Verzögerung (debounce)
+				if (this.prozentTimer) clearTimeout(this.prozentTimer);
 
-			this.stateChangeTimeout = setTimeout(async () => {
-				try {
-					// Starte Prozentregelung mit Delay
+				this.prozentTimer = setTimeout(async () => {
 					for (const v of this.verbraucherListe) {
 						if (v.regelTyp === "percent") {
-							if (this.prozentTimer[v.datenpunkt]) clearTimeout(this.prozentTimer[v.datenpunkt]);
-							const delay = v.delaySeconds_Prozent || 5;
-							this.prozentTimer[v.datenpunkt] = setTimeout(() => {
-								this.prozentTimer[v.datenpunkt] = null;
-								this.regelProzentVerbraucher(v).catch((e) =>
-									this.log.error("Fehler Prozentregelung: " + e),
-								);
-							}, delay * 1000);
+							await this.regelProzentVerbraucher(v);
 						}
 					}
-
-					await this.checkVerbraucher();
-				} catch (error) {
-					this.log.error("Fehler in onStateChange: " + error.message);
-				}
-
-				this.stateChangeTimeout = null;
-			}, 50);
+					this.prozentTimer = null;
+				}, (this.config.delaySecondsProzent || 10) * 1000); // Standard 10 Sekunden
+			}
 		}
 	}
-
-	// === Unveränderte Hilfsmethoden ===
 
 	async checkAndCreateVerbraucherObjects() {
 		for (const v of this.verbraucherListe) {
@@ -184,7 +160,6 @@ class Nulleinspeisung extends utils.Adapter {
 
 	async initializeVerbraucherStatus() {
 		this.eingeschalteteVerbraucher = [];
-
 		for (const v of this.verbraucherListe) {
 			if (v.regelTyp === "binary") {
 				const state = await this.getForeignStateAsync(v.datenpunkt);
@@ -203,45 +178,66 @@ class Nulleinspeisung extends utils.Adapter {
 	// Prozentregelung für Verbraucher mit regelTyp = "percent"
 	async regelProzentVerbraucher(v) {
 		try {
+			this.log.debug(`Prozentregelung gestartet für ${v.name}`);
 			const einspeisungState = await this.getForeignStateAsync(this.einspeisungDatapoint);
 			let einspeisungWert = Number(einspeisungState?.val) || 0;
 
 			const state = await this.getForeignStateAsync(v.datenpunkt);
 			const currentPercent = Number(state?.val) || 0;
 
+			this.log.info(`🔧 FeedinNegativ: ${this.config.feedinNegativ}`);
+			this.log.info(`🔧 EinspeisungWert (original): ${einspeisungWert}`);
+
 			let netzbezug = false;
+			let ueberschuss = 0;
 
 			if (this.config.feedinNegativ) {
-				if (einspeisungWert >= 0) netzbezug = true;
-				else einspeisungWert = -einspeisungWert;
-			} else {
 				if (einspeisungWert < 0) {
+					ueberschuss = -einspeisungWert;
+					netzbezug = false;
+				} else {
+					ueberschuss = 0;
 					netzbezug = true;
-					einspeisungWert = -einspeisungWert;
+				}
+			} else {
+				if (einspeisungWert > 0) {
+					ueberschuss = einspeisungWert;
+					netzbezug = false;
+				} else {
+					ueberschuss = 0;
+					netzbezug = true;
 				}
 			}
 
-			if (netzbezug) {
-				if (currentPercent !== 0) {
-					await this.setForeignStateAsync(v.datenpunkt, 0);
-					this.log.info(`${v.name}: Netzbezug erkannt – auf 0% gesetzt.`);
-				}
-				return;
-			}
-
-			const maxLeistung = v.maxLeistung || v.leistung;
 			const grundlast = this.config.grundlast || 0;
-			let ueberschuss = einspeisungWert - grundlast;
+			ueberschuss -= grundlast;
 			if (ueberschuss < 0) ueberschuss = 0;
+
+			this.log.info(`🔧 Ueberschuss nach Grundlast-Abzug: ${ueberschuss}`);
+			this.log.info(`🔧 Netzbezug: ${netzbezug}`);
+
+			const maxLeistung = v.maxLeistung || v.leistung || 1000;
+			this.log.info(`🔧 MaxLeistung: ${maxLeistung}`);
 
 			let prozentNeu = Math.round((ueberschuss / maxLeistung) * 100);
 			prozentNeu = Math.min(100, Math.max(prozentNeu, v.minProzentStart || 0));
 
-			if (prozentNeu !== currentPercent) {
-				await this.setForeignStateAsync(v.datenpunkt, prozentNeu);
-				this.log.info(
-					`${v.name}: Prozent auf ${prozentNeu}% gesetzt (${Math.round((prozentNeu / 100) * maxLeistung)} W).`,
-				);
+			this.log.info(`🔧 currentPercent: ${currentPercent}, prozentNeu berechnet: ${prozentNeu}`);
+
+			if (netzbezug) {
+				if (currentPercent !== 0) {
+					await this.setForeignStateAsync(v.datenpunkt, 0);
+					this.log.info(`${v.name}: Netzbezug erkannt – Prozent auf 0% gesetzt.`);
+				} else {
+					this.log.info(`${v.name}: Netzbezug erkannt – Prozent bleibt bei 0%.`);
+				}
+			} else {
+				if (prozentNeu !== currentPercent) {
+					await this.setForeignStateAsync(v.datenpunkt, prozentNeu);
+					this.log.info(`${v.name}: Prozent auf ${prozentNeu}% gesetzt (${Math.round((prozentNeu / 100) * maxLeistung)} W).`);
+				} else {
+					this.log.info(`${v.name}: Prozent bleibt bei ${currentPercent}%.`);
+				}
 			}
 		} catch (error) {
 			this.log.error("Fehler in regelProzentVerbraucher: " + error.message);
@@ -250,71 +246,54 @@ class Nulleinspeisung extends utils.Adapter {
 
 	async checkVerbraucher() {
 		if (this.checkRunning) {
-			this.log.debug("checkVerbraucher bereits aktiv. Überspringe.");
+			this.log.debug("checkVerbraucher läuft bereits, Überspringe aktuellen Aufruf");
 			return;
 		}
 		this.checkRunning = true;
 
 		try {
+			const einspeisungState = await this.getForeignStateAsync(this.einspeisungDatapoint);
+			let einspeisung = Number(einspeisungState?.val) || 0;
+			this.log.debug(`Einspeisung: ${einspeisung}`);
+
+			if (this.config.feedinNegativ) {
+				einspeisung = -einspeisung; // für negative Einspeisung
+			}
+
 			const grundlast = this.config.grundlast || 0;
-			const hysterese = 0.1;
+			const netzbezug = einspeisung <= grundlast;
 
-			const berechneUeberschuss = async () => {
-				const state = await this.getForeignStateAsync(this.einspeisungDatapoint);
-				let einspeisungWert = state ? Number(state.val) : 0;
+			this.log.debug(`Netzbezug (einspeisung <= grundlast): ${netzbezug}`);
 
-				let netzbezug = false;
-
-				if (this.config.feedinNegativ) {
-					if (einspeisungWert >= 0) netzbezug = true;
-					else einspeisungWert = -einspeisungWert;
-				} else {
-					if (einspeisungWert < 0) {
-						netzbezug = true;
-						einspeisungWert = -einspeisungWert;
+			if (netzbezug) {
+				// Netzbezug, alle Verbraucher aus
+				for (const v of this.verbraucherListe) {
+					if (v.regelTyp === "binary") {
+						const mode = await this.getStateAsync(`verbraucher.${this.verbraucherListe.indexOf(v)}_${v.name.replace(/\s+/g, "_")}.steuerungsmodus`);
+						if (mode && mode.val === 2) { // Automatik nur schalten
+							await this.schalteVerbraucherMitDelay(v, false);
+						}
 					}
 				}
-
-				if (netzbezug) {
-					this.log.debug(`Netzbezug erkannt (${einspeisungWert} W).`);
-					return -einspeisungWert;
-				}
-
-				let ueberschuss = einspeisungWert - grundlast;
-				const summeLeistung = this.eingeschalteteVerbraucher.reduce((acc, v) => acc + v.leistung, 0);
-				ueberschuss -= summeLeistung;
-
-				this.log.debug(`Aktueller Überschuss: ${ueberschuss} W`);
-				return ueberschuss;
-			};
-
-			let ueberschuss = await berechneUeberschuss();
-
-			while (ueberschuss < 0 && this.eingeschalteteVerbraucher.length > 0) {
-				const v = this.eingeschalteteVerbraucher.pop();
-				const stateV = await this.getForeignStateAsync(v.datenpunkt);
-
-				if (this.isTrue(stateV?.val)) {
-					await this.schalteVerbraucherMitDelay(v, false);
-					ueberschuss = await berechneUeberschuss();
+			} else {
+				// Überschuss vorhanden, Verbraucher nach Leistung einschalten
+				let verbleibenderUeberschuss = einspeisung - grundlast;
+				for (const v of this.verbraucherListe) {
+					if (v.regelTyp === "binary") {
+						const mode = await this.getStateAsync(`verbraucher.${this.verbraucherListe.indexOf(v)}_${v.name.replace(/\s+/g, "_")}.steuerungsmodus`);
+						if (mode && mode.val === 2) { // Automatik nur schalten
+							if (v.leistung <= verbleibenderUeberschuss) {
+								await this.schalteVerbraucherMitDelay(v, true);
+								verbleibenderUeberschuss -= v.leistung;
+							} else {
+								await this.schalteVerbraucherMitDelay(v, false);
+							}
+						}
+					}
 				}
 			}
-
-			const ausschaltbare = this.verbraucherListe
-				.filter((v) => v.regelTyp === "binary" && !this.eingeschalteteVerbraucher.includes(v))
-				.sort((a, b) => a.leistung - b.leistung);
-
-			for (const v of ausschaltbare) {
-				if (this.config.feedinNegativ) ueberschuss = await berechneUeberschuss();
-
-				if (ueberschuss >= v.leistung * (1 + hysterese)) {
-					await this.schalteVerbraucherMitDelay(v, true);
-					if (!this.eingeschalteteVerbraucher.includes(v)) this.eingeschalteteVerbraucher.push(v);
-					if (!this.config.feedinNegativ) ueberschuss -= v.leistung;
-				}
-			}
-		} catch (err) {
-			this.log.error("Fehler in checkVerbraucher: " + err);
+		} catch (error) {
+			this.log.error("Fehler in checkVerbraucher: " + error.message);
 		}
 
 		this.checkRunning = false;
@@ -322,28 +301,36 @@ class Nulleinspeisung extends utils.Adapter {
 
 	async schalteVerbraucherMitDelay(v, einschalten) {
 		if (this.processingLockSchalten) {
-			this.log.debug(`Schaltvorgang für ${v.name} gesperrt (Lock aktiv).`);
+			this.log.debug("Verzögerte Schaltaktion blockiert wegen Verarbeitung");
 			return;
 		}
 		this.processingLockSchalten = true;
 
-		const aktion = einschalten ? "einschalten" : "ausschalten";
-		this.log.debug(`${v.name}: ${aktion} in ${this.config.delaySeconds}s geplant...`);
-		await new Promise((resolve) => setTimeout(resolve, this.config.delaySeconds * 1000));
+		if (v.timer) clearTimeout(v.timer);
 
-		await this.setForeignStateAsync(v.datenpunkt, einschalten).catch((e) =>
-			this.log.error(`Fehler beim ${aktion} von ${v.name}: ${e.message}`),
-		);
-
-		this.log.debug(`${v.name}: ${aktion} durchgeführt.`);
-		this.processingLockSchalten = false;
+		v.timer = setTimeout(async () => {
+			try {
+				const aktuellerWert = await this.getForeignStateAsync(v.datenpunkt);
+				const istAn = this.isTrue(aktuellerWert?.val);
+				if (einschalten && !istAn) {
+					await this.setForeignStateAsync(v.datenpunkt, true);
+					this.log.info(`${v.name}: Verbraucher eingeschaltet.`);
+				} else if (!einschalten && istAn) {
+					await this.setForeignStateAsync(v.datenpunkt, false);
+					this.log.info(`${v.name}: Verbraucher ausgeschaltet.`);
+				}
+			} catch (error) {
+				this.log.error("Fehler beim Schalten: " + error.message);
+			}
+			this.processingLockSchalten = false;
+		}, (this.config.schaltDelaySeconds || 2) * 1000);
 	}
 
-	onUnload(callback) {
+	async onUnload(callback) {
 		try {
-			if (this.stateChangeTimeout) clearTimeout(this.stateChangeTimeout);
-			for (const k in this.prozentTimer) {
-				if (this.prozentTimer[k]) clearTimeout(this.prozentTimer[k]);
+			if (this.prozentTimer) clearTimeout(this.prozentTimer);
+			for (const v of this.verbraucherListe) {
+				if (v.timer) clearTimeout(v.timer);
 			}
 			callback();
 		} catch (e) {
@@ -353,7 +340,9 @@ class Nulleinspeisung extends utils.Adapter {
 }
 
 if (require.main !== module) {
-	module.exports = (options) => new Nulleinspeisung(options);
+	// Export adapter class for testing
+	module.exports = Nulleinspeisung;
 } else {
+	// Start adapter
 	new Nulleinspeisung();
 }

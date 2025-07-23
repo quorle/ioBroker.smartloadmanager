@@ -28,6 +28,11 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 - ✅ Konfigurierbare Grundlast, Ein- und Abschaltgrenzen sowie Schaltverzögerungen
 - ✅ Hysterese-Vermeidung durch separate Ein- und Ausschaltgrenzen
 - ✅ Umschaltbare Vorzeichenlogik für Einspeisewert (negativ = Einspeisung / positiv = Netzbezug oder umgekehrt)
+- ✅ Steuerungsmodus für prozentuale Verbraucher:
+         0 = Aus (Verbraucher aus / 0%)
+         1 = Manuell Ein (Verbraucher an / 100%)
+         2 = Automatik (automatisches Schalten/Regeln durch den Adapter)
+- ✅ Für Binärverbraucher erfolgt automatische Steuerung nur, wenn Steuerungsmodus auf 2 (Automatik) steht.
 
 ---
 
@@ -95,6 +100,10 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 5. **Innerhalb Hysterese**  
    ➔ Keine Änderung; laufende Abschalt-Timer werden abgebrochen.
 
+6. **Die Steuerung berücksichtigt den Steuerungsmodus der Verbraucher:**
+   ➔ Nur bei Modus 2 (Automatik) werden Verbraucher automatisch geschaltet bzw. geregelt.
+   ➔ Bei Modus 0 oder 1 erfolgt keine automatische Änderung.
+
 ---
 
 ## 💡 Beispiel
@@ -137,7 +146,11 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- Control mode for consumers added
+
 ### 0.0.3-alpha.0 (2025-07-15)
+
 - Readme changed
 
 ### 0.0.3 (2025-07-13)
