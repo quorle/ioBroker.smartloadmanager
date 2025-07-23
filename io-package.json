@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "nulleinspeisung",
-    "version": "0.0.3-alpha.0",
+    "version": "0.0.3-alpha.1",
     "news": {
+      "0.0.3-alpha.1": {
+        "en": "Control mode for consumers added",
+        "de": "Kontrollmodus für Verbraucher hinzugefügt",
+        "ru": "Добавлен режим контроля для потребителей",
+        "pt": "Modo de controle para os consumidores adicionados",
+        "nl": "Controlemodus voor consumenten toegevoegd",
+        "fr": "Mode de contrôle pour les consommateurs ajouté",
+        "it": "Modalità di controllo per i consumatori aggiunto",
+        "es": "Modo de control para los consumidores añadidos",
+        "pl": "Dodany tryb kontroli dla konsumentów",
+        "uk": "Режим керування для споживачів",
+        "zh-cn": "增加了消费者的控制模式"
+      },
       "0.0.3-alpha.0": {
         "en": "Readme changed",
         "de": "Reader geändert",

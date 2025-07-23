@@ -146,7 +146,7 @@ Diese Funktion ist wichtig, da verschiedene Wechselrichter, Energiemanager oder 
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.0.3-alpha.1 (2025-07-23)
 - Control mode for consumers added
 
 ### 0.0.3-alpha.0 (2025-07-15)
