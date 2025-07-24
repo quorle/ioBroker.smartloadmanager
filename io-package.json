@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "nulleinspeisung",
-    "version": "0.0.3-alpha.1",
+    "version": "0.0.3-alpha.2",
     "news": {
+      "0.0.3-alpha.2": {
+        "en": "Added on and off times\nObjects adjusted\ncode adapted",
+        "de": "Zusätzlich zu den Zeiten\nBestimmte Objekte\ncode angepasst",
+        "ru": "Добавлено и выключено время\nСкорректированные объекты\nадаптированный код",
+        "pt": "Tempos adicionados e desligados\nObjectos ajustados\ncódigo adaptado",
+        "nl": "Toegevoegd aan en uit tijden\nObjecten aangepast\ncode aangepast",
+        "fr": "Ajoutés en heures et en heures\nObjets ajustés\ncode adapté",
+        "it": "Aggiunto su e off tempi\nOggetti regolati\ncodice adattato",
+        "es": "Añadido en y fuera de los tiempos\nObjetos ajustados\ncódigo adaptado",
+        "pl": "Dodawanie i wyłączanie\nDostosowane obiekty\nkod dostosowany",
+        "uk": "Додано і вимкнути час\nОб'єкти регульовані\nадаптований код",
+        "zh-cn": "添加和关闭时间\n调整对象\n调整代码"
+      },
       "0.0.3-alpha.1": {
         "en": "Control mode for consumers added",
         "de": "Kontrollmodus für Verbraucher hinzugefügt",
