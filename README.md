@@ -166,6 +166,7 @@ Wenn deaktiviert (false), gilt:
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
 - Added on and off times
 - Objects adjusted
 - code adapted
