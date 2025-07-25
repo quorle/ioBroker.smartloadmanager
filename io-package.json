@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "nulleinspeisung",
-    "version": "0.0.3-alpha.2",
+    "version": "0.0.3-alpha.3",
     "news": {
+      "0.0.3-alpha.3": {
+        "en": "Turn-off time changed. It will only turn off at the turn-off time\nReadme changed",
+        "de": "Abschaltzeit geändert. Es wird nur in der Abschaltzeit ausgeschaltet\nReader geändert",
+        "ru": "Время выключения изменилось. Он будет выключен только во время выключения\nReadme изменился",
+        "pt": "O tempo de desligamento mudou. Ele só vai desligar na hora de desligar\nReadme mudou",
+        "nl": "De uitschakeltijd is veranderd. Het zal alleen uitschakelen op het moment van uitschakeling\nLezen gewijzigd",
+        "fr": "L'heure d'arrêt a changé. Elle ne s'éteindra qu'à l'heure de l'arrêt\nLecture modifiée",
+        "it": "Il tempo di interruzione è cambiato. Si spegnerà solo al momento di spegnimento\nReadme è cambiato",
+        "es": "El tiempo de desvío cambió. Sólo se apagará en el tiempo de desvío\nEl texto cambió",
+        "pl": "Czas się zmienił. Wyłączy się tylko w czasie przerwy\nReadme się zmienił",
+        "uk": "Час відключення змінився. Вимкнено лише час відключення\nЗмінено",
+        "zh-cn": "转折时间改变。 它只在关机时关机\n读取器已更改"
+      },
       "0.0.3-alpha.2": {
         "en": "Added on and off times\nObjects adjusted\ncode adapted",
         "de": "Zusätzlich zu den Zeiten\nBestimmte Objekte\ncode angepasst",

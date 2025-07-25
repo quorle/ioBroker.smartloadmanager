@@ -175,7 +175,7 @@ Wenn deaktiviert (false), gilt:
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.0.3-alpha.3 (2025-07-25)
 - Turn-off time changed. It will only turn off at the turn-off time
 - Readme changed
 
