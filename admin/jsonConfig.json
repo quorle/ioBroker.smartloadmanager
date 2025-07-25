@@ -123,15 +123,18 @@
 							"type": "text",
 							"attr": "switchOnTime",
 							"title": "Einschaltzeit (HH:MM)",
-							"pattern": "^([01]\\d|2[0-3]):([0-5]\\d)$",
 							"default": ""
 						},
 						{
 							"type": "text",
 							"attr": "switchOffTime",
 							"title": "Ausschaltzeit (HH:MM)",
-							"pattern": "^([01]\\d|2[0-3]):([0-5]\\d)$",
 							"default": ""
+						},
+						{
+							"type": "checkbox",
+							"attr": "alwaysOffAtTime",
+							"title": "Ausschalten nur zu Ausschaltzeit"
 						}
 					]
 				}

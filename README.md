@@ -34,6 +34,7 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
          2 = Automatik (automatisches Schalten/Regeln durch den Adapter)
 - ✅ Für Binärverbraucher erfolgt automatische Steuerung nur, wenn Steuerungsmodus auf 2 (Automatik) steht.
 - ✅ Automatische Erstellung von Objekten/States pro Verbraucher inklusive neuer Settings (z.B. Maximalleistung, Verzögerungs-Override)
+- ✅ Checkbox „Ausschalten nur zu Ausschaltzeit“
 
 
 ---
@@ -63,18 +64,19 @@ Wenn deaktiviert (false), gilt:
 
 ### 🔹 Verbraucher
 
-| Feld                             | Beschreibung                                                                                     |
-| -------------------------------- | ----------------------------------------------------------------------------------------------- |
-| **Aktiv**                       | Aktiviert oder deaktiviert den Verbraucher in der Steuerung                                      |
-| **Name**                        | Freie Bezeichnung für den Verbraucher                                                            |
-| **Steuer-Datenpunkt**           | Objekt-ID, die Ein/Aus oder Prozentwert des Verbrauchers steuert                                 |
-| **Gesamtleistung**              | Leistung in Watt, die bei Zuschaltung abgerufen wird                                             |
-| **Einschaltung**                | Mindestüberschuss in Watt, der für die Zuschaltung erforderlich ist                              |
-| **Abschaltung**                 | Unterschreitungswert in Watt, bei dem der Verbraucher abgeschaltet wird                          |
-| **Regeltyp**                    | „Ein/Aus“ für binary Verbraucher oder „Prozentregelung“ für stufenlos regelbare Verbraucher      |
-| **DelaySeconds_Prozent**        | Verzögerung in Sekunden bei Rückregelung von Prozentwerten (z.B. Wallbox langsam herunterregeln) |
-| **Maximalleistung (Watt)**      | Maximalleistung des Verbrauchers, dient als Referenzwert für die prozentuale Regelung            |
+| Feld                             | Beschreibung                                                                                       |
+| -------------------------------- | -------------------------------------------------------------------------------------------------- |
+| **Aktiv**                       | Aktiviert oder deaktiviert den Verbraucher in der Steuerung                                         |
+| **Name**                        | Freie Bezeichnung für den Verbraucher                                                               |
+| **Steuer-Datenpunkt**           | Objekt-ID, die Ein/Aus oder Prozentwert des Verbrauchers steuert                                    |
+| **Gesamtleistung**              | Leistung in Watt, die bei Zuschaltung abgerufen wird                                                |
+| **Einschaltung**                | Mindestüberschuss in Watt, der für die Zuschaltung erforderlich ist                                 |
+| **Abschaltung**                 | Unterschreitungswert in Watt, bei dem der Verbraucher abgeschaltet wird                             |
+| **Regeltyp**                    | „Ein/Aus“ für binary Verbraucher oder „Prozentregelung“ für stufenlos regelbare Verbraucher         |
+| **DelaySeconds_Prozent**        | Verzögerung in Sekunden bei Rückregelung von Prozentwerten (z.B. Wallbox langsam herunterregeln)    |
+| **Maximalleistung (Watt)**      | Maximalleistung des Verbrauchers, dient als Referenzwert für die prozentuale Regelung               |
 | **Schaltverzögerung Override**  | Optionaler individueller Override der globalen Schaltverzögerung in Sekunden für diesen Verbraucher |
+| **Checkbox Ausschalten**        | Optionale Checkbox, um Verbraucher nur zur eingestellten Ausschaltzeit abzuschalten                 |
 
 ---
 
@@ -91,6 +93,13 @@ Wenn deaktiviert (false), gilt:
 - Optionaler **verbraucherspezifischer Override** für die Schaltverzögerung.  
 - Falls gesetzt, überschreibt dieser Wert die globale Verzögerung **nur für diesen Verbraucher**.  
 - **Verwendung:** z.B. Verbraucher A schaltet mit 10s Verzögerung, Verbraucher B mit sofortiger Zuschaltung (0s).
+
+#### 📝 **Ein- und Ausschaltzeiten**
+- **Einschaltzeit:** Hier wird die Uhrzeit in HH:MM eingetragen, ab wann die Regleung für den Verbrauchen gestartet werden soll.
+- **Ausschaltzeit:** Hier wird die Uhrzeit in HH:MM eingetragen, ab wann die Regleung für den Verbrauchen gestopt werden soll.
+- **Checkbos "Ausschalten nur zu Ausschaltzeit":** HWenn diese aktiv ist, wird der Verbraucher zur Einschaltzeit und passendem
+   Überschuss eingeschaltet, jedoch nicht mehr bei Unterschreitung des Einspeisewertes abgeschaltet. Die Abschaltung erfolgt nur duch die
+   duch die Abschaltzeit.
 
 ---
 
@@ -166,6 +175,10 @@ Wenn deaktiviert (false), gilt:
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+- Turn-off time changed. It will only turn off at the turn-off time
+- Readme changed
+
 ### 0.0.3-alpha.2 (2025-07-24)
 - Added on and off times
 - Objects adjusted

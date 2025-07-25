@@ -72,7 +72,6 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
-            // controlMode
             await this.setObjectNotExistsAsync(`${channelId}.controlMode`, {
                 type: "state",
                 common: {
@@ -87,7 +86,6 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
-            // switchOnTime
             await this.setObjectNotExistsAsync(`${channelId}.switchOnTime`, {
                 type: "state",
                 common: {
@@ -101,7 +99,6 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
-            // switchOffTime
             await this.setObjectNotExistsAsync(`${channelId}.switchOffTime`, {
                 type: "state",
                 common: {
@@ -115,102 +112,76 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
-            // performance
+              await this.setObjectNotExistsAsync(`${channelId}.alwaysOffAtTime`, {
+                type: "state",
+                common: {
+                    name: `${v.name} Ausschalten nur zur Ausschaltzeit`,
+                    type: "boolean",
+                    role: "switch",
+                    read: true,
+                    write: true,
+                    def: v.alwaysOffAtTime || false,
+                },
+                native: {},
+            });
+
             await this.setObjectNotExistsAsync(`${channelId}.performance`, {
                 type: "state",
                 common: {
-                    name: `${v.name} Leistung (Watt)`,
+                    name: `${v.name} Gesamtleistung (Watt)`,
                     type: "number",
-                    role: "value.power",
+                    role: "value.power.consumption",
                     read: true,
                     write: false,
                     def: v.performance || 0,
+                    unit: "W"
                 },
                 native: {},
             });
-            await this.setStateAsync(`${this.namespace}.${channelId}.performance`, { val: v.performance || 0, ack: true });
 
-            // ruletype
-            await this.setObjectNotExistsAsync(`${channelId}.ruletype`, {
+            await this.setObjectNotExistsAsync(`${channelId}.switchOnPoint`, {
                 type: "state",
                 common: {
-                    name: `${v.name} Regeltyp`,
-                    type: "string",
-                    role: "text",
-                    read: true,
-                    write: false,
-                    def: v.ruletype || "binary",
-                },
-                native: {},
-            });
-            await this.setStateAsync(`${this.namespace}.${channelId}.ruletype`, { val: v.ruletype || "binary", ack: true });
-
-            // minPercentStart
-            await this.setObjectNotExistsAsync(`${channelId}.minPercentStart`, {
-                type: "state",
-                common: {
-                    name: `${v.name} Minimal Start Prozent`,
-                    type: "number",
-                    role: "level",
-                    read: true,
-                    write: false,
-                    def: v.minPercentStart || 0,
-                },
-                native: {},
-            });
-            await this.setStateAsync(`${this.namespace}.${channelId}.minPercentStart`, { val: v.minPercentStart || 0, ack: true });
-
-            // maxPerformance
-            await this.setObjectNotExistsAsync(`${channelId}.maxPerformance`, {
-                type: "state",
-                common: {
-                    name: `${v.name} Maximalleistung (Watt)für Prozentregelung`,
+                    name: `${v.name} Einschaltpunkt (Watt)`,
                     type: "number",
                     role: "value.power",
                     read: true,
                     write: false,
-                    def: v.maxPerformance || 0,
+                    def: v.switchOnPoint || 0,
+                    unit: "W"
                 },
                 native: {},
             });
-            await this.setStateAsync(`${this.namespace}.${channelId}.maxPerformance`, { val: v.maxPerformance || 0, ack: true });
 
-            // delaySecondsOverride
-            await this.setObjectNotExistsAsync(`${channelId}.delaySecondsOverride`, {
+            await this.setObjectNotExistsAsync(`${channelId}.switchOffPoint`, {
                 type: "state",
                 common: {
-                    name: `${v.name} Schaltverzögerung Override (Sekunden)`,
+                    name: `${v.name} Abschaltpunkt (Watt)`,
                     type: "number",
-                    role: "value",
+                    role: "value.power",
                     read: true,
                     write: false,
-                    def: v.delaySecondsOverride || 0,
+                    def: v.switchOffPoint || 0,
+                    unit: "W"
                 },
                 native: {},
             });
-            await this.setStateAsync(`${this.namespace}.${channelId}.delaySecondsOverride`, { val: v.delaySecondsOverride || 0, ack: true });
 
-            // Zweiwege-Sync SwitchTimes mit LOG
-            let onTimeState = await this.getStateAsync(`${this.namespace}.${channelId}.switchOnTime`);
-            let offTimeState = await this.getStateAsync(`${this.namespace}.${channelId}.switchOffTime`);
 
-            const finalOnTime = (onTimeState && onTimeState.val !== null && onTimeState.val !== "") ? onTimeState.val : (v.switchOnTime || "");
-            const finalOffTime = (offTimeState && offTimeState.val !== null && offTimeState.val !== "") ? offTimeState.val : (v.switchOffTime || "");
+            // Final Switch Times - always write config value to state
+            const finalOnTime = v.switchOnTime || "";
+            const finalOffTime = v.switchOffTime || "";
 
-            if (!onTimeState || onTimeState.val === "" || onTimeState.val === null) {
-                await this.setStateAsync(`${this.namespace}.${channelId}.switchOnTime`, { val: finalOnTime, ack: true });
-                this.log.info(`${v.name}: Switch on time was empty, set to config value '${finalOnTime}'`);
-            }
+            await this.setStateAsync(`${this.namespace}.${channelId}.switchOnTime`, { val: finalOnTime, ack: true });
+            await this.setStateAsync(`${this.namespace}.${channelId}.switchOffTime`, { val: finalOffTime, ack: true });
+            await this.setStateAsync(`${this.namespace}.${channelId}.alwaysOffAtTime`, { val: v.alwaysOffAtTime || false, ack: true });
+            await this.setStateAsync(`${this.namespace}.${channelId}.switchOffPoint`, { val: v.switchOffPoint || 0, ack: true });
+            await this.setStateAsync(`${this.namespace}.${channelId}.switchOnPoint`, { val: v.switchOnPoint || 0, ack: true });
+            await this.setStateAsync(`${this.namespace}.${channelId}.performance`, { val: v.performance || 0, ack: true });
 
-            if (!offTimeState || offTimeState.val === "" || offTimeState.val === null) {
-                await this.setStateAsync(`${this.namespace}.${channelId}.switchOffTime`, { val: finalOffTime, ack: true });
-                this.log.info(`${v.name}: Switch off time was empty, set to config value '${finalOffTime}'`);
-            }
 
             v.switchOnTime = finalOnTime;
             v.switchOffTime = finalOffTime;
-
-            this.log.info(`${v.name}: Final Switch On Time='${v.switchOnTime}', Final Switch Off Time='${v.switchOffTime}'`);
         }
     }
 
@@ -237,8 +208,6 @@ class ZeroFeedIn extends utils.Adapter {
             ? nowMinutes >= from && nowMinutes < to
             : nowMinutes >= from || nowMinutes < to;
 
-        this.log.debug(`timeWithinWindow: now=${now.getHours()}:${now.getMinutes()}, from=${switchOnTime} (${from}), to=${switchOffTime} (${to}) => ${result}`);
-
         return result;
     }
 
@@ -264,7 +233,6 @@ class ZeroFeedIn extends utils.Adapter {
                 const index = parseInt(timeMatch[1]);
                 const type = timeMatch[2];
                 this.consumerList[index][type] = state.val || "";
-                this.log.info(`${this.consumerList[index].name}: Time ${type} updated to ${state.val}`);
                 await this.checkConsumers();
             }
 
@@ -300,10 +268,21 @@ class ZeroFeedIn extends utils.Adapter {
             for (const v of this.consumerList) {
                 const mode = await this.getStateAsync(`${this.namespace}.consumer.${this.consumerList.indexOf(v)}_${v.name.replace(/\s+/g, "_")}.controlMode`);
                 if (mode && mode.val === 2) {
+
                     const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
 
+                    if (v.alwaysOffAtTime) {
+                        // Variante A: nur zur OffTime ausschalten, niemals wegen Einspeisung abschalten
+                        if (!withinWindow) {
+                            await this.switchConsumerWithDelay(v, false);
+                        } else {
+                            await this.switchConsumerWithDelay(v, true);
+                        }
+                        continue;
+                    }
+
+                    // Standard Variante B
                     if (!withinWindow) {
-                        this.log.info(`${v.name}: Outside of allowed time window, forcing OFF`);
                         await this.switchConsumerWithDelay(v, false);
                         continue;
                     }
@@ -335,7 +314,6 @@ class ZeroFeedIn extends utils.Adapter {
             const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
             if (!withinWindow) {
                 await this.setForeignStateAsync(v.datapoint, 0);
-                this.log.info(`${v.name}: Outside time window, set to 0%.`);
                 return;
             }
 
@@ -355,7 +333,6 @@ class ZeroFeedIn extends utils.Adapter {
 
             if (newPercent !== currentPercent) {
                 await this.setForeignStateAsync(v.datapoint, newPercent);
-                this.log.info(`${v.name}: Percent set to ${newPercent}%.`);
             }
         } catch (error) {
             this.log.error(`Error in controlPercentConsumer: ${error.message}`);
@@ -364,7 +341,6 @@ class ZeroFeedIn extends utils.Adapter {
 
     async switchConsumerWithDelay(v, turnOn) {
         if (v.processingLockSwitch) {
-            this.log.debug(`${v.name}: Switch action blocked due to ongoing processing`);
             return;
         }
         v.processingLockSwitch = true;
@@ -380,10 +356,8 @@ class ZeroFeedIn extends utils.Adapter {
 
                 if (turnOn && !isOn) {
                     await this.setForeignStateAsync(v.datapoint, true);
-                    this.log.info(`${v.name}: Consumer turned on.`);
                 } else if (!turnOn && isOn) {
                     await this.setForeignStateAsync(v.datapoint, false);
-                    this.log.info(`${v.name}: Consumer turned off.`);
                 }
             } catch (error) {
                 this.log.error(`Error switching consumer: ${error.message}`);
