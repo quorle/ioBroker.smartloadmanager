@@ -22,5 +22,8 @@
     "switch-off point": "point d'arrêt",
     "Shutdown (Watts)": "Arrêt (Watts)",
     "RuleType": "Type de régime",
-    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Le consommateur n'éteint ou complètement entièrement que les étapes intermédiaires (typiques, par exemple, avec des boîtes murales qui n'aiment pas le contrôle de pourcentage). Utilisable uniquement avec le pourcentage de contrôle !!"
+    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Le consommateur n'éteint ou complètement entièrement que les étapes intermédiaires (typiques, par exemple, avec des boîtes murales qui n'aiment pas le contrôle de pourcentage). Utilisable uniquement avec le pourcentage de contrôle !!",
+    "feedinNegativ": "se nourrir",
+    "delaySecondsProzent": "Retarder les secondes pour le pourcentage",
+    "batteryDelaySeconds": "Retarder les secondes pour la batterie"
 }

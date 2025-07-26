@@ -22,5 +22,8 @@
     "switch-off point": "Ponto de desvio",
     "Shutdown (Watts)": "Desligamento (watts)",
     "RuleType": "RenTeType",
-    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "O consumidor só liga totalmente ou totalmente desligado, sem etapas intermediárias (típicas, por exemplo, com caixas de parede que não gostam de controle percentual). Usável apenas com controle percentual !!"
+    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "O consumidor só liga totalmente ou totalmente desligado, sem etapas intermediárias (típicas, por exemplo, com caixas de parede que não gostam de controle percentual). Usável apenas com controle percentual !!",
+    "feedinNegativ": "feedinnegativ",
+    "delaySecondsProzent": "Atrasar segundos para porcentagem",
+    "batteryDelaySeconds": "Atraso segundos para baterias"
 }

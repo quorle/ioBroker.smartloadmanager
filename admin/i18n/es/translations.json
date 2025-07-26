@@ -22,5 +22,8 @@
     "switch-off point": "punto de interrupción",
     "Shutdown (Watts)": "Apagado (Watts)",
     "RuleType": "Ruletipo",
-    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "El consumidor solo cambia completamente o completamente apagado, sin pasos intermedios (típicos, por ejemplo, con Wallboxes que no les gusta el control porcentual). ¡Utilizable solo con control porcentual!"
+    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "El consumidor solo cambia completamente o completamente apagado, sin pasos intermedios (típicos, por ejemplo, con Wallboxes que no les gusta el control porcentual). ¡Utilizable solo con control porcentual!",
+    "feedinNegativ": "alimentador",
+    "delaySecondsProzent": "Retraso segundos para el porcentaje",
+    "batteryDelaySeconds": "Seconds de retraso para la batería"
 }

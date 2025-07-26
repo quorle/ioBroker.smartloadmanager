@@ -36,8 +36,8 @@ class ZeroFeedIn extends utils.Adapter {
 
 			this.consumerList = Array.isArray(this.config.consumer)
 				? this.config.consumer.filter(
-						(v) => v && v.enabled && (v.ruletype === "battery" || (v.datapoint && v.performance > 0)),
-					)
+					(v) => v && v.enabled && (v.ruletype === "battery" || (v.datapoint && v.performance > 0)),
+				)
 				: [];
 
 			this.consumerList.forEach((v) => (v.processingLockSwitch = false));

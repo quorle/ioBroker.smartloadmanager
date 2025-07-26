@@ -22,5 +22,8 @@
 	"switch-off point": "switch-off point",
 	"Shutdown (Watts)": "Shutdown (Watts)",
 	"RuleType": "RuleType",
-	"Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!"
+	"Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!",
+	"feedinNegativ": "feedinNegativ",
+	"delaySecondsProzent": "Delay seconds for percent",
+	"batteryDelaySeconds": "Delay seconds for batterie"
 }

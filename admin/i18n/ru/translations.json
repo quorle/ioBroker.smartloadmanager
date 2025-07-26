@@ -22,5 +22,8 @@
     "switch-off point": "точка переключения",
     "Shutdown (Watts)": "Выключение (Watts)",
     "RuleType": "Рулип",
-    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Потребитель полностью включается или полностью выключается, без промежуточных шагов (например, типичные настенные коробки, которые не любят процентный контроль). Пригодны для использования только с процентным контролем !!"
+    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Потребитель полностью включается или полностью выключается, без промежуточных шагов (например, типичные настенные коробки, которые не любят процентный контроль). Пригодны для использования только с процентным контролем !!",
+    "feedinNegativ": "Feedinnegativ",
+    "delaySecondsProzent": "Задержать секунды для процента",
+    "batteryDelaySeconds": "Задержать секунды для батари"
 }

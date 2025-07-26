@@ -22,5 +22,8 @@
     "switch-off point": "точка вимикача",
     "Shutdown (Watts)": "Відключення (Ваттс)",
     "RuleType": "Постаново",
-    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Споживач лише повністю вимикається або повністю вимкнено, без проміжних кроків (типовий, наприклад, з настінними коробками, які не люблять відсотковий контроль). Використовується лише з відсотковим контролем !!"
+    "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Споживач лише повністю вимикається або повністю вимкнено, без проміжних кроків (типовий, наприклад, з настінними коробками, які не люблять відсотковий контроль). Використовується лише з відсотковим контролем !!",
+    "feedinNegativ": "Feedinnegativ",
+    "delaySecondsProzent": "Затримка секунд на відсоток",
+    "batteryDelaySeconds": "Затримка секунд для батареї"
 }
