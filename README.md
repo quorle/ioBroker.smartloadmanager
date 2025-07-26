@@ -29,13 +29,12 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 - ✅ Hysterese-Vermeidung durch separate Ein- und Ausschaltgrenzen
 - ✅ Umschaltbare Vorzeichenlogik für Einspeisewert (negativ = Einspeisung / positiv = Netzbezug oder umgekehrt)
 - ✅ Steuerungsmodus für prozentuale Verbraucher:
-         0 = Aus (Verbraucher aus / 0%)
-         1 = Manuell Ein (Verbraucher an / 100%)
-         2 = Automatik (automatisches Schalten/Regeln durch den Adapter)
+  0 = Aus (Verbraucher aus / 0%)
+  1 = Manuell Ein (Verbraucher an / 100%)
+  2 = Automatik (automatisches Schalten/Regeln durch den Adapter)
 - ✅ Für Binärverbraucher erfolgt automatische Steuerung nur, wenn Steuerungsmodus auf 2 (Automatik) steht.
 - ✅ Automatische Erstellung von Objekten/States pro Verbraucher inklusive neuer Settings (z.B. Maximalleistung, Verzögerungs-Override)
 - ✅ Checkbox „Ausschalten nur zu Ausschaltzeit“
-
 
 ---
 
@@ -64,19 +63,19 @@ Wenn deaktiviert (false), gilt:
 
 ### 🔹 Verbraucher
 
-| Feld                             | Beschreibung                                                                                       |
-| -------------------------------- | -------------------------------------------------------------------------------------------------- |
-| **Aktiv**                       | Aktiviert oder deaktiviert den Verbraucher in der Steuerung                                         |
-| **Name**                        | Freie Bezeichnung für den Verbraucher                                                               |
-| **Steuer-Datenpunkt**           | Objekt-ID, die Ein/Aus oder Prozentwert des Verbrauchers steuert                                    |
-| **Gesamtleistung**              | Leistung in Watt, die bei Zuschaltung abgerufen wird                                                |
-| **Einschaltung**                | Mindestüberschuss in Watt, der für die Zuschaltung erforderlich ist                                 |
-| **Abschaltung**                 | Unterschreitungswert in Watt, bei dem der Verbraucher abgeschaltet wird                             |
-| **Regeltyp**                    | „Ein/Aus“ für binary Verbraucher oder „Prozentregelung“ für stufenlos regelbare Verbraucher         |
-| **DelaySeconds_Prozent**        | Verzögerung in Sekunden bei Rückregelung von Prozentwerten (z.B. Wallbox langsam herunterregeln)    |
-| **Maximalleistung (Watt)**      | Maximalleistung des Verbrauchers, dient als Referenzwert für die prozentuale Regelung               |
-| **Schaltverzögerung Override**  | Optionaler individueller Override der globalen Schaltverzögerung in Sekunden für diesen Verbraucher |
-| **Checkbox Ausschalten**        | Optionale Checkbox, um Verbraucher nur zur eingestellten Ausschaltzeit abzuschalten                 |
+| Feld                           | Beschreibung                                                                                        |
+| ------------------------------ | --------------------------------------------------------------------------------------------------- |
+| **Aktiv**                      | Aktiviert oder deaktiviert den Verbraucher in der Steuerung                                         |
+| **Name**                       | Freie Bezeichnung für den Verbraucher                                                               |
+| **Steuer-Datenpunkt**          | Objekt-ID, die Ein/Aus oder Prozentwert des Verbrauchers steuert                                    |
+| **Gesamtleistung**             | Leistung in Watt, die bei Zuschaltung abgerufen wird                                                |
+| **Einschaltung**               | Mindestüberschuss in Watt, der für die Zuschaltung erforderlich ist                                 |
+| **Abschaltung**                | Unterschreitungswert in Watt, bei dem der Verbraucher abgeschaltet wird                             |
+| **Regeltyp**                   | „Ein/Aus“ für binary Verbraucher oder „Prozentregelung“ für stufenlos regelbare Verbraucher         |
+| **DelaySeconds_Prozent**       | Verzögerung in Sekunden bei Rückregelung von Prozentwerten (z.B. Wallbox langsam herunterregeln)    |
+| **Maximalleistung (Watt)**     | Maximalleistung des Verbrauchers, dient als Referenzwert für die prozentuale Regelung               |
+| **Schaltverzögerung Override** | Optionaler individueller Override der globalen Schaltverzögerung in Sekunden für diesen Verbraucher |
+| **Checkbox Ausschalten**       | Optionale Checkbox, um Verbraucher nur zur eingestellten Ausschaltzeit abzuschalten                 |
 
 ---
 
@@ -84,22 +83,23 @@ Wenn deaktiviert (false), gilt:
 
 #### 📝 **Maximalleistung (Watt)**
 
-- Gibt die **maximale elektrische Leistung des Verbrauchers** an.  
-- Wichtig für **percent-Verbraucher** (z.B. Wallboxen) zur korrekten Berechnung des Sollwerts.  
+- Gibt die **maximale elektrische Leistung des Verbrauchers** an.
+- Wichtig für **percent-Verbraucher** (z.B. Wallboxen) zur korrekten Berechnung des Sollwerts.
 - **Beispiel:** Wallbox mit 11000W → Adapter berechnet den % Sollwert aus Überschuss / 11000.
 
 #### 📝 **Schaltverzögerung Override (Sekunden)**
 
-- Optionaler **verbraucherspezifischer Override** für die Schaltverzögerung.  
-- Falls gesetzt, überschreibt dieser Wert die globale Verzögerung **nur für diesen Verbraucher**.  
+- Optionaler **verbraucherspezifischer Override** für die Schaltverzögerung.
+- Falls gesetzt, überschreibt dieser Wert die globale Verzögerung **nur für diesen Verbraucher**.
 - **Verwendung:** z.B. Verbraucher A schaltet mit 10s Verzögerung, Verbraucher B mit sofortiger Zuschaltung (0s).
 
 #### 📝 **Ein- und Ausschaltzeiten**
+
 - **Einschaltzeit:** Hier wird die Uhrzeit in HH:MM eingetragen, ab wann die Regleung für den Verbrauchen gestartet werden soll.
 - **Ausschaltzeit:** Hier wird die Uhrzeit in HH:MM eingetragen, ab wann die Regleung für den Verbrauchen gestopt werden soll.
 - **Checkbos "Ausschalten nur zu Ausschaltzeit":** HWenn diese aktiv ist, wird der Verbraucher zur Einschaltzeit und passendem
-   Überschuss eingeschaltet, jedoch nicht mehr bei Unterschreitung des Einspeisewertes abgeschaltet. Die Abschaltung erfolgt nur duch die
-   duch die Abschaltzeit.
+  Überschuss eingeschaltet, jedoch nicht mehr bei Unterschreitung des Einspeisewertes abgeschaltet. Die Abschaltung erfolgt nur duch die
+  duch die Abschaltzeit.
 
 ---
 
@@ -131,13 +131,12 @@ Wenn deaktiviert (false), gilt:
    ➔ Nur bei Modus 2 (Automatik) werden Verbraucher automatisch geschaltet bzw. geregelt.  
    ➔ Bei Modus 0 oder 1 erfolgt keine automatische Änderung.
 
-
 ---
 
 ## 💡 Beispiel
 
-| Parameter       | Wert    |
-| --------------- | ------- |
+| Parameter       | Wert   |
+| --------------- | ------ |
 | Grundlast       | 100 W  |
 | Einschaltgrenze | 50 W   |
 | Abschaltgrenze  | 50 W   |
@@ -175,32 +174,30 @@ Wenn deaktiviert (false), gilt:
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (quorle) Rename to **smartloadmanager**
+- (quorle) Battery management added
+
 ### 0.0.3-alpha.3 (2025-07-25)
-- Turn-off time changed. It will only turn off at the turn-off time
-- Readme changed
+
+- (quorle) Turn-off time changed. It will only turn off at the turn-off time
+- (quorle) Readme changed
 
 ### 0.0.3-alpha.2 (2025-07-24)
-- Added on and off times
-- Objects adjusted
-- code adapted
+
+- (quorle) Added on and off times
+- (quorle) Objects adjusted
+- (quorle) code adapted
 
 ### 0.0.3-alpha.1 (2025-07-23)
-- Control mode for consumers added
+
+- (quorle) Control mode for consumers added
 
 ### 0.0.3-alpha.0 (2025-07-15)
 
-- Readme changed
-
-### 0.0.3 (2025-07-13)
-
-- (quorle) Added „Einspeisewert negativ“-Option zur Definition der Vorzeichenlogik von Einspeisewerten.
-- (quorle) Adjusted calculation logic and consumer update mechanism for correct interpretation based on sign configuration.
-
-### 0.0.2 (2025-07-10)
-
-- (quorle) initial release
-- (quorle) Added true/false switching logic for consumers. Readme adjusted.
-- (quorle) Added percentage control for controllable consumers such as wallboxes including DelaySeconds_Percent.
+- (quorle) Readme changed
 
 ## License
 
