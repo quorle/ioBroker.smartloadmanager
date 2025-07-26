@@ -180,24 +180,24 @@ Wenn deaktiviert (false), gilt:
 - (quorle) Rename to **smartloadmanager**
 - (quorle) Battery management added
 
-### 0.0.3-alpha.3 (2025-07-25)
+### 0.0.1-alpha.3 (2025-07-25)
 
-- (quorle) Turn-off time changed. It will only turn off at the turn-off time
-- (quorle) Readme changed
+- (quorle) Turn-off time changed. It will only turn off at the turn-off time (formerly "zero feed-in")
+- (quorle) Readme changed (formerly "zero feed-in")
 
-### 0.0.3-alpha.2 (2025-07-24)
+### 0.0.1-alpha.2 (2025-07-24)
 
-- (quorle) Added on and off times
-- (quorle) Objects adjusted
-- (quorle) code adapted
+- (quorle) Added on and off times (formerly "zero feed-in")
+- (quorle) Objects adjusted (formerly "zero feed-in")
+- (quorle) code adapted (formerly "zero feed-in")
 
-### 0.0.3-alpha.1 (2025-07-23)
+### 0.0.1-alpha.1 (2025-07-23)
 
-- (quorle) Control mode for consumers added
+- (quorle) Control mode for consumers added (formerly "zero feed-in")
 
-### 0.0.3-alpha.0 (2025-07-15)
+### 0.0.1-alpha.0 (2025-07-15)
 
-- (quorle) Readme changed
+- (quorle) Readme changed (formerly "zero feed-in")
 
 ## License
 
