@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.6",
+    "version": "0.0.1-alpha.7",
     "news": {
+      "0.0.1-alpha.7": {
+        "en": "Readme changed",
+        "de": "Reader geändert",
+        "ru": "Readme изменился",
+        "pt": "Readme mudou",
+        "nl": "Lezen gewijzigd",
+        "fr": "Lecture modifiée",
+        "it": "Readme è cambiato",
+        "es": "El texto cambió",
+        "pl": "Readme się zmienił",
+        "uk": "Змінено",
+        "zh-cn": "读取器已更改"
+      },
       "0.0.1-alpha.6": {
         "en": "Readme changed",
         "de": "Reader geändert",
@@ -80,19 +93,6 @@
         "pl": "Dodany tryb kontroli dla konsumentów",
         "uk": "Режим керування для споживачів",
         "zh-cn": "增加了消费者的控制模式"
-      },
-      "0.0.1-alpha.0": {
-        "en": "Readme changed",
-        "de": "Reader geändert",
-        "ru": "Readme изменился",
-        "pt": "Readme mudou",
-        "nl": "Lezen gewijzigd",
-        "fr": "Lecture modifiée",
-        "it": "Readme è cambiato",
-        "es": "El texto cambió",
-        "pl": "Readme się zmienił",
-        "uk": "Змінено",
-        "zh-cn": "读取器已更改"
       }
     },
     "titleLang": {
