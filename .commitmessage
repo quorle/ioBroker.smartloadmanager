@@ -1,0 +1,9 @@
+chore: release v0.0.1-alpha.8
+
+- (quorle) Unterstützung für Batterie-Verbraucher erweitert
+- (quorle) Batterie-Verzögerung eingebaut (`batteryDelaySeconds`)
+- (quorle) Prozentregelung verbessert (sanfte Rückregelung)
+- (quorle) Zeitfenster + „Nur zu Ausschaltzeit“ implementiert
+- (quorle) Steuerlogik überarbeitet und robust gemacht
+- (quorle) Neue Objektstruktur je Verbraucher mit `controlMode` etc.
+- (quorle) Readme changed
