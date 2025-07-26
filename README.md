@@ -1,15 +1,15 @@
-![Logo](admin/nulleinspeisung.png)
+![Logo](admin/smartloadmanager.png)
 
-# ioBroker.nulleinspeisung
+# ioBroker.smartloadmanager
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.nulleinspeisung.svg)](https://www.npmjs.com/package/iobroker.nulleinspeisung)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.nulleinspeisung.svg)](https://www.npmjs.com/package/iobroker.nulleinspeisung)
-![Number of Installations](https://iobroker.live/badges/nulleinspeisung-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/nulleinspeisung-stable.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.smartloadmanager.svg)](https://www.npmjs.com/package/iobroker.smartloadmanager)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.smartloadmanager.svg)](https://www.npmjs.com/package/iobroker.smartloadmanager)
+![Number of Installations](https://iobroker.live/badges/smartloadmanager-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/smartloadmanager-stable.svg)
 
-[![NPM](https://nodei.co/npm/iobroker.nulleinspeisung.png?downloads=true)](https://nodei.co/npm/iobroker.nulleinspeisung/)
+[![NPM](https://nodei.co/npm/iobroker.smartloadmanager.png?downloads=true)](https://nodei.co/npm/iobroker.smartloadmanager/)
 
-**Tests:** ![Test and Release](https://github.com/quorle/ioBroker.nulleinspeisung/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/quorle/ioBroker.smartloadmanager/workflows/Test%20and%20Release/badge.svg)
 
 ## 🔧 Beschreibung
 

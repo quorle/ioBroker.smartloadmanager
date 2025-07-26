@@ -1,12 +1,12 @@
 {
-  "name": "iobroker.nulleinspeisung",
+  "name": "iobroker.smartloadmanager",
   "version": "0.0.3-alpha.3",
   "description": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
   "author": {
     "name": "quorle",
     "email": "quorle12@gmail.com"
   },
-  "homepage": "https://github.com/quorle/ioBroker.nulleinspeisung",
+  "homepage": "https://github.com/quorle/ioBroker.smartloadmanager",
   "license": "MIT",
   "keywords": [
     "Überschuss",
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:quorle/ioBroker.nulleinspeisung.git"
+    "url": "git@github.com:quorle/ioBroker.smartloadmanager.git"
   },
   "engines": {
     "node": ">= 20"
@@ -71,7 +71,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/quorle/ioBroker.nulleinspeisung/issues"
+    "url": "https://github.com/quorle/ioBroker.smartloadmanager/issues"
   },
   "readmeFilename": "README.md"
 }

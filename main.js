@@ -7,7 +7,7 @@ class ZeroFeedIn extends utils.Adapter {
 	constructor(options) {
 		super({
 			...options,
-			name: "nulleinspeisung",
+			name: "smartloadmanager",
 		});
 		this.consumerList = [];
 		this.feedInDatapoint = null;

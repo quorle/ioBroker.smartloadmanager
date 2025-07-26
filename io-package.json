@@ -1,6 +1,6 @@
 {
 	"common": {
-		"name": "nulleinspeisung",
+		"name": "smartloadmanager",
 		"version": "0.0.3-alpha.3",
 		"news": {
 			"0.0.3-alpha.3": {
@@ -115,10 +115,10 @@
 			"license": "MIT"
 		},
 		"platform": "Javascript/Node.js",
-		"icon": "nulleinspeisung.png",
+		"icon": "smartloadmanager.png",
 		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.nulleinspeisung/main/admin/nulleinspeisung.png",
-		"readme": "https://github.com/quorle/ioBroker.nulleinspeisung/blob/main/README.md",
+		"extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
+		"readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
 		"loglevel": "info",
 		"tier": 3,
 		"mode": "daemon",

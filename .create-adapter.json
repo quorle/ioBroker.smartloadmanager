@@ -1,7 +1,7 @@
 {
 	"cli": true,
 	"target": "directory",
-	"adapterName": "nulleinspeisung",
+	"adapterName": "smartloadmanager",
 	"title": "Nulleinspeisung",
 	"description": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
 	"keywords": ["Überschuss", "Einspeisung", "PV-Anlage"],
