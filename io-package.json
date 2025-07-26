@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.4",
+    "version": "0.0.1-alpha.5",
     "news": {
+      "0.0.1-alpha.5": {
+        "en": "repush to \"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "de": "\"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "ru": "нажмите «https://github.com/quorle/ioBroker.smartloadmanager»",
+        "pt": "repreender \"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "nl": "repush to \"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "fr": "\"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "it": "repush a \"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "es": "repush to \"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "pl": "repush to \"https: / / github.com / quorle / ioBroker.smartloadmanager\"",
+        "uk": "відповісти на \"https://github.com/quorle/ioBroker.smartloadmanager\"",
+        "zh-cn": "重新命名为“https://github.com/quorle/ioBroker.smartloadmanager” "
+      },
       "0.0.1-alpha.4": {
         "en": "Rename to **smartloadmanager**\nBattery management added",
         "de": "Umbenennen von **smartloadmanager**\nBatteriemanagement hinzugefügt",
