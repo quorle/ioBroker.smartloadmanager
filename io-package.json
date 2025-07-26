@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.7",
+    "version": "0.0.1-alpha.8",
     "news": {
+      "0.0.1-alpha.8": {
+        "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
+        "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
+        "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
+        "pt": "Unterstützung für Batterie-Verbraucher erweitert\nBaterie-Verzögerung eingebaut («bateriaDelaySeconds»)\nProzentregelung verbossert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet e gemacht robusto\nNeue Objektstruktur je Verbraucher mit ` control Modo, etc.\nReadme mudou",
+        "nl": "Unterstützung für Batterie-Verbraucher erweitert\nBatterij-Verzögerung eingebaut\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \nSteuerlogik überarbeitet und robust gegeven\nNeue Objektstruktur je Verbraucher mit  Modus ...\nLezen gewijzigd",
+        "fr": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («batterieDelaySecond»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit-\nSteuerlogik überarbeitet und gemacht robuste\nNeue Objektstruktur je Verbraucher avec `control Mode` etc.\nLecture modifiée",
+        "it": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementatore\nSteuerlogik überarbeitet und robusto gioiello\nNeue Objektstruktur je Verbraucher mit `control Modalità, ecc.\nReadme è cambiato",
+        "es": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robusta gemacht\nNeue Objektstruktur je Verbraucher mit `control Modo, etc.\nEl texto cambió",
+        "pl": "Unterstützung für Batterie- Verbraucher erweitert\nBatterie- Verzögerung eingebaut (\"batteryDelaySeconds\")\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \"Nur zu Ausschaltzeit\" implementiert\nSteuerlogik überarbeitet und solidny gemacht\nNeue Objektstruktur je Verbraucher mit 'control Tryb \"itp.\nReadme się zmienił",
+        "uk": "Unterstützung für Batterie-Verbraucher erweitert\nБеттері-Верзьогернг eingebaut (`batteryDelaySeconds`)\nProzentregelung дієсловесерт (sanfte Rückregelung)\nЗейтфенстер + \"Nur zu Ausschaltzeit\"\nSteuerlogik überarbeitet und надійний gemacht\nНей Objektstruktur je Verbraucher mit `control Режими і т.д.\nЗмінено",
+        "zh-cn": "(原始内容存档于2018-09-26). Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut(`Battery Delayseconds ' ) \" ( \" 电池Delayseconds \" )\nProzentregelung 动词(sanfte Rückregelung)\nZeitfenster + “ Nur Ausschaltzeit” 执行者\nSteuerlogik überarbeitet 坚固的宝石\n\" 控制 \" 组织 模式等.\n读取器已更改"
+      },
       "0.0.1-alpha.7": {
         "en": "Readme changed",
         "de": "Reader geändert",
@@ -80,19 +93,6 @@
         "pl": "Dodawanie i wyłączanie\nDostosowane obiekty\nkod dostosowany",
         "uk": "Додано і вимкнути час\nОб'єкти регульовані\nадаптований код",
         "zh-cn": "添加和关闭时间\n调整对象\n调整代码"
-      },
-      "0.0.1-alpha.1": {
-        "en": "Control mode for consumers added",
-        "de": "Kontrollmodus für Verbraucher hinzugefügt",
-        "ru": "Добавлен режим контроля для потребителей",
-        "pt": "Modo de controle para os consumidores adicionados",
-        "nl": "Controlemodus voor consumenten toegevoegd",
-        "fr": "Mode de contrôle pour les consommateurs ajouté",
-        "it": "Modalità di controllo per i consumatori aggiunto",
-        "es": "Modo de control para los consumidores añadidos",
-        "pl": "Dodany tryb kontroli dla konsumentów",
-        "uk": "Режим керування для споживачів",
-        "zh-cn": "增加了消费者的控制模式"
       }
     },
     "titleLang": {

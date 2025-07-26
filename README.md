@@ -159,8 +159,7 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS** (2025-07-26)
+### 0.0.1-alpha.8 (2025-07-26) (2025-07-26)
 
 - (quorle) Unterstützung für Batterie-Verbraucher erweitert
 - (quorle) Batterie-Verzögerung eingebaut (`batteryDelaySeconds`)
