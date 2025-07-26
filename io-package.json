@@ -1,129 +1,151 @@
 {
-	"common": {
-		"name": "smartloadmanager",
-		"version": "0.0.1-alpha.3",
-		"news": {
-			"0.0.1-alpha.3": {
-				"en": "Turn-off time changed. It will only turn off at the turn-off time\nReadme changed",
-				"de": "Abschaltzeit geändert. Es wird nur in der Abschaltzeit ausgeschaltet\nReader geändert",
-				"ru": "Время выключения изменилось. Он будет выключен только во время выключения\nReadme изменился",
-				"pt": "O tempo de desligamento mudou. Ele só vai desligar na hora de desligar\nReadme mudou",
-				"nl": "De uitschakeltijd is veranderd. Het zal alleen uitschakelen op het moment van uitschakeling\nLezen gewijzigd",
-				"fr": "L'heure d'arrêt a changé. Elle ne s'éteindra qu'à l'heure de l'arrêt\nLecture modifiée",
-				"it": "Il tempo di interruzione è cambiato. Si spegnerà solo al momento di spegnimento\nReadme è cambiato",
-				"es": "El tiempo de desvío cambió. Sólo se apagará en el tiempo de desvío\nEl texto cambió",
-				"pl": "Czas się zmienił. Wyłączy się tylko w czasie przerwy\nReadme się zmienił",
-				"uk": "Час відключення змінився. Вимкнено лише час відключення\nЗмінено",
-				"zh-cn": "转折时间改变。 它只在关机时关机\n读取器已更改"
-			},
-			"0.0.1-alpha.2": {
-				"en": "Added on and off times\nObjects adjusted\ncode adapted",
-				"de": "Zusätzlich zu den Zeiten\nBestimmte Objekte\ncode angepasst",
-				"ru": "Добавлено и выключено время\nСкорректированные объекты\nадаптированный код",
-				"pt": "Tempos adicionados e desligados\nObjectos ajustados\ncódigo adaptado",
-				"nl": "Toegevoegd aan en uit tijden\nObjecten aangepast\ncode aangepast",
-				"fr": "Ajoutés en heures et en heures\nObjets ajustés\ncode adapté",
-				"it": "Aggiunto su e off tempi\nOggetti regolati\ncodice adattato",
-				"es": "Añadido en y fuera de los tiempos\nObjetos ajustados\ncódigo adaptado",
-				"pl": "Dodawanie i wyłączanie\nDostosowane obiekty\nkod dostosowany",
-				"uk": "Додано і вимкнути час\nОб'єкти регульовані\nадаптований код",
-				"zh-cn": "添加和关闭时间\n调整对象\n调整代码"
-			},
-			"0.0.1-alpha.1": {
-				"en": "Control mode for consumers added",
-				"de": "Kontrollmodus für Verbraucher hinzugefügt",
-				"ru": "Добавлен режим контроля для потребителей",
-				"pt": "Modo de controle para os consumidores adicionados",
-				"nl": "Controlemodus voor consumenten toegevoegd",
-				"fr": "Mode de contrôle pour les consommateurs ajouté",
-				"it": "Modalità di controllo per i consumatori aggiunto",
-				"es": "Modo de control para los consumidores añadidos",
-				"pl": "Dodany tryb kontroli dla konsumentów",
-				"uk": "Режим керування для споживачів",
-				"zh-cn": "增加了消费者的控制模式"
-			},
-			"0.0.1-alpha.0": {
-				"en": "Readme changed",
-				"de": "Reader geändert",
-				"ru": "Readme изменился",
-				"pt": "Readme mudou",
-				"nl": "Lezen gewijzigd",
-				"fr": "Lecture modifiée",
-				"it": "Readme è cambiato",
-				"es": "El texto cambió",
-				"pl": "Readme się zmienił",
-				"uk": "Змінено",
-				"zh-cn": "读取器已更改"
-			}
-		},
-		"titleLang": {
-			"en": "smartloadmanager",
-			"de": "smartloadmanager",
-			"ru": "smartloadmanager",
-			"pt": "smartloadmanager",
-			"nl": "smartloadmanager",
-			"fr": "smartloadmanager",
-			"it": "smartloadmanager",
-			"es": "smartloadmanager",
-			"pl": "smartloadmanager",
-			"uk": "smartloadmanager",
-			"zh-cn": "smartloadmanager"
-		},
-		"desc": {
-			"en": "Smart load management for home energy systems",
-			"de": "Smartes Lastmanagement für Heimenergiesysteme",
-			"ru": "Умное управление нагрузками для домашних энергетических систем",
-			"pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
-			"nl": "Slim belastingsbeheer voor thuisenergiesystemen",
-			"fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
-			"it": "Gestione intelligente del carico per sistemi di energia domestica",
-			"es": "Gestión inteligente de carga para sistemas de energía doméstica",
-			"pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
-			"uk": "Розумне управління навантаженням для побутових енергосистем",
-			"zh-cn": "家庭能源系统的智能负荷管理"
-		},
-		"authors": ["quorle <quorle12@gmail.com>"],
-		"keywords": ["Surplus", "Feed-in", "PV system", "Zero feed-in", "Zero feed-in", "Zero feed-in"],
-		"licenseInformation": {
-			"type": "free",
-			"license": "MIT"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "smartloadmanager.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
-		"readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
-		"loglevel": "info",
-		"tier": 3,
-		"mode": "daemon",
-		"type": "logic",
-		"compact": true,
-		"connectionType": "local",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=6.0.11"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.0.23"
-			}
-		]
-	},
-	"native": {
-		"FeedInDataPoint": "",
-		"feedinNegativ": "",
-		"switchOnPoint": "",
-		"switchOffPoint": "",
-		"consumer": [],
-		"baseload": "",
-		"delaySeconds": "",
-		"delaySecondsProzent": ""
-	},
-	"objects": [],
-	"instanceObjects": []
+  "common": {
+    "name": "smartloadmanager",
+    "version": "0.0.1-alpha.4",
+    "news": {
+      "0.0.1-alpha.4": {
+        "en": "Rename to **smartloadmanager**\nBattery management added",
+        "de": "Umbenennen von **smartloadmanager**\nBatteriemanagement hinzugefügt",
+        "ru": "Переименовать в ** Smartloadmanager**\nДобавлено управление батареями",
+        "pt": "Mudar o nome para ** smartloadmanager**\nGestão da bateria adicionada",
+        "nl": "Hernoemen naar **smartloadmanager**\nBatterijbeheer toegevoegd",
+        "fr": "Renommer **smartloadmanager**\nGestion des batteries ajoutée",
+        "it": "Rinominare a **smartloadmanager**\nGestione della batteria aggiunto",
+        "es": "Renombre a **smartloadmanager**\nAdministración de baterías",
+        "pl": "Zmień nazwę na ** smartloadmanager* * \nDodano zarządzanie akumulatorem",
+        "uk": "Ім'я в **Smartloadmanager**\nУправління акумулятором додано",
+        "zh-cn": "重命名为 **smartload manager **\n电池管理增加"
+      },
+      "0.0.1-alpha.3": {
+        "en": "Turn-off time changed. It will only turn off at the turn-off time\nReadme changed",
+        "de": "Abschaltzeit geändert. Es wird nur in der Abschaltzeit ausgeschaltet\nReader geändert",
+        "ru": "Время выключения изменилось. Он будет выключен только во время выключения\nReadme изменился",
+        "pt": "O tempo de desligamento mudou. Ele só vai desligar na hora de desligar\nReadme mudou",
+        "nl": "De uitschakeltijd is veranderd. Het zal alleen uitschakelen op het moment van uitschakeling\nLezen gewijzigd",
+        "fr": "L'heure d'arrêt a changé. Elle ne s'éteindra qu'à l'heure de l'arrêt\nLecture modifiée",
+        "it": "Il tempo di interruzione è cambiato. Si spegnerà solo al momento di spegnimento\nReadme è cambiato",
+        "es": "El tiempo de desvío cambió. Sólo se apagará en el tiempo de desvío\nEl texto cambió",
+        "pl": "Czas się zmienił. Wyłączy się tylko w czasie przerwy\nReadme się zmienił",
+        "uk": "Час відключення змінився. Вимкнено лише час відключення\nЗмінено",
+        "zh-cn": "转折时间改变。 它只在关机时关机\n读取器已更改"
+      },
+      "0.0.1-alpha.2": {
+        "en": "Added on and off times\nObjects adjusted\ncode adapted",
+        "de": "Zusätzlich zu den Zeiten\nBestimmte Objekte\ncode angepasst",
+        "ru": "Добавлено и выключено время\nСкорректированные объекты\nадаптированный код",
+        "pt": "Tempos adicionados e desligados\nObjectos ajustados\ncódigo adaptado",
+        "nl": "Toegevoegd aan en uit tijden\nObjecten aangepast\ncode aangepast",
+        "fr": "Ajoutés en heures et en heures\nObjets ajustés\ncode adapté",
+        "it": "Aggiunto su e off tempi\nOggetti regolati\ncodice adattato",
+        "es": "Añadido en y fuera de los tiempos\nObjetos ajustados\ncódigo adaptado",
+        "pl": "Dodawanie i wyłączanie\nDostosowane obiekty\nkod dostosowany",
+        "uk": "Додано і вимкнути час\nОб'єкти регульовані\nадаптований код",
+        "zh-cn": "添加和关闭时间\n调整对象\n调整代码"
+      },
+      "0.0.1-alpha.1": {
+        "en": "Control mode for consumers added",
+        "de": "Kontrollmodus für Verbraucher hinzugefügt",
+        "ru": "Добавлен режим контроля для потребителей",
+        "pt": "Modo de controle para os consumidores adicionados",
+        "nl": "Controlemodus voor consumenten toegevoegd",
+        "fr": "Mode de contrôle pour les consommateurs ajouté",
+        "it": "Modalità di controllo per i consumatori aggiunto",
+        "es": "Modo de control para los consumidores añadidos",
+        "pl": "Dodany tryb kontroli dla konsumentów",
+        "uk": "Режим керування для споживачів",
+        "zh-cn": "增加了消费者的控制模式"
+      },
+      "0.0.1-alpha.0": {
+        "en": "Readme changed",
+        "de": "Reader geändert",
+        "ru": "Readme изменился",
+        "pt": "Readme mudou",
+        "nl": "Lezen gewijzigd",
+        "fr": "Lecture modifiée",
+        "it": "Readme è cambiato",
+        "es": "El texto cambió",
+        "pl": "Readme się zmienił",
+        "uk": "Змінено",
+        "zh-cn": "读取器已更改"
+      }
+    },
+    "titleLang": {
+      "en": "smartloadmanager",
+      "de": "smartloadmanager",
+      "ru": "smartloadmanager",
+      "pt": "smartloadmanager",
+      "nl": "smartloadmanager",
+      "fr": "smartloadmanager",
+      "it": "smartloadmanager",
+      "es": "smartloadmanager",
+      "pl": "smartloadmanager",
+      "uk": "smartloadmanager",
+      "zh-cn": "smartloadmanager"
+    },
+    "desc": {
+      "en": "Smart load management for home energy systems",
+      "de": "Smartes Lastmanagement für Heimenergiesysteme",
+      "ru": "Умное управление нагрузками для домашних энергетических систем",
+      "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
+      "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
+      "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
+      "it": "Gestione intelligente del carico per sistemi di energia domestica",
+      "es": "Gestión inteligente de carga para sistemas de energía doméstica",
+      "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
+      "uk": "Розумне управління навантаженням для побутових енергосистем",
+      "zh-cn": "家庭能源系统的智能负荷管理"
+    },
+    "authors": [
+      "quorle <quorle12@gmail.com>"
+    ],
+    "keywords": [
+      "Surplus",
+      "Feed-in",
+      "PV system",
+      "Zero feed-in",
+      "Zero feed-in",
+      "Zero feed-in"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "smartloadmanager.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
+    "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "logic",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.0.23"
+      }
+    ]
+  },
+  "native": {
+    "FeedInDataPoint": "",
+    "feedinNegativ": "",
+    "switchOnPoint": "",
+    "switchOffPoint": "",
+    "consumer": [],
+    "baseload": "",
+    "delaySeconds": "",
+    "delaySecondsProzent": ""
+  },
+  "objects": [],
+  "instanceObjects": []
 }
