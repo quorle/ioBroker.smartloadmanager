@@ -174,6 +174,11 @@ Wenn deaktiviert (false), gilt:
 	Placeholder for the next version (at the beginning of the line):
 	###**WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (quorle) repush to "https://github.com/quorle/ioBroker.smartloadmanager"
+
 ### 0.0.1-alpha.4 (2025-07-26)
 
 - (quorle) Rename to **smartloadmanager**
