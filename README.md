@@ -13,7 +13,7 @@
 
 ## 🔧 Beschreibung
 
-Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (PV-Überschuss) und schaltet definierte Verbraucher dynamisch zu oder ab. Ziel ist es, die Einspeisung ins Netz auf Null zu reduzieren, indem überschüssige Energie lokal verbraucht wird.
+Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbrauchern anhand eines PV-Einspeisewertes. Ziel ist es, Überschuss-Strom lokal zu verbrauchen und so die Einspeisung ins öffentliche Netz zu minimieren oder vollständig zu vermeiden. Er unterstützt sowohl Ein/Aus-Verbraucher als auch prozentual regelbare Geräte und Batteriespeicher.
 
 ---
 
@@ -22,19 +22,17 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 - ✅ Überwachung eines konfigurierbaren Einspeisungs-Datenpunkts
 - ✅ Dynamische Zuschaltung von Verbrauchern bei Überschuss
 - ✅ Dynamische Abschaltung bei Defizit oder Netzbezug
-- ✅ Unterstützt **binary** (Ein/Aus) und **percent** (Prozentregelbare) Verbraucher
-- ✅ Prozentregelung (z.B. Wallboxen) mit linearer Anpassung basierend auf Überschuss
-- ✅ Reihenfolgenverwaltung (Last-In-First-Out Abschaltung)
-- ✅ Konfigurierbare Grundlast, Ein- und Abschaltgrenzen sowie Schaltverzögerungen
-- ✅ Hysterese-Vermeidung durch separate Ein- und Ausschaltgrenzen
-- ✅ Umschaltbare Vorzeichenlogik für Einspeisewert (negativ = Einspeisung / positiv = Netzbezug oder umgekehrt)
-- ✅ Steuerungsmodus für prozentuale Verbraucher:
-  0 = Aus (Verbraucher aus / 0%)
-  1 = Manuell Ein (Verbraucher an / 100%)
-  2 = Automatik (automatisches Schalten/Regeln durch den Adapter)
-- ✅ Für Binärverbraucher erfolgt automatische Steuerung nur, wenn Steuerungsmodus auf 2 (Automatik) steht.
-- ✅ Automatische Erstellung von Objekten/States pro Verbraucher inklusive neuer Settings (z.B. Maximalleistung, Verzögerungs-Override)
-- ✅ Checkbox „Ausschalten nur zu Ausschaltzeit“
+- ✅ Unterstützt **binary**, **percent** und **battery**-Verbraucher
+- ✅ Prozentregelung mit Verzögerung (sanftes Rückregeln)
+- ✅ Dynamische Ladeleistung für Batteriespeicher mit Ziel-SOC
+- ✅ Zeitfenster für Ein-/Ausschaltlogik je Verbraucher (inkl. "nur zu Abschaltzeit")
+- ✅ Automatische Objekt-Erstellung mit erweiterten Informationen je Verbraucher
+- ✅ Steuerungsmodus: Off / Manual On / Auto für jeden Verbraucher separat
+- ✅ Hysterese-Steuerung durch separate Ein-/Abschaltgrenzen
+- ✅ Verbraucherspezifische Schaltverzögerung (Override der globalen)
+- ✅ Reihenfolgenlogik bei Zuschaltung (nach Leistung) und Abschaltung (umgekehrt)
+- ✅ Globaler Batterie-Schaltverzögerungsparameter (`batteryDelaySeconds`)
+- ✅ Schreibprüfung für Batterie-Kontrollmodus (Debug-Ausgabe im Log)
 
 ---
 
@@ -42,138 +40,136 @@ Der Adapter **"Nulleinspeisung"** überwacht deine aktuelle Einspeiseleistung (P
 
 ### 🔹 Haupteinstellungen
 
-| Einstellung                 | Beschreibung                                                                          |
-| --------------------------- | ------------------------------------------------------------------------------------- |
-| **Einspeisungs-Datenpunkt** | Objekt-ID des Datenpunkts, der deine Einspeisung in Watt liefert (z.B. PV-Überschuss) |
-| **Grundlast**               | Dauerhafter Eigenverbrauch, der immer abgezogen wird (z.B. Router, Standby-Geräte)    |
-| **Einschaltgrenze**         | Überschuss in Watt, ab dem Verbraucher zugeschaltet werden                            |
-| **Abschaltgrenze**          | Unterschuss in Watt, ab dem Verbraucher abgeschaltet werden                           |
-| **Verzögerung (Sekunden)**  | Zeitverzögerung bei der Abschaltung, um kurzfristige Schwankungen abzufangen          |
-| **Einspeisewert negativ**   | Legt fest, wie der Einspeisewert interpretiert wird:                                  |
-|                             | Wenn **aktiviert** (true), gilt:                                                      |
-|                             | **- negativ = Einspeisung**                                                           |
-|                             | **- positiv = Netzbezug**                                                             |
-
-Wenn deaktiviert (false), gilt:
-
-- negativ = Netzbezug
-- positiv = Einspeisung
+| Einstellung                     | Beschreibung                                                                 |
+| ------------------------------- | ---------------------------------------------------------------------------- |
+| **Einspeisungs-Datenpunkt**     | Objekt-ID des Einspeisewerts (z. B. PV-Überschuss)                           |
+| **Grundlast**                   | Wird immer vom Einspeisewert abgezogen (z. B. Standby-Verbrauch)             |
+| **Einschaltgrenze**             | Schwelle in Watt, ab der Verbraucher zugeschaltet werden                     |
+| **Abschaltgrenze**              | Schwelle in Watt, ab der Verbraucher abgeschaltet werden                     |
+| **Verzögerung (Sekunden)**      | Verzögerung für binäre Abschaltungen (Hysterese-Glättung)                    |
+| **Verzögerung Prozent (Sek.)**  | Globale Verzögerung bei Rückregelung von Prozentverbrauchern (z. B. Wallbox) |
+| **Verzögerung Batterie (Sek.)** | Globale Verzögerung für Batterie-Steuerung                                   |
+| **Einspeisewert negativ**       | Wenn aktiv: negativer Wert = Einspeisung / positiver Wert = Netzbezug        |
+| **Batterie Kontrollmodus-DP**   | Optionaler Steuerdatenpunkt für Batterie-Modusumschaltung (Auto/Manual/Aus)  |
 
 ---
 
 ### 🔹 Verbraucher
 
-| Feld                           | Beschreibung                                                                                        |
-| ------------------------------ | --------------------------------------------------------------------------------------------------- |
-| **Aktiv**                      | Aktiviert oder deaktiviert den Verbraucher in der Steuerung                                         |
-| **Name**                       | Freie Bezeichnung für den Verbraucher                                                               |
-| **Steuer-Datenpunkt**          | Objekt-ID, die Ein/Aus oder Prozentwert des Verbrauchers steuert                                    |
-| **Gesamtleistung**             | Leistung in Watt, die bei Zuschaltung abgerufen wird                                                |
-| **Einschaltung**               | Mindestüberschuss in Watt, der für die Zuschaltung erforderlich ist                                 |
-| **Abschaltung**                | Unterschreitungswert in Watt, bei dem der Verbraucher abgeschaltet wird                             |
-| **Regeltyp**                   | „Ein/Aus“ für binary Verbraucher oder „Prozentregelung“ für stufenlos regelbare Verbraucher         |
-| **DelaySeconds_Prozent**       | Verzögerung in Sekunden bei Rückregelung von Prozentwerten (z.B. Wallbox langsam herunterregeln)    |
-| **Maximalleistung (Watt)**     | Maximalleistung des Verbrauchers, dient als Referenzwert für die prozentuale Regelung               |
-| **Schaltverzögerung Override** | Optionaler individueller Override der globalen Schaltverzögerung in Sekunden für diesen Verbraucher |
-| **Checkbox Ausschalten**       | Optionale Checkbox, um Verbraucher nur zur eingestellten Ausschaltzeit abzuschalten                 |
+| Feld                                 | Beschreibung                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------- |
+| **Name**                             | Anzeigename                                                                     |
+| **Aktiv**                            | Aktiviert die Steuerung für diesen Verbraucher                                  |
+| **Regeltyp**                         | `"binary"`, `"percent"` oder `"battery"`                                        |
+| **Steuer-Datenpunkt**                | ID zum Schalten oder Regeln                                                     |
+| **Leistung [W]**                     | Realistische elektrische Leistung des Verbrauchers                              |
+| **Einschaltgrenze [W]**              | Benötigter Überschuss für Aktivierung                                           |
+| **Abschaltgrenze [W]**               | Untergrenze für Deaktivierung                                                   |
+| **Maximalleistung [W]**              | Referenzwert zur Prozentregelung                                                |
+| **Verzögerung Prozent [s]**          | Optionale Verzögerung für Rückregelung nur dieses Verbrauchers                  |
+| **Verzögerung Override [s]**         | Verbraucherindividuelle Schaltverzögerung (z. B. sofortige Zuschaltung möglich) |
+| **Einschaltzeit (HH:MM)**            | Uhrzeit, ab wann Steuerung aktiv sein darf                                      |
+| **Ausschaltzeit (HH:MM)**            | Uhrzeit, ab wann Steuerung beendet wird                                         |
+| **Nur zu Ausschaltzeit ausschalten** | Checkbox: Abschaltung nur zu konfigurierter Uhrzeit                             |
+| **batterySetpoint (nur battery)**    | Datenpunkt, in den die gewünschte Ladeleistung geschrieben wird                 |
+| **batterySOC / targetSOC**           | Optional: SOC & Ziel-SOC zur Ladeverhinderung bei vollem Akku                   |
 
 ---
 
-### ⚠️ **Neue Settings im Detail**
+## 🔋 Batteriespeicher-Unterstützung
 
-#### 📝 **Maximalleistung (Watt)**
-
-- Gibt die **maximale elektrische Leistung des Verbrauchers** an.
-- Wichtig für **percent-Verbraucher** (z.B. Wallboxen) zur korrekten Berechnung des Sollwerts.
-- **Beispiel:** Wallbox mit 11000W → Adapter berechnet den % Sollwert aus Überschuss / 11000.
-
-#### 📝 **Schaltverzögerung Override (Sekunden)**
-
-- Optionaler **verbraucherspezifischer Override** für die Schaltverzögerung.
-- Falls gesetzt, überschreibt dieser Wert die globale Verzögerung **nur für diesen Verbraucher**.
-- **Verwendung:** z.B. Verbraucher A schaltet mit 10s Verzögerung, Verbraucher B mit sofortiger Zuschaltung (0s).
-
-#### 📝 **Ein- und Ausschaltzeiten**
-
-- **Einschaltzeit:** Hier wird die Uhrzeit in HH:MM eingetragen, ab wann die Regleung für den Verbrauchen gestartet werden soll.
-- **Ausschaltzeit:** Hier wird die Uhrzeit in HH:MM eingetragen, ab wann die Regleung für den Verbrauchen gestopt werden soll.
-- **Checkbos "Ausschalten nur zu Ausschaltzeit":** HWenn diese aktiv ist, wird der Verbraucher zur Einschaltzeit und passendem
-  Überschuss eingeschaltet, jedoch nicht mehr bei Unterschreitung des Einspeisewertes abgeschaltet. Die Abschaltung erfolgt nur duch die
-  duch die Abschaltzeit.
+- Verbraucher mit `"ruletype": "battery"` regeln den Lade-Setpoint abhängig vom aktuellen Überschuss.
+- Falls `batterySOC` und `batteryTargetSOC` gesetzt sind, wird ab Zielwert nicht mehr geladen.
+- Optional kann ein `batteryControlModeDatapoint` gesetzt werden:
+    - `0 = Aus`, `1 = Manuell`, `2 = Automatik`
+- Die Steuerung erfolgt **nur innerhalb der konfigurierten Zeitfenster**.
+- Die Steuerung wird bei jedem FeedIn-Update nach konfigurierter Verzögerung (`batteryDelaySeconds`) erneut ausgeführt.
 
 ---
 
-## 📊 Funktionsweise
+## 🧠 Steuerlogik
 
-1. **Vorzeichenlogik (Einspeisewert negativ)**  
-   Abhängig von der Aktivierung der Einstellung „Einspeisewert negativ“ wird der Messwert wie folgt interpretiert:
-
-| Einstellung aktiv (true) Einstellung deaktiviert (false) |                       |
-| -------------------------------------------------------- | --------------------- |
-| Negativ = Einspeisung                                    | Negativ = Netzbezug   |
-| Positiv = Netzbezug                                      | Positiv = Einspeisung |
-
-2. **Einspeisung > Grundlast + Einschaltgrenze**  
-   ➔ Verbraucher werden gemäß aufsteigender Leistungsgröße zugeschaltet, soweit der Überschuss ausreicht.
-
-3. **Einspeisung < Grundlast - Abschaltgrenze**  
-   ➔ Nach konfigurierter Verzögerung werden Verbraucher in umgekehrter Zuschalt-Reihenfolge abgeschaltet, bis das Defizit ausgeglichen ist.
-
-4. **Prozentregelung (z.B. Wallbox)**  
-   ➔ Geräte mit „Regeltyp: Prozentregelung“ erhalten eine lineare prozentuale Steuerung basierend auf dem aktuellen Überschuss im Verhältnis zur konfigurierten Maximalleistung.  
-   ➔ Bei Überschuss > Maximalleistung wird auf 100 % geregelt, bei niedrigem Überschuss entsprechend heruntergeregelt bis ggf. auf 0 %.  
-   ➔ Das Rückregeln kann mit **DelaySeconds_Prozent** verzögert werden, um sanfte Übergänge zu gewährleisten.
-
-5. **Innerhalb Hysterese**  
-   ➔ Keine Änderung; laufende Abschalt-Timer werden abgebrochen.
-
-6. **Die Steuerung berücksichtigt den Steuerungsmodus der Verbraucher:**  
-   ➔ Nur bei Modus 2 (Automatik) werden Verbraucher automatisch geschaltet bzw. geregelt.  
-   ➔ Bei Modus 0 oder 1 erfolgt keine automatische Änderung.
+1. **Datenpunkt-Messwert wird basierend auf Konfiguration interpretiert** (positiv = Netzbezug oder Einspeisung)
+2. **Überschuss > Grundlast + Einschaltgrenze**:  
+   → Verbraucher werden (binär) nach steigender Leistung zugeschaltet
+3. **Unterschuss < Grundlast - Abschaltgrenze**:  
+   → Verbraucher werden in umgekehrter Reihenfolge abgeschaltet
+4. **Regelung für Prozent-Verbraucher**:  
+   → % = Überschuss / Maximalleistung  
+   → Geregelt nach Verzögerung
+5. **Regelung für Batterie-Verbraucher**:  
+   → Ladeleistung = min(Überschuss, Maximalleistung), sofern Ziel-SOC nicht erreicht
+6. **Zeitfensterprüfung für alle Verbraucher**  
+   → Nur aktiv, wenn aktuelle Uhrzeit innerhalb `switchOnTime` bis `switchOffTime`
+7. **Steuerung erfolgt nur bei Steuerungsmodus „Auto (2)“**  
+   → Manuelle Eingriffe (Modus 1 oder 0) bleiben unangetastet
 
 ---
 
-## 💡 Beispiel
+## 💡 Beispiel: Wallbox
 
-| Parameter       | Wert   |
-| --------------- | ------ |
-| Grundlast       | 100 W  |
-| Einschaltgrenze | 50 W   |
-| Abschaltgrenze  | 50 W   |
-| Einspeisung     | 500 W  |
-| Wallbox max     | 3500 W |
+| Parameter       | Wert    |
+| --------------- | ------- |
+| Einspeisung     | 1000 W  |
+| Grundlast       | 100 W   |
+| Maximalleistung | 11000 W |
 
-**Berechnung (Wallbox, Prozentregelung):**
+**Berechnung:**
 
-- Überschuss = 500 - 100 = 400 W
-- 400 W / 3500 W = ca. 11 % Ladeleistung Wallbox wird auf 11 % gesetzt (abhängig von unterstütztem minimalem Ladestrom der Wallbox).
+- Überschuss: 1000 - 100 = 900 W
+- Prozent: 900 / 11000 ≈ 8,2 % → Wallbox wird auf 8 % geregelt
 
 ---
 
-## 🔍 Bekannte Einschränkungen
+## 📋 Objektstruktur
 
-- Keine Priorisierung außerhalb der Leistungsgröße implementiert
-- Keine automatische Unterstützung für kombinierte Geräte (z.B. WP mit stufenlosem Modus + Heizstab)
-- Kein persistentes State-Tracking bei Adapter-Neustart
-- Minimal-/Maximalgrenzen der Prozentregelung müssen ggf. auf Geräteeigenschaften angepasst werden
+Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 
----
-
-## 🛠️ Zukünftige Features (Roadmap)
-
-- Blackout-Schutzschwelle (alle Verbraucher sofort aus)
-- Zeitabhängige Zuschaltlogik (z.B. nach PV-Erwartung)
-- Mindestprozentwerte für Wallboxen (z.B. 6A/10A Minimum)
-- Implementierung von **Schaltverzögerung Override** zur aktiven Nutzung des State-Werts
+- `.controlMode` → 0 = Aus, 1 = Manuell, 2 = Automatik
+- `.switchOnTime` / `.switchOffTime`
+- `.alwaysOffAtTime` → true/false
+- `.performance`, `.switchOnPoint`, `.switchOffPoint`
+- `.batterySetpoint` (nur für "battery")
 
 ---
 
-## Changelog
+## 🚫 Einschränkungen
+
+- Keine SOC-Historie, keine Langzeitlogik
+- Keine Mehrfachverwendung identischer Datenpunkte
+- Batterie-Steuerung basiert rein auf FeedIn, keine Rücksicht auf Entladeleistung
+- Keine prozentuale Mindestgrenze definierbar (z. B. 10 % min für Wallbox)
+
+---
+
+## 🛣️ Zukünftige Features
+
+- PV-Prognosebasierte Steuerung (Beta)
+- Unterstützung kombinierter Verbraucher
+- Priorisierungs-Profile
+- Überhitzungs- oder Fehler-Handling je Gerät
+- Minimal- und Maximal-Prozentlimits für Regelung
+- Konfigurierbare Gruppen- oder Raumlogik
+
+---
+
+## 📜 Changelog
 
 <!--
 	Placeholder for the next version (at the beginning of the line):
-	###**WORK IN PROGRESS**
+	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS** (2025-07-26)
+
+- (quorle) Unterstützung für Batterie-Verbraucher erweitert
+- (quorle) Batterie-Verzögerung eingebaut (`batteryDelaySeconds`)
+- (quorle) Prozentregelung verbessert (sanfte Rückregelung)
+- (quorle) Zeitfenster + „Nur zu Ausschaltzeit“ implementiert
+- (quorle) Steuerlogik überarbeitet und robust gemacht
+- (quorle) Neue Objektstruktur je Verbraucher mit `controlMode` etc.
+- (quorle) Readme changed
+
 ### 0.0.1-alpha.7 (2025-07-26)
 
 - (quorle) Readme changed
