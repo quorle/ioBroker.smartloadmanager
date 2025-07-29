@@ -76,48 +76,60 @@
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
-					"lg": 12,
+					"lg": 8,
+					"xl": 8,
 					"showSecondAddAt": 10,
+					useCardFor: ["xs","sm","md","md","lg","xl"],
+					"compact": true,
 					"items": [
+						{
+							"type": "text",
+							"attr": "name",
+							"title": "Name"
+						},					
 						{
 							"type": "checkbox",
 							"attr": "enabled",
 							"title": "Aktiv"
 						},
 						{
-							"type": "text",
-							"attr": "name",
-							"title": "Name"
+							"type": "staticText",
+							"title": "Datenpunkte:",
 						},
 						{
 							"type": "objectId",
 							"attr": "datapoint",
-							"title": "Steuer-Datenpunkt"
+							"title": "\u2192 Steuerung"
 						},
 						{
 							"type": "objectId",
 							"attr": "batterySetpoint",
-							"title": "Batterie Ladeleistungs-Datenpunkt (z.B. setPower)"
+							"title": "\u2192 Ladeleistung",
+							"tooltip": "Batterie Ladeleistungs-Datenpunkt (z.B. setPower)"
 						},
 						{
 							"type": "objectId",
 							"attr": "batterySOC",
-							"title": "Batterie SOC-Datenpunkt (aktueller Ladezustand %)"
+							"title": "\u2192 SOC",
+							"tooltip": "Batterie SOC-Datenpunkt (aktueller Ladezustand %)"
 						},
 						{
 							"type": "objectId",
 							"attr": "batteryTargetSOC",
-							"title": "Batterie Sollwert-Datenpunkt (z.B. Ziel-SOC %)"
+							"title": "\u2192 Sollwert",
+							"tooltip": "Batterie Sollwert-Datenpunkt (z.B. Ziel-SOC %)"
 						},
 						{
 							"type": "objectId",
 							"attr": "batteryControlModeDatapoint",
-							"title": "Batterie Kontrollmodus"
+							"title": "\u2192 Kontrollmodus",
+							"tooltip": "Batterie Kontrollmodus"
 						},
 						{
 							"type": "number",
 							"attr": "performance",
-							"title": "Gesamtleistung des Verbrauchers (Watt)",
+							"title": "Gesamtleistung (Watt)",
+							"tooltip": "Gesamtleistung des Verbrauchers (Watt)",
 							"min": 1
 						},
 						{
@@ -146,7 +158,8 @@
 						{
 							"type": "number",
 							"attr": "minPercentStart",
-							"title": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
+							"title": "Steuerwert min %",
+							"tooltip": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
 							"min": 0,
 							"max": 100,
 							"default": 10
@@ -154,7 +167,8 @@
 						{
 							"type": "number",
 							"attr": "minSOC",
-							"title": "Minimaler SOC (%) zum Stoppen der Entladung",
+							"title": "SOC min %",
+							"tooltip": "Minimaler SOC (%) zum Stoppen der Entladung",
 							"min": 0,
 							"max": 100,
 							"default": 20
@@ -179,7 +193,8 @@
 						{
 							"type": "number",
 							"attr": "priority",
-							"title": "Priorität (kleinste Zahl = höchste Priorität)",
+							"title": "Priorität",
+							"tooltip": "Priorität (kleinste Zahl = höchste Priorität)",
 							"min": 1,
 							"default": 1
 						}
