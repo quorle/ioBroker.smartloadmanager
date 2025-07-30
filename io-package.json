@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.9",
+    "version": "0.0.1-alpha.10",
     "news": {
+      "0.0.1-alpha.10": {
+        "en": "Settings UI of the adapter changed (thanks to **oweitman**)\nTranslation adjusted",
+        "de": "Einstellungen UI des Adapters geändert (dank **oweitman**)\nÜbersetzung bereinigt",
+        "ru": "Изменился пользовательский интерфейс адаптера (благодаря **oweitman**)\nПеревод скорректирован",
+        "pt": "Configurações UI do adaptador alterado (graças a **oweitman**)\nTradução ajustada",
+        "nl": "Instellingen UI van de adapter gewijzigd (met dank aan **oweitman**)\nVertaling aangepast",
+        "fr": "Configuration de l'interface utilisateur de l'adaptateur changé (merci à **oweitman**)\nCorrigé de la traduction",
+        "it": "Impostazioni UI dell'adattatore modificato (grazie a **oweitman**)\nTraduzione corretta",
+        "es": "Ajustes UI del adaptador cambió (gracias a **oweitman**)\nTraducción ajustada",
+        "pl": "Ustawienia UI adaptera zmienione (dzięki ** oweitman* *) \nTłumaczenie dostosowane",
+        "uk": "Налаштування UI адаптера змінено (танки до **oweitman**)\nНалаштування перекладу",
+        "zh-cn": "适配器的设置 UI 已更改( 谢谢 **oweitman** \n翻译调整"
+      },
       "0.0.1-alpha.9": {
         "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
         "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
@@ -80,19 +93,6 @@
         "pl": "Zmień nazwę na ** smartloadmanager* * \nDodano zarządzanie akumulatorem",
         "uk": "Ім'я в **Smartloadmanager**\nУправління акумулятором додано",
         "zh-cn": "重命名为 **smartload manager **\n电池管理增加"
-      },
-      "0.0.1-alpha.3": {
-        "en": "Turn-off time changed. It will only turn off at the turn-off time\nReadme changed",
-        "de": "Abschaltzeit geändert. Es wird nur in der Abschaltzeit ausgeschaltet\nReader geändert",
-        "ru": "Время выключения изменилось. Он будет выключен только во время выключения\nReadme изменился",
-        "pt": "O tempo de desligamento mudou. Ele só vai desligar na hora de desligar\nReadme mudou",
-        "nl": "De uitschakeltijd is veranderd. Het zal alleen uitschakelen op het moment van uitschakeling\nLezen gewijzigd",
-        "fr": "L'heure d'arrêt a changé. Elle ne s'éteindra qu'à l'heure de l'arrêt\nLecture modifiée",
-        "it": "Il tempo di interruzione è cambiato. Si spegnerà solo al momento di spegnimento\nReadme è cambiato",
-        "es": "El tiempo de desvío cambió. Sólo se apagará en el tiempo de desvío\nEl texto cambió",
-        "pl": "Czas się zmienił. Wyłączy się tylko w czasie przerwy\nReadme się zmienił",
-        "uk": "Час відключення змінився. Вимкнено лише час відключення\nЗмінено",
-        "zh-cn": "转折时间改变。 它只在关机时关机\n读取器已更改"
       }
     },
     "titleLang": {
