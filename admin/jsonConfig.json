@@ -4,11 +4,35 @@
 	"items": {
 		"_main": {
 			"type": "panel",
-			"label": "Haupteinstellungen",
+			"label": {
+				"en": "Main settings",
+				"de": "Haupteinstellungen",
+				"ru": "Основные настройки",
+				"pt": "Configurações principais",
+				"nl": "Belangrijkste instellingen",
+				"fr": "Paramètres principaux",
+				"it": "Impostazioni principali",
+				"es": "Ajustes principales",
+				"pl": "Ustawienia główne",
+				"uk": "Основні налаштування",
+				"zh-cn": "主要设置"
+			},
 			"items": {
 				"FeedInDataPoint": {
 					"type": "objectId",
-					"label": "Einspeisungs-Datenpunkt",
+					"label": {
+						"en": "Feed-in data point",
+						"de": "Einspeisedatenpunkt",
+						"ru": "Точка сбора данных",
+						"pt": "Ponto de dados de entrada",
+						"nl": "Gegevenspunt bij invoer",
+						"fr": "Point d'alimentation",
+						"it": "Feed-in data point",
+						"es": "Punto de datos",
+						"pl": "Informacje w punkcie danych",
+						"uk": "Температура даних",
+						"zh-cn": "输入数据点"
+					},
 					"default": "",
 					"xs": 12,
 					"sm": 12,
@@ -17,7 +41,19 @@
 				},
 				"baseload": {
 					"type": "number",
-					"label": "Grundlast - Schwelle für Ein-/Ausschalten der Verbraucher",
+					"label": {
+						"en": "Base load - threshold for switching consumers on/off",
+						"de": "Grundlast - Schwelle für Ein-/Ausschalten der Verbraucher",
+						"ru": "Базовая нагрузка - порог для включения/выключения потребителей",
+						"pt": "Carga de base - limiar para ligar/desligar os consumidores",
+						"nl": "Basisbelasting - drempel voor het schakelen van consumenten",
+						"fr": "Charge de base - seuil pour l'activation/arrêt des consommateurs",
+						"it": "Carico di base - soglia per l'accensione/spegnimento dei consumatori",
+						"es": "Carga base - umbral para activar/desactivar a los consumidores",
+						"pl": "Obciążenie bazowe - próg włączania / wyłączania konsumentów",
+						"uk": "Базове навантаження - поріг для комутації споживачів",
+						"zh-cn": "基本载荷 - 开启/关闭消费者的门槛值"
+					},
 					"default": 100,
 					"min": 0,
 					"max": 10000,
@@ -28,12 +64,36 @@
 				},
 				"feedinNegativ": {
 					"type": "checkbox",
-					"label": "Einspeisewert negativ",
+					"label": {
+						"en": "Feed-in value negative",
+						"de": "Einspeisewert negativ",
+						"ru": "Отрицательное значение корма",
+						"pt": "Valor de entrada negativo",
+						"nl": "Feed-in waarde negatief",
+						"fr": "Valeur d'alimentation négative",
+						"it": "Valore di alimentazione negativo",
+						"es": "Negativo de valor",
+						"pl": "Wartość ujemna",
+						"uk": "Подача негативного значення",
+						"zh-cn": "种子输入值负数"
+					},
 					"default": false
 				},
 				"delaySeconds": {
 					"type": "number",
-					"label": "Verzögerung zwischen Schaltungen (Sekunden)",
+					"label": {
+						"en": "Delay between switching operations (seconds)",
+						"de": "Verzögerung zwischen Schaltungen (Sekunden)",
+						"ru": "Задержка между операциями переключения (секунды)",
+						"pt": "Atraso entre as operações de comutação (segundos)",
+						"nl": "Vertraging tussen schakeloperaties (seconden)",
+						"fr": "Délai entre les opérations de commutation (secondes)",
+						"it": "Ritardo tra operazioni di commutazione (secondi)",
+						"es": "Dilatación entre operaciones de conmutación (segundos)",
+						"pl": "Opóźnienie między operacjami przełączania (sekundy)",
+						"uk": "Прокладання між операціями перемикання (секунди)",
+						"zh-cn": "切换操作之间的延迟( 秒)"
+					},
 					"default": 60,
 					"min": 10,
 					"max": 600,
@@ -44,7 +104,19 @@
 				},
 				"delaySecondsProzent": {
 					"type": "number",
-					"label": "Verzögerung zwischen Schaltungen (Sekunden) für Prozentregelung",
+					"label": {
+						"en": "Delay between switchings (seconds) for percentage control",
+						"de": "Verzögerung zwischen Schaltungen (Sekunden) für Prozentregelung",
+						"ru": "Задержка между переключениями (секундами) для процентного контроля",
+						"pt": "Atraso entre comutações (segundos) para controlo percentual",
+						"nl": "Vertraging tussen schakels (seconden) voor percentageregeling",
+						"fr": "Retard entre les commutations (secondes) pour le contrôle en pourcentage",
+						"it": "Ritardo tra interruttori (secondi) per controllo percentuale",
+						"es": "Dilatación entre conmutaciones (segundos) para control porcentual",
+						"pl": "Opóźnienie pomiędzy połączeniami (sekundami) dla regulacji procentowej",
+						"uk": "Прокладання між комутаторами (секундами) для контролю відсотка",
+						"zh-cn": "百分比控制切换( 秒) 之间的延迟"
+					},
 					"default": 60,
 					"min": 10,
 					"max": 600,
@@ -55,7 +127,19 @@
 				},
 				"batteryDelaySeconds": {
 					"type": "number",
-					"label": "Verzögerung zwischen Schaltungen (Sekunden) für Batteriemanagment",
+					"label": {
+						"en": "Delay between switching (seconds) for battery management",
+						"de": "Verzögerung zwischen Schaltungen (Sekunden) für Batteriemanagement",
+						"ru": "Задержка между переключением (секундами) для управления аккумулятором",
+						"pt": "Atraso entre comutação (segundos) para gerenciamento de bateria",
+						"nl": "Vertraging tussen schakelen (seconden) voor batterijbeheer",
+						"fr": "Délai entre la commutation (secondes) pour la gestion de la batterie",
+						"it": "Ritardo tra commutazione (secondi) per la gestione della batteria",
+						"es": "Dilatación entre conmutación (segundos) para la gestión de baterías",
+						"pl": "Opóźnienie pomiędzy przełączaniem (sekundami) dla zarządzania baterią",
+						"uk": "Прокладка між комутації (секунди) для управління акумуляторами",
+						"zh-cn": "电池管理切换( 秒) 之间的延迟"
+					},
 					"default": 60,
 					"min": 10,
 					"max": 600,
@@ -68,97 +152,322 @@
 		},
 		"_consumer": {
 			"type": "panel",
-			"label": "Zuschaltbare Verbraucher",
+			"label": {
+				"en": "Switchable consumers",
+				"de": "Schaltbare Verbraucher",
+				"ru": "Переключаемые потребители",
+				"pt": "Consumidores comutáveis",
+				"nl": "Omschakelbare consumenten",
+				"fr": "Consommateurs commutables",
+				"it": "Consumatori commutabili",
+				"es": "Consumidores intercambiables",
+				"pl": "Konsumenci nastawni",
+				"uk": "Вимкнені споживачі",
+				"zh-cn": "可切换消费者"
+			},
 			"items": {
 				"consumer": {
 					"type": "table",
-					"label": "Verbraucher Liste",
+					"label": {
+						"en": "Consumer List",
+						"de": "Verbraucherliste",
+						"ru": "Список потребителей",
+						"pt": "Lista de consumidores",
+						"nl": "Consumentenlijst",
+						"fr": "Liste des consommateurs",
+						"it": "Elenco dei consumatori",
+						"es": "Consumer List",
+						"pl": "Wykaz konsumentów",
+						"uk": "Список споживачів",
+						"zh-cn": "消费者列表"
+					},
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
 					"lg": 8,
 					"xl": 8,
 					"showSecondAddAt": 10,
-					useCardFor: ["xs","sm","md","md","lg","xl"],
+					"useCardFor": ["xs", "sm", "md", "md", "lg", "xl"],
 					"compact": true,
 					"items": [
 						{
 							"type": "text",
 							"attr": "name",
-							"title": "Name"
-						},					
+							"title": {
+								"en": "Name",
+								"de": "Name",
+								"ru": "Имя",
+								"pt": "Nome",
+								"nl": "Naam",
+								"fr": "Dénomination",
+								"it": "Nome",
+								"es": "Nombre",
+								"pl": "Nazwa",
+								"uk": "Ім'я",
+								"zh-cn": "名称"
+							}
+						},
 						{
 							"type": "checkbox",
 							"attr": "enabled",
-							"title": "Aktiv"
+							"title": {
+								"en": "Active",
+								"de": "Aktiv",
+								"ru": "Активный",
+								"pt": "Activo",
+								"nl": "Actief",
+								"fr": "Activité",
+								"it": "Attivo",
+								"es": "Activo",
+								"pl": "Aktywne",
+								"uk": "Активний",
+								"zh-cn": "活动"
+							}
 						},
 						{
 							"type": "staticText",
-							"title": "Datenpunkte:",
+							"title": {
+								"en": "Data points",
+								"de": "Datenpunkte",
+								"ru": "Пункты данных",
+								"pt": "Pontos de dados",
+								"nl": "Gegevenspunten",
+								"fr": "Points de données",
+								"it": "Punti di dati",
+								"es": "Puntos de datos",
+								"pl": "Punkty danych",
+								"uk": "Дані",
+								"zh-cn": "数据点"
+							}
 						},
 						{
 							"type": "objectId",
 							"attr": "datapoint",
-							"title": "\u2192 Steuerung"
+							"title": {
+								"en": "--> Control",
+								"de": "--> Steuerung",
+								"ru": "--> Контроль",
+								"pt": "--> Controlo",
+								"nl": "--> Controle",
+								"fr": "--> Contrôle",
+								"it": "--> Controllo",
+								"es": "--> Control",
+								"pl": "--> Kontrola",
+								"uk": "--> Контроль",
+								"zh-cn": "--> 说明 控件"
+							}
 						},
 						{
 							"type": "objectId",
 							"attr": "batterySetpoint",
-							"title": "\u2192 Ladeleistung",
+							"title": {
+								"en": "--> Charging power",
+								"de": "--> Ladeleistung",
+								"ru": "--> Заряжающая мощность",
+								"pt": "--> Potência de carregamento",
+								"nl": "--> Oplaadvermogen",
+								"fr": "--> Puissance de charge",
+								"it": "--> Potenza di carica",
+								"es": "--> Potencia de carga",
+								"pl": "--> Moc ładowania",
+								"uk": "--> Зарядна потужність",
+								"zh-cn": "--> 说明 充电"
+							},
 							"tooltip": "Batterie Ladeleistungs-Datenpunkt (z.B. setPower)"
 						},
 						{
 							"type": "objectId",
 							"attr": "batterySOC",
-							"title": "\u2192 SOC",
+							"title": {
+								"en": "--> SOC",
+								"de": "--> SOC",
+								"ru": "--> СОК",
+								"pt": "--> SOC",
+								"nl": "--> SOC",
+								"fr": "--> CONSEIL",
+								"it": "--> SO",
+								"es": "--> SOC",
+								"pl": "--> SOC",
+								"uk": "--> СОЦІ",
+								"zh-cn": "--> 说明 索科"
+							},
 							"tooltip": "Batterie SOC-Datenpunkt (aktueller Ladezustand %)"
 						},
 						{
 							"type": "objectId",
 							"attr": "batteryTargetSOC",
-							"title": "\u2192 Sollwert",
+							"title": {
+								"en": "--> Setpoint",
+								"de": "--> Sollwert",
+								"ru": "--> точка",
+								"pt": "--> Setpoint",
+								"nl": "--> Setpoint",
+								"fr": "--> Positionnement",
+								"it": "--> Setpoint",
+								"es": "--> Setpoint",
+								"pl": "--> Ustawienie",
+								"uk": "--> Комплекти",
+								"zh-cn": "--> 说明 设置点"
+							},
 							"tooltip": "Batterie Sollwert-Datenpunkt (z.B. Ziel-SOC %)"
 						},
 						{
 							"type": "objectId",
 							"attr": "batteryControlModeDatapoint",
-							"title": "\u2192 Kontrollmodus",
+							"title": {
+								"en": "--> Control mode",
+								"de": "--> Kontrollmodus",
+								"ru": "--> Режим управления",
+								"pt": "--> Modo de controle",
+								"nl": "--> Controlemodus",
+								"fr": "--> Mode de commande",
+								"it": "--> Modalità di controllo",
+								"es": "--> Modo de control",
+								"pl": "--> Tryb sterowania",
+								"uk": "--> Режим управління",
+								"zh-cn": "--> 说明 控制模式"
+							},
 							"tooltip": "Batterie Kontrollmodus"
 						},
 						{
 							"type": "number",
 							"attr": "performance",
-							"title": "Gesamtleistung (Watt)",
+							"title": {
+								"en": "Total power (watts)",
+								"de": "Gesamtleistung (Watt)",
+								"ru": "Полная мощность (ватты)",
+								"pt": "Potência total (watts)",
+								"nl": "Totaal vermogen (watt)",
+								"fr": "Puissance totale (watts)",
+								"it": "Potenza totale (watts)",
+								"es": "Potencia total (vatios)",
+								"pl": "Moc całkowita (waty)",
+								"uk": "Загальна потужність (ват)",
+								"zh-cn": "总功率(瓦)"
+							},
 							"tooltip": "Gesamtleistung des Verbrauchers (Watt)",
 							"min": 1
 						},
 						{
 							"type": "number",
 							"attr": "switchOnPoint",
-							"title": "Einschaltung (Watt)",
+							"title": {
+								"en": "Switch-on (watts)",
+								"de": "Einschaltung (Watt)",
+								"ru": "Коммутатор (Watts)",
+								"pt": "Ligar (watts)",
+								"nl": "Inschakelen (watt)",
+								"fr": "Interrupteur (watts)",
+								"it": "Interruttore (watt)",
+								"es": "Interruptor (vacas)",
+								"pl": "Włączanie (w watach)",
+								"uk": "Switch-on (ват)",
+								"zh-cn": "开关(瓦特)"
+							},
 							"min": 1
 						},
 						{
 							"type": "number",
 							"attr": "switchOffPoint",
-							"title": "Abschaltung (Watt)",
+							"title": {
+								"en": "Shutdown (watts)",
+								"de": "Abschaltung (Watt)",
+								"ru": "Отключение (Watts)",
+								"pt": "Desligar (watts)",
+								"nl": "Afsluiten (watt)",
+								"fr": "Arrêt (watts)",
+								"it": "Chiusura (watts)",
+								"es": "Desactivación (vatios)",
+								"pl": "Wyłączenie (waty)",
+								"uk": "Відключення (ват)",
+								"zh-cn": "关闭(瓦)"
+							},
 							"min": 0
 						},
 						{
 							"type": "select",
 							"attr": "ruletype",
-							"title": "Regeltyp",
+							"title": {
+								"en": "Rule type",
+								"de": "Regeltyp",
+								"ru": "Тип правила",
+								"pt": "Tipo de regra",
+								"nl": "Regeltype",
+								"fr": "Type de règle",
+								"it": "Tipo di regola",
+								"es": "Tipo de regla",
+								"pl": "Rodzaj zasady",
+								"uk": "Тип Рулі",
+								"zh-cn": "规则类型"
+							},
 							"options": [
-								{ "value": "binary", "label": "Ein/Aus" },
-								{ "value": "percent", "label": "Prozentregelung" },
-								{ "value": "battery", "label": "Batterie" }
+								{
+									"value": "binary",
+									"label": {
+										"en": "On off",
+										"de": "Ein/Aus",
+										"ru": "Выключай",
+										"pt": "Desligado",
+										"nl": "Uit",
+										"fr": "En route",
+										"it": "In partenza",
+										"es": "Apagó",
+										"pl": "Wyłączony",
+										"uk": "Увімкніть",
+										"zh-cn": "关机"
+									}
+								},
+								{
+									"value": "percent",
+									"label": {
+										"en": "Percentage regulation",
+										"de": "Prozentregelung",
+										"ru": "Процентное регулирование",
+										"pt": "Regulação percentual",
+										"nl": "Percentageregeling",
+										"fr": "Pourcentage de réglementation",
+										"it": "Regolamentazione del percentuale",
+										"es": "Regulación porcentual",
+										"pl": "Procent regulacji",
+										"uk": "Регулювання відсотків",
+										"zh-cn": "条例百分比"
+									}
+								},
+								{
+									"value": "battery",
+									"label": {
+										"en": "battery",
+										"de": "Batterie",
+										"ru": "аккумулятор",
+										"pt": "bateria",
+										"nl": "batterij",
+										"fr": "batterie",
+										"it": "batteria",
+										"es": "batería",
+										"pl": "akumulator",
+										"uk": "акумулятор",
+										"zh-cn": "电池"
+									}
+								}
 							],
 							"default": "binary"
 						},
 						{
 							"type": "number",
 							"attr": "minPercentStart",
-							"title": "Steuerwert min %",
+							"title": {
+								"en": "Tax value min %",
+								"de": "Steuerwert min %",
+								"ru": "Налоговая стоимость min %",
+								"pt": "Valor fiscal min %",
+								"nl": "Belastingwaarde min %",
+								"fr": "Valeur fiscale min %",
+								"it": "Valore fiscale min %",
+								"es": "Valor fiscal min %",
+								"pl": "Wartość podatkowa min%",
+								"uk": "Податкове значення min %",
+								"zh-cn": "税额"
+							},
 							"tooltip": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
 							"min": 0,
 							"max": 100,
@@ -167,7 +476,19 @@
 						{
 							"type": "number",
 							"attr": "minSOC",
-							"title": "SOC min %",
+							"title": {
+								"en": "SOC min %",
+								"de": "SOC min %",
+								"ru": "SOC min %",
+								"pt": "SOC min %",
+								"nl": "SOC min %",
+								"fr": "COS min %",
+								"it": "SOC min %",
+								"es": "SOC min %",
+								"pl": "SOC min",
+								"uk": "СОЦ хв %",
+								"zh-cn": "SOC 分钟%"
+							},
 							"tooltip": "Minimaler SOC (%) zum Stoppen der Entladung",
 							"min": 0,
 							"max": 100,
@@ -176,24 +497,73 @@
 						{
 							"type": "text",
 							"attr": "switchOnTime",
-							"title": "Einschaltzeit (HH:MM)",
+							"title": {
+								"en": "Power-on time (HH:MM)",
+								"de": "EinschalZeit (HH:MM)",
+								"ru": "Время работы (HH:MM)",
+								"pt": "Tempo de funcionamento (HH:MM)",
+								"nl": "Vermogenstijd (HH:MM)",
+								"fr": "Temps d'alimentation (HH:MM)",
+								"it": "Tempo di alimentazione (HH:MM)",
+								"es": "Tiempo de encendido (HH:MM)",
+								"pl": "Czas włączenia mocy (HH: MM)",
+								"uk": "Час електроживлення (HH:MM)",
+								"zh-cn": "电源时间( HH: MM)"
+							},
 							"default": ""
 						},
 						{
 							"type": "text",
 							"attr": "switchOffTime",
-							"title": "Ausschaltzeit (HH:MM)",
+							"title": {
+								"en": "Switch-off time (HH:MM)",
+								"de": "Ausschaltzeit (HH:MM)",
+								"ru": "Время выключения (HH:MM)",
+								"pt": "Tempo de desligamento (HH:MM)",
+								"nl": "Uitschakeltijd (HH:MM)",
+								"fr": "Temps d'arrêt (HH:MM)",
+								"it": "Tempo di spegnimento (HH:MM)",
+								"es": "Hora de despegue (HH:MM)",
+								"pl": "Czas wyłączenia (HH: MM)",
+								"uk": "Час відключення (HH:MM)",
+								"zh-cn": "关闭时间( HH: MM)"
+							},
 							"default": ""
 						},
 						{
 							"type": "checkbox",
 							"attr": "alwaysOffAtTime",
-							"title": "Ausschalten nur zu Ausschaltzeit"
+							"title": {
+								"en": "Switch off only at switch-off time",
+								"de": "Ausschalten nur zu Ausschaltzeit",
+								"ru": "Выключать только во время выключения",
+								"pt": "Desligar apenas na hora de desligar",
+								"nl": "Alleen uitschakelen bij uitschakeltijd",
+								"fr": "Arrêt uniquement au moment de l'arrêt",
+								"it": "Spegnere solo al momento di spegnimento",
+								"es": "Apaga sólo en el tiempo de apagado",
+								"pl": "Wyłączanie tylko w momencie wyłączenia",
+								"uk": "Вимкніть тільки в режимі перемикання",
+								"zh-cn": "仅在关机时关闭"
+							},
+							"default": ""
 						},
 						{
 							"type": "number",
 							"attr": "priority",
-							"title": "Priorität",
+							"title": {
+								"en": "priority",
+								"de": "Priorität",
+								"ru": "приоритет",
+								"pt": "prioridade",
+								"nl": "prioriteit",
+								"fr": "priorité",
+								"it": "priorità",
+								"es": "prioridad",
+								"pl": "priorytet",
+								"uk": "головна",
+								"zh-cn": "优先级"
+							},
 							"tooltip": "Priorität (kleinste Zahl = höchste Priorität)",
 							"min": 1,
 							"default": 1

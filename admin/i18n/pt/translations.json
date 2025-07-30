@@ -25,5 +25,12 @@
     "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "O consumidor só liga totalmente ou totalmente desligado, sem etapas intermediárias (típicas, por exemplo, com caixas de parede que não gostam de controle percentual). Usável apenas com controle percentual !!",
     "feedinNegativ": "feedinnegativ",
     "delaySecondsProzent": "Atrasar segundos para porcentagem",
-    "batteryDelaySeconds": "Atraso segundos para baterias"
+    "batteryDelaySeconds": "Atraso segundos para baterias",
+    "Battery charging power data point (e.g. setPower)": "Batterie ladeleistungs-Datenpunkt (Z.B. SetPower)",
+    "Battery SOC data point (current state of charge %)": "Batterie Soc-Datenpunkt (Aktueller Ladezustand %)",
+    "Battery setpoint data point (e.g. target SOC %)": "Batterie Sollwert-Datenpunkt (Z.B. Ziel-Soc %)",
+    "Battery control mode": "Batterie Kontrollmodus",
+    "Minimum tax value in % (from which the regulation becomes active). Only used for percentage regulation!": "Minimaler Steuerwert em % (AB Wann Die Regelung Aktiv Wird). Wird nur für prozentregelung verwendet!",
+    "Minimum SOC (%) to stop discharge": "Minimaler Soc (%) Zum Stoppen der Entladung",
+    "Priority (smallest number = highest priority)": "Priorität (kleinste zahl = höchste priorität)"
 }

@@ -25,5 +25,12 @@
     "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "消费者只能完全打开或完全关闭，没有中间步骤（例如，典型的壁箱不喜欢百分比控制）。仅具有百分比控制的可用！！",
     "feedinNegativ": "饲料",
     "delaySecondsProzent": "百分比延迟秒",
-    "batteryDelaySeconds": "电池延迟几秒钟"
+    "batteryDelaySeconds": "电池延迟几秒钟",
+    "Battery charging power data point (e.g. setPower)": "Bowdie Ladeleistungs-Datenpunkt（Z.B. Setpower）",
+    "Battery SOC data point (current state of charge %)": "Bowdie Soc-Datenpunkt（Aktueller ladezustand％）",
+    "Battery setpoint data point (e.g. target SOC %)": "Battie Sollwert-Datenpunkt（Z.B. Ziel-Soc％）",
+    "Battery control mode": "炮台kontrollmodus",
+    "Minimum tax value in % (from which the regulation becomes active). Only used for percentage regulation!": "百分比中的最小者steuerwert（ab wann die regelung aktiv wird）。 wird nurfürprozentregelung verwendet！",
+    "Minimum SOC (%) to stop discharge": "最小者SOC（％）zum stoppen der entladung",
+    "Priority (smallest number = highest priority)": "Priortität（Kleinste Zahl =HöchstePriortität）"
 }

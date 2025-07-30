@@ -25,5 +25,12 @@
     "Consumer only switches fully on or fully off, no intermediate steps (typical, for example, with wallboxes that don't like percentage control). Usable only with percentage control!!": "Потребитель полностью включается или полностью выключается, без промежуточных шагов (например, типичные настенные коробки, которые не любят процентный контроль). Пригодны для использования только с процентным контролем !!",
     "feedinNegativ": "Feedinnegativ",
     "delaySecondsProzent": "Задержать секунды для процента",
-    "batteryDelaySeconds": "Задержать секунды для батари"
+    "batteryDelaySeconds": "Задержать секунды для батари",
+    "Battery charging power data point (e.g. setPower)": "Batterie Ladeleistungs-Datenpunkt (Z.B. Set Power)",
+    "Battery SOC data point (current state of charge %)": "Батари Soc-Datenpunkt (Aktueller Ladezustand %)",
+    "Battery setpoint data point (e.g. target SOC %)": "Батари Sollwert-Datenpunkt (Z.B. Ziel-Soc %)",
+    "Battery control mode": "Батарейка Kontrollmodus",
+    "Minimum tax value in % (from which the regulation becomes active). Only used for percentage regulation!": "Минимальный Steuerwert в % (Ab Wann Die Regelung Aktiv Wird). Wird Nur Für Prozentregelung Verwendet!",
+    "Minimum SOC (%) to stop discharge": "Минимальный соц (%) Zum Stoppen der Entladung",
+    "Priority (smallest number = highest priority)": "Приоритет (Kleinste Zahl = Höchste Arpitität)"
 }
