@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.10",
+    "version": "0.0.1-alpha.11",
     "news": {
+      "0.0.1-alpha.11": {
+        "en": "code changed\nMigration Eslint 8 --> 9",
+        "de": "code geändert\nMigration Eslint 8 --> ANHANG",
+        "ru": "код изменен\nМиграция Eslint 8 9 9",
+        "pt": "código alterado\nMigração Eslint 8 --> 9",
+        "nl": "code gewijzigd\nMigratie Eslint 8 --> 9",
+        "fr": "code modifié\nMigration Eslint 8 --> 9",
+        "it": "codice cambiato\nEslint 8 --> 9",
+        "es": "código cambiado\nMigration Eslint 8 - título 9",
+        "pl": "kod zmieniony\nEslint migracyjny 8 -- > 9",
+        "uk": "змінено код\nМіграція Еслінт 8 --> 10 хв",
+        "zh-cn": "代码已更改\nEslint 8号移徙 -- > 第9条"
+      },
       "0.0.1-alpha.10": {
         "en": "Settings UI of the adapter changed (thanks to **oweitman**)\nTranslation adjusted",
         "de": "Einstellungen UI des Adapters geändert (dank **oweitman**)\nÜbersetzung bereinigt",
@@ -80,19 +93,6 @@
         "pl": "repush to \"https: / / github.com / quorle / ioBroker.smartloadmanager\"",
         "uk": "відповісти на \"https://github.com/quorle/ioBroker.smartloadmanager\"",
         "zh-cn": "重新命名为“https://github.com/quorle/ioBroker.smartloadmanager” "
-      },
-      "0.0.1-alpha.4": {
-        "en": "Rename to **smartloadmanager**\nBattery management added",
-        "de": "Umbenennen von **smartloadmanager**\nBatteriemanagement hinzugefügt",
-        "ru": "Переименовать в ** Smartloadmanager**\nДобавлено управление батареями",
-        "pt": "Mudar o nome para ** smartloadmanager**\nGestão da bateria adicionada",
-        "nl": "Hernoemen naar **smartloadmanager**\nBatterijbeheer toegevoegd",
-        "fr": "Renommer **smartloadmanager**\nGestion des batteries ajoutée",
-        "it": "Rinominare a **smartloadmanager**\nGestione della batteria aggiunto",
-        "es": "Renombre a **smartloadmanager**\nAdministración de baterías",
-        "pl": "Zmień nazwę na ** smartloadmanager* * \nDodano zarządzanie akumulatorem",
-        "uk": "Ім'я в **Smartloadmanager**\nУправління акумулятором додано",
-        "zh-cn": "重命名为 **smartload manager **\n电池管理增加"
       }
     },
     "titleLang": {
