@@ -56,6 +56,7 @@ class ZeroFeedIn extends utils.Adapter {
             }
 
             await this.checkConsumers();
+            this.offTimeTimer = setInterval(() => this.checkOffTimesForAlwaysOffAtTime(), 60 * 1000);
         } catch (error) {
             this.log.error(`Error in onReady: ${error.message}`);
         }
@@ -346,20 +347,21 @@ class ZeroFeedIn extends utils.Adapter {
 
                     if (v.alwaysOffAtTime) {
                         if (!withinWindow) {
-                            await this.switchConsumerWithDelay(v, false);
-                        } else {
-                            await this.switchConsumerWithDelay(v, true);
+                            // Ausschalten nur zur Off-Zeit (nicht hier!)
+                            this.log.debug(`alwaysOffAtTime aktiv für ${v.name}, aber noch nicht Einschaltzeit.`);
+                            continue;
                         }
-                        continue;
-                    }
-
-                    if (!withinWindow) {
-                        await this.switchConsumerWithDelay(v, false);
-                        continue;
+                    } else {
+                        if (!withinWindow) {
+                            await this.switchConsumerWithDelay(v, false);
+                            continue;
+                        }
                     }
 
                     if (gridUsage) {
-                        await this.switchConsumerWithDelay(v, false);
+                        if (!v.alwaysOffAtTime) {
+                            await this.switchConsumerWithDelay(v, false);
+                        }
                         continue;
                     }
 
@@ -367,7 +369,9 @@ class ZeroFeedIn extends utils.Adapter {
                         await this.switchConsumerWithDelay(v, true);
                         feedIn -= v.performance;
                     } else {
-                        await this.switchConsumerWithDelay(v, false);
+                        if (!v.alwaysOffAtTime) {
+                            await this.switchConsumerWithDelay(v, false);
+                        }
                     }
                 }
             }
@@ -382,6 +386,11 @@ class ZeroFeedIn extends utils.Adapter {
                     `${this.namespace}.consumer.${this.consumerList.indexOf(v)}_${v.name.replace(/\s+/g, '_')}.controlMode`,
                 );
                 if (mode && mode.val === 2) {
+                    if (v.alwaysOffAtTime) {
+                        // Ausschalten nur über separate Prüfung zur switchOffTime
+                        continue;
+                    }
+
                     const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
 
                     if (!withinWindow || gridUsage) {
@@ -399,6 +408,23 @@ class ZeroFeedIn extends utils.Adapter {
         }
 
         this.checkRunning = false;
+    }
+
+    async checkOffTimesForAlwaysOffAtTime() {
+        const now = new Date();
+        const nowHM = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+
+        for (const v of this.consumerList.filter(c => c.ruletype === 'binary' && c.alwaysOffAtTime)) {
+            if (v.switchOffTime === nowHM) {
+                const mode = await this.getStateAsync(
+                    `${this.namespace}.consumer.${this.consumerList.indexOf(v)}_${v.name.replace(/\s+/g, '_')}.controlMode`,
+                );
+                if (mode?.val === 2) {
+                    this.log.info(`Ausschaltzeit erreicht (alwaysOffAtTime) für ${v.name}`);
+                    await this.switchConsumerWithDelay(v, false);
+                }
+            }
+        }
     }
 
     async controlPercentConsumer(v) {
