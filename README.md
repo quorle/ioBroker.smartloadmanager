@@ -163,6 +163,7 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 ### **WORK IN PROGRESS**
 
 - (quorle) code changed
+- (quorle) Migration Eslint 8 --> 9
 
 ### 0.0.1-alpha.10 (2025-07-30)
 
