@@ -1,59 +1,35 @@
-const {
-    defineConfig,
-    globalIgnores,
-} = require("eslint/config");
+// ioBroker eslint template configuration file for js and ts files
+// Please note that esm or react based modules need additional modules loaded.
+import config from "@iobroker/eslint-config";
 
-const globals = require("globals");
-const js = require("@eslint/js");
-
-const {
-    FlatCompat,
-} = require("@eslint/eslintrc");
-
-const compat = new FlatCompat({
-    baseDirectory: __dirname,
-    recommendedConfig: js.configs.recommended,
-    allConfig: js.configs.all
-});
-
-module.exports = defineConfig([
-    globalIgnores(["**/.prettierrc.js", "**/.eslintrc.js", "admin/words.js"]),
-    {
-        extends: compat.extends("eslint:recommended"),
-        plugins: {},
-
-        languageOptions: {
-            globals: {
-                ...globals.node,
-                ...globals.mocha,
-            },
-
-            ecmaVersion: "latest",
-            sourceType: "commonjs",
-        },
-
-        rules: {
-            indent: ["error", "tab", {
-                SwitchCase: 1,
-            }],
-
-            "no-console": "off",
-
-            "no-unused-vars": ["error", {
-                ignoreRestSiblings: true,
-                argsIgnorePattern: "^_",
-            }],
-
-            "no-var": "error",
-            "no-trailing-spaces": "error",
-            "prefer-const": "error",
-
-            quotes: ["error", "double", {
-                avoidEscape: true,
-                allowTemplateLiterals: true,
-            }],
-
-            semi: ["error", "always"],
-        },
+export default [
+  ...config,
+  {
+    // specify files to exclude from linting here
+    ignores: [
+      ".dev-server/",
+      ".vscode/",
+      "*.test.js",
+      "test/**/*.js",
+      "*.config.mjs",
+      "build",
+      "dist",
+      "admin/build",
+      "admin/words.js",
+      "admin/admin.d.ts",
+      "admin/blockly.js",
+      "**/adapter-config.d.ts",
+    ],
+  },
+  {
+    // you may disable some 'jsdoc' warnings - but using jsdoc is highly recommended
+    // as this improves maintainability. jsdoc warnings will not block buiuld process.
+    rules: {
+      // 'jsdoc/require-jsdoc': 'off',
+      // 'jsdoc/require-param': 'off',
+      // 'jsdoc/require-param-description': 'off',
+      // 'jsdoc/require-returns-description': 'off',
+      // 'jsdoc/require-returns-check': 'off',
     },
-]);
+  },
+];
