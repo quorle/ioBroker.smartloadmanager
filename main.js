@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use strict';
 
 const utils = require('@iobroker/adapter-core');
@@ -299,6 +298,10 @@ class ZeroFeedIn extends utils.Adapter {
                 }
                 this.batteryTimer = setTimeout(
                     async () => {
+                        if (!this.feedInDatapoint) {
+                            this.log.warn('❗ Kein FeedIn-Datenpunkt gesetzt – onStateChange() wird übersprungen.');
+                            return;
+                        }
                         const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
                         let feedIn = Number(feedInState?.val) || 0;
                         if (this.config.feedinNegativ) {
@@ -323,7 +326,13 @@ class ZeroFeedIn extends utils.Adapter {
         this.checkRunning = true;
 
         try {
+            if (!this.feedInDatapoint) {
+                this.log.warn('❗ Kein FeedIn-Datenpunkt gesetzt – checkConsumers() wird übersprungen.');
+                this.checkRunning = false;
+                return;
+            }
             const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
+
             let feedIn = Number(feedInState?.val) || 0;
 
             if (this.config.feedinNegativ) {
@@ -339,39 +348,43 @@ class ZeroFeedIn extends utils.Adapter {
                 .sort((a, b) => (a.priority || 1) - (b.priority || 1));
 
             for (const v of sortedOn) {
-                const mode = await this.getStateAsync(
-                    `${this.namespace}.consumer.${this.consumerList.indexOf(v)}_${v.name.replace(/\s+/g, '_')}.controlMode`,
-                );
-                if (mode && mode.val === 2) {
-                    const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
+                const idx = this.consumerList.indexOf(v);
+                const id = `${this.namespace}.consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
+                const mode = await this.getStateAsync(`${id}.controlMode`);
+                if (!mode || mode.val !== 2) {
+                    continue;
+                }
 
-                    if (v.alwaysOffAtTime) {
-                        if (!withinWindow) {
-                            // Ausschalten nur zur Off-Zeit (nicht hier!)
-                            this.log.debug(`alwaysOffAtTime aktiv für ${v.name}, aber noch nicht Einschaltzeit.`);
-                            continue;
-                        }
+                const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
+
+                // Einschalten ist nur erlaubt, wenn im Zeitfenster
+                if (!withinWindow) {
+                    this.log.debug(`⏳ ${v.name} wird nicht eingeschaltet – außerhalb Zeitfenster`);
+                    await this.switchConsumerWithDelay(v, false);
+                    continue;
+                }
+
+                // Wenn Netzbezug, nicht einschalten – außer alwaysOffAtTime ist aktiv
+                if (gridUsage && !v.alwaysOffAtTime) {
+                    this.log.debug(`🚫 ${v.name} wird nicht eingeschaltet – Netzbezug aktiv`);
+                    await this.switchConsumerWithDelay(v, false);
+                    continue;
+                }
+
+                // Prüfen, ob genug Überschuss da ist
+                if (v.performance <= feedIn - baseload) {
+                    this.log.debug(
+                        `✅ ${v.name} wird eingeschaltet – Überschuss reicht (${feedIn - baseload}W ≥ ${v.performance}W)`,
+                    );
+                    await this.switchConsumerWithDelay(v, true);
+                    feedIn -= v.performance;
+                } else {
+                    // Wenn nicht genug Überschuss – nur abschalten, wenn alwaysOffAtTime nicht aktiv ist
+                    if (!v.alwaysOffAtTime) {
+                        this.log.debug(`⚠️ ${v.name} wird ausgeschaltet – nicht genug Überschuss`);
+                        await this.switchConsumerWithDelay(v, false);
                     } else {
-                        if (!withinWindow) {
-                            await this.switchConsumerWithDelay(v, false);
-                            continue;
-                        }
-                    }
-
-                    if (gridUsage) {
-                        if (!v.alwaysOffAtTime) {
-                            await this.switchConsumerWithDelay(v, false);
-                        }
-                        continue;
-                    }
-
-                    if (v.performance <= feedIn - baseload) {
-                        await this.switchConsumerWithDelay(v, true);
-                        feedIn -= v.performance;
-                    } else {
-                        if (!v.alwaysOffAtTime) {
-                            await this.switchConsumerWithDelay(v, false);
-                        }
+                        this.log.debug(`ℹ️ ${v.name} bleibt an – nicht genug Überschuss, aber alwaysOffAtTime aktiv`);
                     }
                 }
             }
@@ -429,8 +442,20 @@ class ZeroFeedIn extends utils.Adapter {
 
     async controlPercentConsumer(v) {
         try {
-            const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
+            if (!this.feedInDatapoint) {
+                this.log.warn(`[${v.name}] ❗ Kein FeedIn-Datenpunkt gesetzt – Prozentregelung wird übersprungen.`);
+                return;
+            }
+            if (!v.datapoint) {
+                this.log.warn(
+                    `[${v.name}] ❗ Kein Ziel-Datenpunkt für Prozentregelung konfiguriert – wird übersprungen.`,
+                );
+                return;
+            }
+
+            const withinWindow = this.timeWithinWindow(v.switchOnTime || '', v.switchOffTime || '');
             if (!withinWindow) {
+                this.log.debug(`[${v.name}] Außerhalb des Zeitfensters – wird auf 0 % gesetzt.`);
                 await this.setForeignStateAsync(v.datapoint, 0);
                 return;
             }
@@ -445,6 +470,7 @@ class ZeroFeedIn extends utils.Adapter {
                 : feedInValue > 0
                   ? feedInValue
                   : 0;
+
             surplus -= this.config.baseload || 0;
             if (surplus < 0) {
                 surplus = 0;
@@ -458,10 +484,11 @@ class ZeroFeedIn extends utils.Adapter {
             const currentPercent = Number(state?.val) || 0;
 
             if (newPercent !== currentPercent) {
+                this.log.debug(`[${v.name}] Prozent wird geändert: ${currentPercent} % → ${newPercent} %`);
                 await this.setForeignStateAsync(v.datapoint, newPercent);
             }
         } catch (error) {
-            this.log.error(`Error in controlPercentConsumer: ${error.message}`);
+            this.log.error(`❌ [${v.name}] Fehler in controlPercentConsumer: ${error.message}`);
         }
     }
 

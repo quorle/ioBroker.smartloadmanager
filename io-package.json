@@ -1,179 +1,171 @@
 {
-  "common": {
-    "name": "smartloadmanager",
-    "version": "0.0.1-alpha.12",
-    "news": {
-      "0.0.1-alpha.12": {
-        "en": "code \"switch-off time\" changed",
-        "de": "code \"ausschaltzeit\" geändert",
-        "ru": "изменился код «время выключения»",
-        "pt": "código \"switch-off\" alterado",
-        "nl": "code \"uitschakeltijd\" gewijzigd",
-        "fr": "changement de code \"temps d'arrêt\"",
-        "it": "codice \"tempo di spegnimento\" cambiato",
-        "es": "código \"tiempo de cierre\" cambiado",
-        "pl": "zmieniono kod \"czas wyłączenia\"",
-        "uk": "змінено код «час висихання»",
-        "zh-cn": "代码“ 关闭时间” 已更改"
-      },
-      "0.0.1-alpha.11": {
-        "en": "code changed\nMigration Eslint 8 --> 9",
-        "de": "code geändert\nMigration Eslint 8 --> ANHANG",
-        "ru": "код изменен\nМиграция Eslint 8 9 9",
-        "pt": "código alterado\nMigração Eslint 8 --> 9",
-        "nl": "code gewijzigd\nMigratie Eslint 8 --> 9",
-        "fr": "code modifié\nMigration Eslint 8 --> 9",
-        "it": "codice cambiato\nEslint 8 --> 9",
-        "es": "código cambiado\nMigration Eslint 8 - título 9",
-        "pl": "kod zmieniony\nEslint migracyjny 8 -- > 9",
-        "uk": "змінено код\nМіграція Еслінт 8 --> 10 хв",
-        "zh-cn": "代码已更改\nEslint 8号移徙 -- > 第9条"
-      },
-      "0.0.1-alpha.10": {
-        "en": "Settings UI of the adapter changed (thanks to **oweitman**)\nTranslation adjusted",
-        "de": "Einstellungen UI des Adapters geändert (dank **oweitman**)\nÜbersetzung bereinigt",
-        "ru": "Изменился пользовательский интерфейс адаптера (благодаря **oweitman**)\nПеревод скорректирован",
-        "pt": "Configurações UI do adaptador alterado (graças a **oweitman**)\nTradução ajustada",
-        "nl": "Instellingen UI van de adapter gewijzigd (met dank aan **oweitman**)\nVertaling aangepast",
-        "fr": "Configuration de l'interface utilisateur de l'adaptateur changé (merci à **oweitman**)\nCorrigé de la traduction",
-        "it": "Impostazioni UI dell'adattatore modificato (grazie a **oweitman**)\nTraduzione corretta",
-        "es": "Ajustes UI del adaptador cambió (gracias a **oweitman**)\nTraducción ajustada",
-        "pl": "Ustawienia UI adaptera zmienione (dzięki ** oweitman* *) \nTłumaczenie dostosowane",
-        "uk": "Налаштування UI адаптера змінено (танки до **oweitman**)\nНалаштування перекладу",
-        "zh-cn": "适配器的设置 UI 已更改( 谢谢 **oweitman** \n翻译调整"
-      },
-      "0.0.1-alpha.9": {
-        "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
-        "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
-        "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
-        "pt": "Unterstützung für Batterie-Verbraucher erweitert\nBaterie-Verzögerung eingebaut («bateriaDelaySeconds»)\nProzentregelung verbossert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet e gemacht robusto\nNeue Objektstruktur je Verbraucher mit ` control Modo, etc.\nReadme mudou",
-        "nl": "Unterstützung für Batterie-Verbraucher erweitert\nBatterij-Verzögerung eingebaut\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \nSteuerlogik überarbeitet und robust gegeven\nNeue Objektstruktur je Verbraucher mit  Modus ...\nLezen gewijzigd",
-        "fr": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («batterieDelaySecond»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit-\nSteuerlogik überarbeitet und gemacht robuste\nNeue Objektstruktur je Verbraucher avec `control Mode` etc.\nLecture modifiée",
-        "it": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementatore\nSteuerlogik überarbeitet und robusto gioiello\nNeue Objektstruktur je Verbraucher mit `control Modalità, ecc.\nReadme è cambiato",
-        "es": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robusta gemacht\nNeue Objektstruktur je Verbraucher mit `control Modo, etc.\nEl texto cambió",
-        "pl": "Unterstützung für Batterie- Verbraucher erweitert\nBatterie- Verzögerung eingebaut (\"batteryDelaySeconds\")\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \"Nur zu Ausschaltzeit\" implementiert\nSteuerlogik überarbeitet und solidny gemacht\nNeue Objektstruktur je Verbraucher mit 'control Tryb \"itp.\nReadme się zmienił",
-        "uk": "Unterstützung für Batterie-Verbraucher erweitert\nБеттері-Верзьогернг eingebaut (`batteryDelaySeconds`)\nProzentregelung дієсловесерт (sanfte Rückregelung)\nЗейтфенстер + \"Nur zu Ausschaltzeit\"\nSteuerlogik überarbeitet und надійний gemacht\nНей Objektstruktur je Verbraucher mit `control Режими і т.д.\nЗмінено",
-        "zh-cn": "(原始内容存档于2018-09-26). Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut(`Battery Delayseconds ' ) \" ( \" 电池Delayseconds \" )\nProzentregelung 动词(sanfte Rückregelung)\nZeitfenster + “ Nur Ausschaltzeit” 执行者\nSteuerlogik überarbeitet 坚固的宝石\n\" 控制 \" 组织 模式等.\n读取器已更改"
-      },
-      "0.0.1-alpha.8": {
-        "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
-        "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
-        "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
-        "pt": "Unterstützung für Batterie-Verbraucher erweitert\nBaterie-Verzögerung eingebaut («bateriaDelaySeconds»)\nProzentregelung verbossert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet e gemacht robusto\nNeue Objektstruktur je Verbraucher mit ` control Modo, etc.\nReadme mudou",
-        "nl": "Unterstützung für Batterie-Verbraucher erweitert\nBatterij-Verzögerung eingebaut\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \nSteuerlogik überarbeitet und robust gegeven\nNeue Objektstruktur je Verbraucher mit  Modus ...\nLezen gewijzigd",
-        "fr": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («batterieDelaySecond»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit-\nSteuerlogik überarbeitet und gemacht robuste\nNeue Objektstruktur je Verbraucher avec `control Mode` etc.\nLecture modifiée",
-        "it": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementatore\nSteuerlogik überarbeitet und robusto gioiello\nNeue Objektstruktur je Verbraucher mit `control Modalità, ecc.\nReadme è cambiato",
-        "es": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robusta gemacht\nNeue Objektstruktur je Verbraucher mit `control Modo, etc.\nEl texto cambió",
-        "pl": "Unterstützung für Batterie- Verbraucher erweitert\nBatterie- Verzögerung eingebaut (\"batteryDelaySeconds\")\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \"Nur zu Ausschaltzeit\" implementiert\nSteuerlogik überarbeitet und solidny gemacht\nNeue Objektstruktur je Verbraucher mit 'control Tryb \"itp.\nReadme się zmienił",
-        "uk": "Unterstützung für Batterie-Verbraucher erweitert\nБеттері-Верзьогернг eingebaut (`batteryDelaySeconds`)\nProzentregelung дієсловесерт (sanfte Rückregelung)\nЗейтфенстер + \"Nur zu Ausschaltzeit\"\nSteuerlogik überarbeitet und надійний gemacht\nНей Objektstruktur je Verbraucher mit `control Режими і т.д.\nЗмінено",
-        "zh-cn": "(原始内容存档于2018-09-26). Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut(`Battery Delayseconds ' ) \" ( \" 电池Delayseconds \" )\nProzentregelung 动词(sanfte Rückregelung)\nZeitfenster + “ Nur Ausschaltzeit” 执行者\nSteuerlogik überarbeitet 坚固的宝石\n\" 控制 \" 组织 模式等.\n读取器已更改"
-      },
-      "0.0.1-alpha.7": {
-        "en": "Readme changed",
-        "de": "Reader geändert",
-        "ru": "Readme изменился",
-        "pt": "Readme mudou",
-        "nl": "Lezen gewijzigd",
-        "fr": "Lecture modifiée",
-        "it": "Readme è cambiato",
-        "es": "El texto cambió",
-        "pl": "Readme się zmienił",
-        "uk": "Змінено",
-        "zh-cn": "读取器已更改"
-      },
-      "0.0.1-alpha.6": {
-        "en": "Readme changed",
-        "de": "Reader geändert",
-        "ru": "Readme изменился",
-        "pt": "Readme mudou",
-        "nl": "Lezen gewijzigd",
-        "fr": "Lecture modifiée",
-        "it": "Readme è cambiato",
-        "es": "El texto cambió",
-        "pl": "Readme się zmienił",
-        "uk": "Змінено",
-        "zh-cn": "读取器已更改"
-      }
+    "common": {
+        "name": "smartloadmanager",
+        "version": "0.0.1-alpha.12",
+        "news": {
+            "0.0.1-alpha.12": {
+                "en": "code \"switch-off time\" changed",
+                "de": "code \"ausschaltzeit\" geändert",
+                "ru": "изменился код «время выключения»",
+                "pt": "código \"switch-off\" alterado",
+                "nl": "code \"uitschakeltijd\" gewijzigd",
+                "fr": "changement de code \"temps d'arrêt\"",
+                "it": "codice \"tempo di spegnimento\" cambiato",
+                "es": "código \"tiempo de cierre\" cambiado",
+                "pl": "zmieniono kod \"czas wyłączenia\"",
+                "uk": "змінено код «час висихання»",
+                "zh-cn": "代码“ 关闭时间” 已更改"
+            },
+            "0.0.1-alpha.11": {
+                "en": "code changed\nMigration Eslint 8 --> 9",
+                "de": "code geändert\nMigration Eslint 8 --> ANHANG",
+                "ru": "код изменен\nМиграция Eslint 8 9 9",
+                "pt": "código alterado\nMigração Eslint 8 --> 9",
+                "nl": "code gewijzigd\nMigratie Eslint 8 --> 9",
+                "fr": "code modifié\nMigration Eslint 8 --> 9",
+                "it": "codice cambiato\nEslint 8 --> 9",
+                "es": "código cambiado\nMigration Eslint 8 - título 9",
+                "pl": "kod zmieniony\nEslint migracyjny 8 -- > 9",
+                "uk": "змінено код\nМіграція Еслінт 8 --> 10 хв",
+                "zh-cn": "代码已更改\nEslint 8号移徙 -- > 第9条"
+            },
+            "0.0.1-alpha.10": {
+                "en": "Settings UI of the adapter changed (thanks to **oweitman**)\nTranslation adjusted",
+                "de": "Einstellungen UI des Adapters geändert (dank **oweitman**)\nÜbersetzung bereinigt",
+                "ru": "Изменился пользовательский интерфейс адаптера (благодаря **oweitman**)\nПеревод скорректирован",
+                "pt": "Configurações UI do adaptador alterado (graças a **oweitman**)\nTradução ajustada",
+                "nl": "Instellingen UI van de adapter gewijzigd (met dank aan **oweitman**)\nVertaling aangepast",
+                "fr": "Configuration de l'interface utilisateur de l'adaptateur changé (merci à **oweitman**)\nCorrigé de la traduction",
+                "it": "Impostazioni UI dell'adattatore modificato (grazie a **oweitman**)\nTraduzione corretta",
+                "es": "Ajustes UI del adaptador cambió (gracias a **oweitman**)\nTraducción ajustada",
+                "pl": "Ustawienia UI adaptera zmienione (dzięki ** oweitman* *) \nTłumaczenie dostosowane",
+                "uk": "Налаштування UI адаптера змінено (танки до **oweitman**)\nНалаштування перекладу",
+                "zh-cn": "适配器的设置 UI 已更改( 谢谢 **oweitman** \n翻译调整"
+            },
+            "0.0.1-alpha.9": {
+                "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
+                "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
+                "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
+                "pt": "Unterstützung für Batterie-Verbraucher erweitert\nBaterie-Verzögerung eingebaut («bateriaDelaySeconds»)\nProzentregelung verbossert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet e gemacht robusto\nNeue Objektstruktur je Verbraucher mit ` control Modo, etc.\nReadme mudou",
+                "nl": "Unterstützung für Batterie-Verbraucher erweitert\nBatterij-Verzögerung eingebaut\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \nSteuerlogik überarbeitet und robust gegeven\nNeue Objektstruktur je Verbraucher mit  Modus ...\nLezen gewijzigd",
+                "fr": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («batterieDelaySecond»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit-\nSteuerlogik überarbeitet und gemacht robuste\nNeue Objektstruktur je Verbraucher avec `control Mode` etc.\nLecture modifiée",
+                "it": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementatore\nSteuerlogik überarbeitet und robusto gioiello\nNeue Objektstruktur je Verbraucher mit `control Modalità, ecc.\nReadme è cambiato",
+                "es": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robusta gemacht\nNeue Objektstruktur je Verbraucher mit `control Modo, etc.\nEl texto cambió",
+                "pl": "Unterstützung für Batterie- Verbraucher erweitert\nBatterie- Verzögerung eingebaut (\"batteryDelaySeconds\")\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \"Nur zu Ausschaltzeit\" implementiert\nSteuerlogik überarbeitet und solidny gemacht\nNeue Objektstruktur je Verbraucher mit 'control Tryb \"itp.\nReadme się zmienił",
+                "uk": "Unterstützung für Batterie-Verbraucher erweitert\nБеттері-Верзьогернг eingebaut (`batteryDelaySeconds`)\nProzentregelung дієсловесерт (sanfte Rückregelung)\nЗейтфенстер + \"Nur zu Ausschaltzeit\"\nSteuerlogik überarbeitet und надійний gemacht\nНей Objektstruktur je Verbraucher mit `control Режими і т.д.\nЗмінено",
+                "zh-cn": "(原始内容存档于2018-09-26). Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut(`Battery Delayseconds ' ) \" ( \" 电池Delayseconds \" )\nProzentregelung 动词(sanfte Rückregelung)\nZeitfenster + “ Nur Ausschaltzeit” 执行者\nSteuerlogik überarbeitet 坚固的宝石\n\" 控制 \" 组织 模式等.\n读取器已更改"
+            },
+            "0.0.1-alpha.8": {
+                "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
+                "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
+                "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
+                "pt": "Unterstützung für Batterie-Verbraucher erweitert\nBaterie-Verzögerung eingebaut («bateriaDelaySeconds»)\nProzentregelung verbossert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet e gemacht robusto\nNeue Objektstruktur je Verbraucher mit ` control Modo, etc.\nReadme mudou",
+                "nl": "Unterstützung für Batterie-Verbraucher erweitert\nBatterij-Verzögerung eingebaut\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \nSteuerlogik überarbeitet und robust gegeven\nNeue Objektstruktur je Verbraucher mit  Modus ...\nLezen gewijzigd",
+                "fr": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («batterieDelaySecond»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit-\nSteuerlogik überarbeitet und gemacht robuste\nNeue Objektstruktur je Verbraucher avec `control Mode` etc.\nLecture modifiée",
+                "it": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementatore\nSteuerlogik überarbeitet und robusto gioiello\nNeue Objektstruktur je Verbraucher mit `control Modalità, ecc.\nReadme è cambiato",
+                "es": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robusta gemacht\nNeue Objektstruktur je Verbraucher mit `control Modo, etc.\nEl texto cambió",
+                "pl": "Unterstützung für Batterie- Verbraucher erweitert\nBatterie- Verzögerung eingebaut (\"batteryDelaySeconds\")\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \"Nur zu Ausschaltzeit\" implementiert\nSteuerlogik überarbeitet und solidny gemacht\nNeue Objektstruktur je Verbraucher mit 'control Tryb \"itp.\nReadme się zmienił",
+                "uk": "Unterstützung für Batterie-Verbraucher erweitert\nБеттері-Верзьогернг eingebaut (`batteryDelaySeconds`)\nProzentregelung дієсловесерт (sanfte Rückregelung)\nЗейтфенстер + \"Nur zu Ausschaltzeit\"\nSteuerlogik überarbeitet und надійний gemacht\nНей Objektstruktur je Verbraucher mit `control Режими і т.д.\nЗмінено",
+                "zh-cn": "(原始内容存档于2018-09-26). Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut(`Battery Delayseconds ' ) \" ( \" 电池Delayseconds \" )\nProzentregelung 动词(sanfte Rückregelung)\nZeitfenster + “ Nur Ausschaltzeit” 执行者\nSteuerlogik überarbeitet 坚固的宝石\n\" 控制 \" 组织 模式等.\n读取器已更改"
+            },
+            "0.0.1-alpha.7": {
+                "en": "Readme changed",
+                "de": "Reader geändert",
+                "ru": "Readme изменился",
+                "pt": "Readme mudou",
+                "nl": "Lezen gewijzigd",
+                "fr": "Lecture modifiée",
+                "it": "Readme è cambiato",
+                "es": "El texto cambió",
+                "pl": "Readme się zmienił",
+                "uk": "Змінено",
+                "zh-cn": "读取器已更改"
+            },
+            "0.0.1-alpha.6": {
+                "en": "Readme changed",
+                "de": "Reader geändert",
+                "ru": "Readme изменился",
+                "pt": "Readme mudou",
+                "nl": "Lezen gewijzigd",
+                "fr": "Lecture modifiée",
+                "it": "Readme è cambiato",
+                "es": "El texto cambió",
+                "pl": "Readme się zmienił",
+                "uk": "Змінено",
+                "zh-cn": "读取器已更改"
+            }
+        },
+        "titleLang": {
+            "en": "smartloadmanager",
+            "de": "smartloadmanager",
+            "ru": "smartloadmanager",
+            "pt": "smartloadmanager",
+            "nl": "smartloadmanager",
+            "fr": "smartloadmanager",
+            "it": "smartloadmanager",
+            "es": "smartloadmanager",
+            "pl": "smartloadmanager",
+            "uk": "smartloadmanager",
+            "zh-cn": "smartloadmanager"
+        },
+        "desc": {
+            "en": "Smart load management for home energy systems",
+            "de": "Smartes Lastmanagement für Heimenergiesysteme",
+            "ru": "Умное управление нагрузками для домашних энергетических систем",
+            "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
+            "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
+            "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
+            "it": "Gestione intelligente del carico per sistemi di energia domestica",
+            "es": "Gestión inteligente de carga para sistemas de energía doméstica",
+            "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
+            "uk": "Розумне управління навантаженням для побутових енергосистем",
+            "zh-cn": "家庭能源系统的智能负荷管理"
+        },
+        "authors": ["quorle <quorle12@gmail.com>"],
+        "keywords": ["Surplus", "Feed-in", "PV system", "Zero feed-in", "Zero feed-in", "Zero feed-in"],
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "smartloadmanager.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
+        "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "mode": "daemon",
+        "type": "logic",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.4.15"
+            }
+        ]
     },
-    "titleLang": {
-      "en": "smartloadmanager",
-      "de": "smartloadmanager",
-      "ru": "smartloadmanager",
-      "pt": "smartloadmanager",
-      "nl": "smartloadmanager",
-      "fr": "smartloadmanager",
-      "it": "smartloadmanager",
-      "es": "smartloadmanager",
-      "pl": "smartloadmanager",
-      "uk": "smartloadmanager",
-      "zh-cn": "smartloadmanager"
+    "native": {
+        "feedInDatapoint": "",
+        "FeedInDataPoint": "",
+        "feedinNegativ": false,
+        "switchOnPoint": 0,
+        "switchOffPoint": 0,
+        "consumer": [],
+        "baseload": 0,
+        "delaySeconds": 10,
+        "delaySecondsProzent": -1,
+        "batteryControlModeDatapoint": "",
+        "batteryDelaySeconds": 10
     },
-    "desc": {
-      "en": "Smart load management for home energy systems",
-      "de": "Smartes Lastmanagement für Heimenergiesysteme",
-      "ru": "Умное управление нагрузками для домашних энергетических систем",
-      "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
-      "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
-      "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
-      "it": "Gestione intelligente del carico per sistemi di energia domestica",
-      "es": "Gestión inteligente de carga para sistemas de energía doméstica",
-      "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
-      "uk": "Розумне управління навантаженням для побутових енергосистем",
-      "zh-cn": "家庭能源系统的智能负荷管理"
-    },
-    "authors": [
-      "quorle <quorle12@gmail.com>"
-    ],
-    "keywords": [
-      "Surplus",
-      "Feed-in",
-      "PV system",
-      "Zero feed-in",
-      "Zero feed-in",
-      "Zero feed-in"
-    ],
-    "licenseInformation": {
-      "type": "free",
-      "license": "MIT"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "smartloadmanager.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
-    "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
-    "loglevel": "info",
-    "tier": 3,
-    "mode": "daemon",
-    "type": "logic",
-    "compact": true,
-    "connectionType": "local",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.4.15"
-      }
-    ]
-  },
-  "native": {
-    "FeedInDataPoint": "",
-    "feedinNegativ": "",
-    "switchOnPoint": "",
-    "switchOffPoint": "",
-    "consumer": [],
-    "baseload": "",
-    "delaySeconds": "",
-    "delaySecondsProzent": "",
-    "batteryControlModeDatapoint": "",
-    "batteryDelaySeconds": ""
-  },
-  "objects": [],
-  "instanceObjects": []
+    "objects": [],
+    "instanceObjects": []
 }
