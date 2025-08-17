@@ -163,7 +163,7 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 ### **WORK IN PROGRESS**
 
 - (quorle) code changed
-- (quorle) Notification added
+- (quorle) switching on and off optimized
 
 ### 0.0.1-alpha.13 (2025-08-01)
 
