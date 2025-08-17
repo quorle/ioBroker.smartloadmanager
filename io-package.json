@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.14",
+    "version": "0.0.1-alpha.15",
     "news": {
+      "0.0.1-alpha.15": {
+        "en": "code changed\nmanual_on changed (ISSU #14)",
+        "de": "code geändert\nmanuell_on geändert (ISSU #14)",
+        "ru": "код изменен\nmanual_on Change (ISSU #14)",
+        "pt": "código alterado\nmanual_on alterado (ISSU # 14)",
+        "nl": "code gewijzigd\nman_uaal gewijzigd (ISSU #14)",
+        "fr": "code modifié\nmanuel_sur modifié (ISSU #14)",
+        "it": "codice cambiato\nmanuale_on cambiato (ISSU #14)",
+        "es": "código cambiado\nmanual_on cambiado (ISSU #14)",
+        "pl": "kod zmieniony\nmanual _ on changed (ISSU # 14)",
+        "uk": "змінено код\njavaScript licenses API Веб-сайт Go1.13.8",
+        "zh-cn": "代码已更改\n手动更改( ISSU # 14)"
+      },
       "0.0.1-alpha.14": {
         "en": "code changed\nswitching on and off optimized",
         "de": "code geändert\nein- und ausschalten optimiert",
@@ -69,19 +82,6 @@
         "zh-cn": "适配器的设置 UI 已更改( 谢谢 **oweitman** \n翻译调整"
       },
       "0.0.1-alpha.9": {
-        "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
-        "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
-        "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
-        "pt": "Unterstützung für Batterie-Verbraucher erweitert\nBaterie-Verzögerung eingebaut («bateriaDelaySeconds»)\nProzentregelung verbossert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet e gemacht robusto\nNeue Objektstruktur je Verbraucher mit ` control Modo, etc.\nReadme mudou",
-        "nl": "Unterstützung für Batterie-Verbraucher erweitert\nBatterij-Verzögerung eingebaut\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \nSteuerlogik überarbeitet und robust gegeven\nNeue Objektstruktur je Verbraucher mit  Modus ...\nLezen gewijzigd",
-        "fr": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («batterieDelaySecond»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit-\nSteuerlogik überarbeitet und gemacht robuste\nNeue Objektstruktur je Verbraucher avec `control Mode` etc.\nLecture modifiée",
-        "it": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementatore\nSteuerlogik überarbeitet und robusto gioiello\nNeue Objektstruktur je Verbraucher mit `control Modalità, ecc.\nReadme è cambiato",
-        "es": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robusta gemacht\nNeue Objektstruktur je Verbraucher mit `control Modo, etc.\nEl texto cambió",
-        "pl": "Unterstützung für Batterie- Verbraucher erweitert\nBatterie- Verzögerung eingebaut (\"batteryDelaySeconds\")\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + \"Nur zu Ausschaltzeit\" implementiert\nSteuerlogik überarbeitet und solidny gemacht\nNeue Objektstruktur je Verbraucher mit 'control Tryb \"itp.\nReadme się zmienił",
-        "uk": "Unterstützung für Batterie-Verbraucher erweitert\nБеттері-Верзьогернг eingebaut (`batteryDelaySeconds`)\nProzentregelung дієсловесерт (sanfte Rückregelung)\nЗейтфенстер + \"Nur zu Ausschaltzeit\"\nSteuerlogik überarbeitet und надійний gemacht\nНей Objektstruktur je Verbraucher mit `control Режими і т.д.\nЗмінено",
-        "zh-cn": "(原始内容存档于2018-09-26). Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut(`Battery Delayseconds ' ) \" ( \" 电池Delayseconds \" )\nProzentregelung 动词(sanfte Rückregelung)\nZeitfenster + “ Nur Ausschaltzeit” 执行者\nSteuerlogik überarbeitet 坚固的宝石\n\" 控制 \" 组织 模式等.\n读取器已更改"
-      },
-      "0.0.1-alpha.8": {
         "en": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `controlMode` etc.\nReadme changed",
         "de": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut (`batteryDelaySeconds`)\n(sanfte Rückregelung)\nZeitfenster + „Nur zu Ausschaltzeit“ implementiert\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit `control Mode ` etc.\nReader geändert",
         "ru": "Unterstützung für Batterie-Verbraucher erweitert\nBatterie-Verzögerung eingebaut («батарея задерживается»)\nProzentregelung verbessert (sanfte Rückregelung)\nZeitfenster + «Nur zu Ausschaltzeit»\nSteuerlogik überarbeitet und robust gemacht\nNeue Objektstruktur je Verbraucher mit 'control Режим и т.д.\nReadme изменился",
