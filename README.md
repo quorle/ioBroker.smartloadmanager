@@ -146,9 +146,9 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 
 - PV-Prognosebasierte Steuerung (Beta)
 - Unterstützung kombinierter Verbraucher
-- Priorisierungs-Profile
+- ~~Priorisierungs-Profile~~
 - Überhitzungs- oder Fehler-Handling je Gerät
-- Minimal- und Maximal-Prozentlimits für Regelung
+- ~~Minimal- und Maximal-Prozentlimits für Regelung~~
 - Konfigurierbare Gruppen- oder Raumlogik
 
 ---
@@ -159,6 +159,12 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (quorle) code changed
+- (quorle) Notification added
+
 ### 0.0.1-alpha.13 (2025-08-01)
 
 - (quorle) code changed

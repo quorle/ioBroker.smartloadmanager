@@ -334,7 +334,6 @@ class ZeroFeedIn extends utils.Adapter {
             const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
 
             let feedIn = Number(feedInState?.val) || 0;
-
             if (this.config.feedinNegativ) {
                 feedIn = -feedIn;
             }
@@ -357,21 +356,19 @@ class ZeroFeedIn extends utils.Adapter {
 
                 const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
 
-                // Einschalten ist nur erlaubt, wenn im Zeitfenster
                 if (!withinWindow) {
                     this.log.debug(`⏳ ${v.name} wird nicht eingeschaltet – außerhalb Zeitfenster`);
                     await this.switchConsumerWithDelay(v, false);
                     continue;
                 }
 
-                // Wenn Netzbezug, nicht einschalten – außer alwaysOffAtTime ist aktiv
-                if (gridUsage && !v.alwaysOffAtTime) {
+                // Einschalten nur bei Überschuss, niemals bei Netzbezug
+                if (gridUsage) {
                     this.log.debug(`🚫 ${v.name} wird nicht eingeschaltet – Netzbezug aktiv`);
                     await this.switchConsumerWithDelay(v, false);
                     continue;
                 }
 
-                // Prüfen, ob genug Überschuss da ist
                 if (v.performance <= feedIn - baseload) {
                     this.log.debug(
                         `✅ ${v.name} wird eingeschaltet – Überschuss reicht (${feedIn - baseload}W ≥ ${v.performance}W)`,
@@ -379,7 +376,6 @@ class ZeroFeedIn extends utils.Adapter {
                     await this.switchConsumerWithDelay(v, true);
                     feedIn -= v.performance;
                 } else {
-                    // Wenn nicht genug Überschuss – nur abschalten, wenn alwaysOffAtTime nicht aktiv ist
                     if (!v.alwaysOffAtTime) {
                         this.log.debug(`⚠️ ${v.name} wird ausgeschaltet – nicht genug Überschuss`);
                         await this.switchConsumerWithDelay(v, false);
@@ -389,30 +385,41 @@ class ZeroFeedIn extends utils.Adapter {
                 }
             }
 
-            // Abschalten: absteigend nach Priorität (binary)
+            // Ausschalten: absteigend nach Priorität (binary)
             const sortedOff = [...this.consumerList]
                 .filter(v => v.ruletype === 'binary')
                 .sort((a, b) => (b.priority || 1) - (a.priority || 1));
 
             for (const v of sortedOff) {
-                const mode = await this.getStateAsync(
-                    `${this.namespace}.consumer.${this.consumerList.indexOf(v)}_${v.name.replace(/\s+/g, '_')}.controlMode`,
-                );
+                const idx = this.consumerList.indexOf(v);
+                const id = `${this.namespace}.consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
+                const mode = await this.getStateAsync(`${id}.controlMode`);
+
                 if (mode && mode.val === 2) {
                     if (v.alwaysOffAtTime) {
-                        // Ausschalten nur über separate Prüfung zur switchOffTime
+                        // Ausschalten nur über separate Prüfung bei switchOffTime
+                        this.log.debug(
+                            `ℹ️ ${v.name} wird nur durch switchOffTime ausgeschaltet (alwaysOffAtTime aktiv)`,
+                        );
                         continue;
                     }
 
                     const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
 
-                    if (!withinWindow || gridUsage) {
+                    if (!withinWindow) {
+                        this.log.debug(`⏳ ${v.name} wird ausgeschaltet – Zeitfenster vorbei`);
+                        await this.switchConsumerWithDelay(v, false);
+                        continue;
+                    }
+
+                    if (gridUsage) {
+                        this.log.debug(`🚫 ${v.name} wird ausgeschaltet – Netzbezug aktiv`);
                         await this.switchConsumerWithDelay(v, false);
                     }
                 }
             }
 
-            // Batterie Verbraucher steuern
+            // Batterie-Verbraucher steuern
             for (const v of this.consumerList.filter(c => c.ruletype === 'battery')) {
                 await this.controlBattery(v, feedIn);
             }
@@ -442,25 +449,19 @@ class ZeroFeedIn extends utils.Adapter {
 
     async controlPercentConsumer(v) {
         try {
-            if (!this.feedInDatapoint) {
-                this.log.warn(`[${v.name}] ❗ Kein FeedIn-Datenpunkt gesetzt – Prozentregelung wird übersprungen.`);
-                return;
-            }
-            if (!v.datapoint) {
-                this.log.warn(
-                    `[${v.name}] ❗ Kein Ziel-Datenpunkt für Prozentregelung konfiguriert – wird übersprungen.`,
-                );
-                return;
-            }
-
-            const withinWindow = this.timeWithinWindow(v.switchOnTime || '', v.switchOffTime || '');
+            const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
             if (!withinWindow) {
-                this.log.debug(`[${v.name}] Außerhalb des Zeitfensters – wird auf 0 % gesetzt.`);
+                this.log.debug(`[Percent] ${v.name} außerhalb Zeitfenster – auf 0% setzen`);
                 await this.setForeignStateAsync(v.datapoint, 0);
                 return;
             }
 
+            if (!this.feedInDatapoint) {
+                this.log.error('❌ feedInDatapoint ist nicht gesetzt!');
+                return;
+            }
             const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
+
             const feedInValue = Number(feedInState?.val) || 0;
 
             let surplus = this.config.feedinNegativ
@@ -484,43 +485,40 @@ class ZeroFeedIn extends utils.Adapter {
             const currentPercent = Number(state?.val) || 0;
 
             if (newPercent !== currentPercent) {
-                this.log.debug(`[${v.name}] Prozent wird geändert: ${currentPercent} % → ${newPercent} %`);
                 await this.setForeignStateAsync(v.datapoint, newPercent);
+                this.log.info(`🔁 ${v.name} wurde auf ${newPercent}% geregelt`);
+
+                if (this.config.notifyPercent) {
+                    await this.sendNotification(`${v.name} wurde auf ${newPercent}% geregelt`);
+                }
+            } else {
+                this.log.debug(`[Percent] ${v.name} bleibt bei ${currentPercent}%`);
             }
         } catch (error) {
-            this.log.error(`❌ [${v.name}] Fehler in controlPercentConsumer: ${error.message}`);
+            this.log.error(`❌ Fehler in controlPercentConsumer: ${error.message}`);
         }
     }
 
     async controlBattery(v, feedIn) {
         try {
-            this.log.debug(`[Battery] Checking ${v.name}`);
+            this.log.debug(`[Battery] Prüfung für ${v.name}`);
 
             const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
             if (!withinWindow) {
-                this.log.debug(`[Battery] Outside time window -> Set 0`);
+                this.log.debug(`[Battery] ${v.name} außerhalb Zeitfenster – auf 0`);
                 if (v.batterySetpoint) {
-                    await this.setForeignStateAsync(v.batterySetpoint, {
-                        val: 0,
-                        ack: true,
-                    });
+                    await this.setForeignStateAsync(v.batterySetpoint, { val: 0, ack: true });
                 }
                 if (v.batteryControlModeDatapoint) {
-                    await this.setForeignStateAsync(v.batteryControlModeDatapoint, {
-                        val: 0,
-                        ack: true,
-                    });
+                    await this.setForeignStateAsync(v.batteryControlModeDatapoint, { val: 0, ack: true });
                 }
                 return;
             }
 
             if (!v.batterySetpoint) {
-                this.log.warn(`[Battery] ${v.name} has no batterySetpoint configured.`);
+                this.log.warn(`[Battery] ${v.name} hat keinen batterySetpoint`);
                 if (v.batteryControlModeDatapoint) {
-                    await this.setForeignStateAsync(v.batteryControlModeDatapoint, {
-                        val: 0,
-                        ack: true,
-                    });
+                    await this.setForeignStateAsync(v.batteryControlModeDatapoint, { val: 0, ack: true });
                 }
                 return;
             }
@@ -533,78 +531,123 @@ class ZeroFeedIn extends utils.Adapter {
                 soc = Number(socState?.val);
                 targetSoc = Number(targetSocState?.val);
                 if (isNaN(soc) || isNaN(targetSoc)) {
-                    this.log.warn(`[Battery] ${v.name}: invalid SOC or targetSOC.`);
+                    this.log.warn(`[Battery] ${v.name}: Ungültiger SOC oder targetSOC`);
                     soc = null;
                     targetSoc = null;
                 }
             }
 
-            const feedInAdjusted = this.config.feedinNegativ ? -feedIn : feedIn;
-            const surplus = feedInAdjusted - (this.config.baseload || 0);
-
+            const surplus = (this.config.feedinNegativ ? -feedIn : feedIn) - (this.config.baseload || 0);
             let powerToSet = 0;
-            let modeToSet = 0; // Default: Aus
+            let modeToSet = 0;
 
             if (surplus <= 0) {
                 powerToSet = 0;
-                modeToSet = 0; // Aus
+                modeToSet = 0;
             } else if (soc !== null && targetSoc !== null && soc >= targetSoc) {
                 powerToSet = 0;
-                modeToSet = 1; // Manuell (geladen)
+                modeToSet = 1;
             } else {
                 powerToSet = Math.min(surplus, v.performance || 1000);
-                modeToSet = 2; // Automatik
+                modeToSet = 2;
             }
 
-            await this.setForeignStateAsync(v.batterySetpoint, {
-                val: powerToSet,
-                ack: true,
-            });
+            const oldPower = Number((await this.getForeignStateAsync(v.batterySetpoint))?.val) || 0;
+            const oldMode = v.batteryControlModeDatapoint
+                ? Number((await this.getForeignStateAsync(v.batteryControlModeDatapoint))?.val) || 0
+                : -1;
 
-            if (v.batteryControlModeDatapoint) {
-                try {
-                    await this.setForeignStateAsync(v.batteryControlModeDatapoint, {
-                        val: modeToSet,
-                        ack: true,
-                    });
-                    this.log.debug(`[Battery] Set ${v.name} batteryControlModeDatapoint to mode ${modeToSet}`);
-                } catch (e) {
-                    this.log.error(`[Battery] Failed to set batteryControlModeDatapoint for ${v.name}: ${e.message}`);
+            if (powerToSet !== oldPower) {
+                await this.setForeignStateAsync(v.batterySetpoint, { val: powerToSet, ack: true });
+                this.log.info(`🔁 Batterie ${v.name}: Ladeleistung auf ${powerToSet}W gesetzt`);
+                if (this.config.notifyBattery) {
+                    await this.sendNotification(`Batterie ${v.name}: Ladeleistung auf ${powerToSet}W gesetzt`);
+                }
+            } else {
+                this.log.debug(`[Battery] ${v.name} Ladeleistung bleibt bei ${oldPower}W`);
+            }
+
+            if (v.batteryControlModeDatapoint && modeToSet !== oldMode) {
+                await this.setForeignStateAsync(v.batteryControlModeDatapoint, { val: modeToSet, ack: true });
+                this.log.debug(`[Battery] ${v.name} Modus geändert: ${oldMode} → ${modeToSet}`);
+                if (this.config.notifyBattery) {
+                    await this.sendNotification(`Batterie ${v.name}: Modus geändert auf ${modeToSet}`);
                 }
             }
-
-            this.log.debug(`[Battery] Set power ${powerToSet}W and mode ${modeToSet}`);
         } catch (error) {
-            this.log.error(`[Battery] Error for ${v.name}: ${error.message}`);
+            this.log.error(`[Battery] Fehler für ${v.name}: ${error.message}`);
         }
     }
 
     async switchConsumerWithDelay(v, turnOn) {
         if (v.processingLockSwitch) {
+            this.log.debug(`[Delay] ${v.name} ist gerade in Bearbeitung – Abbruch`);
             return;
         }
         v.processingLockSwitch = true;
 
         try {
             if (!v.datapoint) {
-                this.log.warn(`No datapoint for consumer ${v.name}`);
+                this.log.warn(`⚠️ Kein Datenpunkt für Verbraucher ${v.name}`);
                 return;
             }
 
             const currentState = await this.getForeignStateAsync(v.datapoint);
             const isOn = currentState?.val === true || currentState?.val === 1;
 
-            if (turnOn && !isOn) {
-                this.log.info(`Switching ON consumer ${v.name}`);
-                await this.setForeignStateAsync(v.datapoint, true);
-            } else if (!turnOn && isOn) {
-                this.log.info(`Switching OFF consumer ${v.name}`);
-                await this.setForeignStateAsync(v.datapoint, false);
+            if (turnOn === isOn) {
+                this.log.debug(`[Skip] ${v.name} ist bereits im gewünschten Zustand (${isOn ? 'ein' : 'aus'})`);
+                return;
+            }
+
+            this.log.debug(
+                `[Decision] ${v.name} soll ${turnOn ? 'EINgeschaltet' : 'AUSgeschaltet'} werden (Delay: ${this.config.delaySeconds || 0}s)`,
+            );
+
+            const delay = (this.config.delaySeconds || 0) * 1000;
+            await this.sleep(delay);
+
+            await this.setForeignStateAsync(v.datapoint, turnOn);
+            this.log.info(`🔁 ${v.name} wurde ${turnOn ? 'EIN' : 'AUS'}geschaltet`);
+
+            // Benachrichtigung nur wenn notifyBinary true
+            if (this.config.notifyBinary) {
+                await this.sendNotification(`${v.name} wurde ${turnOn ? 'eingeschaltet' : 'ausgeschaltet'}`);
             }
         } catch (error) {
-            this.log.error(`Error switching consumer ${v.name}: ${error.message}`);
+            this.log.error(`❌ Fehler beim Schalten von ${v.name}: ${error.message}`);
         } finally {
             v.processingLockSwitch = false;
+        }
+    }
+
+    async sendNotification(message) {
+        try {
+            const telegramInstance = this.config.telegramInstance?.trim();
+            const gotifyInstance = this.config.gotifyInstance?.trim();
+
+            if (!telegramInstance && !gotifyInstance) {
+                this.log.debug(`📭 Keine Instanz für Benachrichtigungen konfiguriert`);
+                return;
+            }
+
+            if (telegramInstance) {
+                await this.sendToAsync(telegramInstance, {
+                    text: message,
+                });
+                this.log.debug(`📨 Telegram: ${message}`);
+            }
+
+            if (gotifyInstance) {
+                await this.sendToAsync(gotifyInstance, {
+                    message: message,
+                    title: 'smartloadmanager',
+                    priority: 5,
+                });
+                this.log.debug(`📨 Gotify: ${message}`);
+            }
+        } catch (e) {
+            this.log.warn(`❗ Fehler beim Senden der Benachrichtigung: ${e.message}`);
         }
     }
 
@@ -658,6 +701,10 @@ class ZeroFeedIn extends utils.Adapter {
 	}
 
 */
+
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     async onUnload(callback) {
         try {
