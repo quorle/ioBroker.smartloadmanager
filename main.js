@@ -350,7 +350,10 @@ class ZeroFeedIn extends utils.Adapter {
                 const idx = this.consumerList.indexOf(v);
                 const id = `${this.namespace}.consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
                 const mode = await this.getStateAsync(`${id}.controlMode`);
+
+                // Nur Automatik (2) wird gesteuert
                 if (!mode || mode.val !== 2) {
+                    this.log.debug(`⏭️ ${v.name} wird übersprungen – manueller Modus aktiv`);
                     continue;
                 }
 
@@ -395,27 +398,29 @@ class ZeroFeedIn extends utils.Adapter {
                 const id = `${this.namespace}.consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
                 const mode = await this.getStateAsync(`${id}.controlMode`);
 
-                if (mode && mode.val === 2) {
-                    if (v.alwaysOffAtTime) {
-                        // Ausschalten nur über separate Prüfung bei switchOffTime
-                        this.log.debug(
-                            `ℹ️ ${v.name} wird nur durch switchOffTime ausgeschaltet (alwaysOffAtTime aktiv)`,
-                        );
-                        continue;
-                    }
+                // Nur Automatik (2) wird gesteuert
+                if (!mode || mode.val !== 2) {
+                    this.log.debug(`⏭️ ${v.name} bleibt unberührt – manueller Modus aktiv`);
+                    continue;
+                }
 
-                    const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
+                if (v.alwaysOffAtTime) {
+                    // Ausschalten nur über separate Prüfung bei switchOffTime
+                    this.log.debug(`ℹ️ ${v.name} wird nur durch switchOffTime ausgeschaltet (alwaysOffAtTime aktiv)`);
+                    continue;
+                }
 
-                    if (!withinWindow) {
-                        this.log.debug(`⏳ ${v.name} wird ausgeschaltet – Zeitfenster vorbei`);
-                        await this.switchConsumerWithDelay(v, false);
-                        continue;
-                    }
+                const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
 
-                    if (gridUsage) {
-                        this.log.debug(`🚫 ${v.name} wird ausgeschaltet – Netzbezug aktiv`);
-                        await this.switchConsumerWithDelay(v, false);
-                    }
+                if (!withinWindow) {
+                    this.log.debug(`⏳ ${v.name} wird ausgeschaltet – Zeitfenster vorbei`);
+                    await this.switchConsumerWithDelay(v, false);
+                    continue;
+                }
+
+                if (gridUsage) {
+                    this.log.debug(`🚫 ${v.name} wird ausgeschaltet – Netzbezug aktiv`);
+                    await this.switchConsumerWithDelay(v, false);
                 }
             }
 
