@@ -33,6 +33,9 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 - ✅ Reihenfolgenlogik bei Zuschaltung (nach Leistung) und Abschaltung (umgekehrt)
 - ✅ Globaler Batterie-Schaltverzögerungsparameter (`batteryDelaySeconds`)
 - ✅ Schreibprüfung für Batterie-Kontrollmodus (Debug-Ausgabe im Log)
+- ✅ **Verzögerte Schaltung über Timer** für Ein- und Ausschaltung
+- ✅ **Anzeige laufender Timer im Debug-Log** mit verbleibender Zeit
+- ✅ Optionale **Benachrichtigungen** für Ein/Aus, Prozentregelung und Batterie (Telegram / Gotify)
 
 ---
 
@@ -51,6 +54,7 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 | **Verzögerung Batterie (Sek.)** | Globale Verzögerung für Batterie-Steuerung                                   |
 | **Einspeisewert negativ**       | Wenn aktiv: negativer Wert = Einspeisung / positiver Wert = Netzbezug        |
 | **Batterie Kontrollmodus-DP**   | Optionaler Steuerdatenpunkt für Batterie-Modusumschaltung (Auto/Manual/Aus)  |
+| **Benachrichtigungen**          | Aktivierung für Binary / Prozent / Batterie, inkl. Telegram/Gotify-Instanzen |
 
 ---
 
@@ -84,6 +88,7 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
     - `0 = Aus`, `1 = Manuell`, `2 = Automatik`
 - Die Steuerung erfolgt **nur innerhalb der konfigurierten Zeitfenster**.
 - Die Steuerung wird bei jedem FeedIn-Update nach konfigurierter Verzögerung (`batteryDelaySeconds`) erneut ausgeführt.
+- Verzögerungen für alle Schaltungen (binary, percent, battery) können pro Verbraucher oder global angepasst werden.
 
 ---
 
@@ -96,13 +101,16 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
    → Verbraucher werden in umgekehrter Reihenfolge abgeschaltet
 4. **Regelung für Prozent-Verbraucher**:  
    → % = Überschuss / Maximalleistung  
-   → Geregelt nach Verzögerung
+   → Geregelt nach Verzögerung und optionalem Verbraucher-Override
 5. **Regelung für Batterie-Verbraucher**:  
    → Ladeleistung = min(Überschuss, Maximalleistung), sofern Ziel-SOC nicht erreicht
 6. **Zeitfensterprüfung für alle Verbraucher**  
    → Nur aktiv, wenn aktuelle Uhrzeit innerhalb `switchOnTime` bis `switchOffTime`
 7. **Steuerung erfolgt nur bei Steuerungsmodus „Auto (2)“**  
    → Manuelle Eingriffe (Modus 1 oder 0) bleiben unangetastet
+8. **Verzögerte Schaltung über Timer**  
+   → Timer wird vor erneuter Schaltung abgebrochen, Restzeit kann im Log angezeigt werden
+9. **Benachrichtigungen optional für Ein/Aus, Prozent und Batterie**
 
 ---
 
@@ -130,6 +138,8 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - `.alwaysOffAtTime` → true/false
 - `.performance`, `.switchOnPoint`, `.switchOffPoint`
 - `.batterySetpoint` (nur für "battery")
+- `.timer` → interner Timer für verzögerte Schaltungen
+- `.timerEnd` → Zeitstempel, wann Timer abläuft (für Log)
 
 ---
 
@@ -159,6 +169,16 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (quorle) code changed
+- (quorle) Logging optimized
+- (quorle) Switch to Notification Manager for notifications
+- (quorle) Delay´s changed to per consumer
+- (quorle) Added second selection data point for 0/1 output (ISSU #15)
+- (quorle) Readme changed
+
 ### 0.0.1-alpha.15 (2025-08-17)
 
 - (quorle) code changed

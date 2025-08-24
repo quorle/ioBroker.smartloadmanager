@@ -37,7 +37,8 @@
                     "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6
+                    "lg": 6,
+                    "xl": 6
                 },
                 "baseload": {
                     "type": "number",
@@ -60,7 +61,8 @@
                     "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6
+                    "lg": 6,
+                    "xl": 6
                 },
                 "feedinNegativ": {
                     "type": "checkbox",
@@ -77,168 +79,21 @@
                         "uk": "Подача негативного значення",
                         "zh-cn": "种子输入值负数"
                     },
-                    "default": false
-                },
-                "delaySeconds": {
-                    "type": "number",
-                    "label": {
-                        "en": "Delay between switching operations (seconds)",
-                        "de": "Verzögerung zwischen Schaltungen (Sekunden)",
-                        "ru": "Задержка между операциями переключения (секунды)",
-                        "pt": "Atraso entre as operações de comutação (segundos)",
-                        "nl": "Vertraging tussen schakeloperaties (seconden)",
-                        "fr": "Délai entre les opérations de commutation (secondes)",
-                        "it": "Ritardo tra operazioni di commutazione (secondi)",
-                        "es": "Dilatación entre operaciones de conmutación (segundos)",
-                        "pl": "Opóźnienie między operacjami przełączania (sekundy)",
-                        "uk": "Прокладання між операціями перемикання (секунди)",
-                        "zh-cn": "切换操作之间的延迟( 秒)"
-                    },
-                    "default": 60,
-                    "min": 10,
-                    "max": 600,
+                    "default": false,
                     "xs": 12,
                     "sm": 12,
-                    "md": 6,
-                    "lg": 6
-                },
-                "delaySecondsProzent": {
-                    "type": "number",
-                    "label": {
-                        "en": "Delay between switchings (seconds) for percentage control",
-                        "de": "Verzögerung zwischen Schaltungen (Sekunden) für Prozentregelung",
-                        "ru": "Задержка между переключениями (секундами) для процентного контроля",
-                        "pt": "Atraso entre comutações (segundos) para controlo percentual",
-                        "nl": "Vertraging tussen schakels (seconden) voor percentageregeling",
-                        "fr": "Retard entre les commutations (secondes) pour le contrôle en pourcentage",
-                        "it": "Ritardo tra interruttori (secondi) per controllo percentuale",
-                        "es": "Dilatación entre conmutaciones (segundos) para control porcentual",
-                        "pl": "Opóźnienie pomiędzy połączeniami (sekundami) dla regulacji procentowej",
-                        "uk": "Прокладання між комутаторами (секундами) для контролю відсотка",
-                        "zh-cn": "百分比控制切换( 秒) 之间的延迟"
-                    },
-                    "default": 60,
-                    "min": 10,
-                    "max": 600,
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6
-                },
-                "batteryDelaySeconds": {
-                    "type": "number",
-                    "label": {
-                        "en": "Delay between switching (seconds) for battery management",
-                        "de": "Verzögerung zwischen Schaltungen (Sekunden) für Batteriemanagement",
-                        "ru": "Задержка между переключением (секундами) для управления аккумулятором",
-                        "pt": "Atraso entre comutação (segundos) para gerenciamento de bateria",
-                        "nl": "Vertraging tussen schakelen (seconden) voor batterijbeheer",
-                        "fr": "Délai entre la commutation (secondes) pour la gestion de la batterie",
-                        "it": "Ritardo tra commutazione (secondi) per la gestione della batteria",
-                        "es": "Dilatación entre conmutación (segundos) para la gestión de baterías",
-                        "pl": "Opóźnienie pomiędzy przełączaniem (sekundami) dla zarządzania baterią",
-                        "uk": "Прокладка між комутації (секунди) для управління акумуляторами",
-                        "zh-cn": "电池管理切换( 秒) 之间的延迟"
-                    },
-                    "default": 60,
-                    "min": 10,
-                    "max": 600,
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 6,
-                    "lg": 6
-                },
-                "gotifyInstance": {
-                    "newLine": true,
-                    "type": "instance",
-                    "adapter": "gotify",
-                    "default": "",
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 4,
-                    "lg": 4,
-                    "xl": 4,
-                    "label": {
-                        "en": "Gotify adapter instance",
-                        "de": "Gotify Adapter-Instanz",
-                        "ru": "Gotify адаптерный экземпляр",
-                        "pt": "Exemplo do adaptador de gotify",
-                        "nl": "Adapter-initiatie verkrijgen",
-                        "fr": "Instance de l'adaptateur Gatify",
-                        "it": "Registrazione dell'adattatore",
-                        "es": "Gotify adapter instance",
-                        "pl": "Przykład adaptera Gotify",
-                        "uk": "Параметри адаптера",
-                        "zh-cn": "Gotify 适配器实例"
-                    }
-                },
-                "telegramInstance": {
-                    "type": "instance",
-                    "adapter": "telegram",
-                    "default": "telegram.0",
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 4,
-                    "lg": 4,
-                    "xl": 4,
-                    "label": {
-                        "en": "Telegram adapter instance",
-                        "de": "Telegramm Adapter Instanz",
-                        "ru": "Адаптер Telegram экземпляр",
-                        "pt": "Instância do adaptador de telegrama",
-                        "nl": "Telegramadapter instantie",
-                        "fr": "Instance de l'adaptateur de télégramme",
-                        "it": "Esempio di adattatore",
-                        "es": "Telegram adapter instance",
-                        "pl": "Przykład adaptera Telegram",
-                        "uk": "Приклад адаптера Telegram",
-                        "zh-cn": "电报适配器实例"
-                    }
-                },
-                "telegramUser": {
-                    "type": "select",
-                    "default": "",
-                    "options": [{ "label": "Keine Auswahl", "value": "" }],
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 4,
-                    "lg": 4,
-                    "xl": 4,
-                    "label": {
-                        "en": "Telegram user (optional)",
-                        "de": "Telegram Benutzer (optional)",
-                        "ru": "Пользователь Telegram (опционально)",
-                        "pt": "Usuário de telegrama (opcional)",
-                        "nl": "Telegramgebruiker (facultatief)",
-                        "fr": "Utilisateur du télégramme (facultatif)",
-                        "it": "Telegramma utente (opzionale)",
-                        "es": "Usuario de telegramas (opcional)",
-                        "pl": "Użytkownik telegram (opcjonalnie)",
-                        "uk": "Телеграма користувача (за бажанням)",
-                        "zh-cn": "电报用户( 可选)"
-                    },
-                    "help": {
-                        "en": "Optional: Select Telegram target user",
-                        "de": "Optional: Wählen Sie Telegram-Zielbenutzer",
-                        "ru": "Выберите целевого пользователя Telegram",
-                        "pt": "Opcional: Selecione o usuário alvo do Telegram",
-                        "nl": "Optioneel: Selecteer de doelgebruiker van Telegram",
-                        "fr": "Optionnel : Sélectionner l'utilisateur cible de Télégramme",
-                        "it": "Opzionale: Selezionare l'utente di destinazione Telegram",
-                        "es": "Opcional: Seleccione el usuario objetivo de Telegram",
-                        "pl": "Opcjonalnie: Wybierz użytkownika docelowego Telegram",
-                        "uk": "Додатково: Виберіть цільовий користувач Telegram",
-                        "zh-cn": "可选: 选择Telegram目标用户"
-                    }
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
                 },
                 "notifyBinary": {
                     "type": "checkbox",
                     "default": false,
                     "xs": 12,
                     "sm": 12,
-                    "md": 4,
-                    "lg": 4,
-                    "xl": 4,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
                     "label": {
                         "en": "Enable notifications for binary circuits",
                         "de": "Benachrichtigungen für binäre Schaltungen aktivieren",
@@ -258,9 +113,9 @@
                     "default": false,
                     "xs": 12,
                     "sm": 12,
-                    "md": 4,
-                    "lg": 4,
-                    "xl": 4,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
                     "label": {
                         "en": "Enable notifications for percentage changes",
                         "de": "Benachrichtigungen für prozentuale Änderungen aktivieren",
@@ -280,9 +135,9 @@
                     "default": false,
                     "xs": 12,
                     "sm": 12,
-                    "md": 4,
-                    "lg": 4,
-                    "xl": 4,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
                     "label": {
                         "en": "Enable notifications for battery changes",
                         "de": "Benachrichtigungen für Batterieänderungen aktivieren",
@@ -394,7 +249,7 @@
                             "attr": "datapoint",
                             "title": {
                                 "en": "--> Control",
-                                "de": "--> Steuerung",
+                                "de": "--> Boolischer Steuerdatenpunkt",
                                 "ru": "--> Контроль",
                                 "pt": "--> Controlo",
                                 "nl": "--> Controle",
@@ -404,7 +259,26 @@
                                 "pl": "--> Kontrola",
                                 "uk": "--> Контроль",
                                 "zh-cn": "--> 说明 控件"
-                            }
+                            },
+                            "tooltip": "Steuerdatenpunkt (Ausgabe false/true) z.B.: 0_userdata.0.Remote.Poolpumpe_Set_State"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "numericDatapoint",
+                            "title": {
+                                "en": "--> Numerical control",
+                                "de": "--> Numerische Steuerdatenpunk",
+                                "ru": "--> Численный контроль",
+                                "pt": "--> Controlo numérico",
+                                "nl": "--> Numerieke controle",
+                                "fr": "--> Contrôle numérique",
+                                "it": "--> Controllo numerico",
+                                "es": "--> Control numérico",
+                                "pl": "--> Kontrola numeryczna",
+                                "uk": "--> Чисельний контроль",
+                                "zh-cn": "数字控制"
+                            },
+                            "tooltip": "Numerischer Steuerdatenpunkt (Ausgabe 0=false, 1=true)"
                         },
                         {
                             "type": "objectId",
@@ -513,6 +387,7 @@
                                 "uk": "Switch-on (ват)",
                                 "zh-cn": "开关(瓦特)"
                             },
+                            "tooltip": "Ab welcher Leistung soll eingeschaltet werden",
                             "min": 1
                         },
                         {
@@ -531,6 +406,7 @@
                                 "uk": "Відключення (ват)",
                                 "zh-cn": "关闭(瓦)"
                             },
+                            "tooltip": "Ab welcher Leistung soll abgeschaltet werden",
                             "min": 0
                         },
                         {
@@ -678,6 +554,46 @@
                                 "zh-cn": "关闭时间( HH: MM)"
                             },
                             "default": ""
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOnDelay",
+                            "title": {
+                                "en": "Delay for switching on",
+                                "de": "Verzögerung beim Einschalten",
+                                "ru": "Задержка включения",
+                                "pt": "Atraso para ligar",
+                                "nl": "Vertraging bij inschakelen",
+                                "fr": "Retard de mise en marche",
+                                "it": "Delay per l'accensione",
+                                "es": "Delay para encender",
+                                "pl": "Opóźnienie włączenia",
+                                "uk": "Прокладка для перемикання на",
+                                "zh-cn": "打开延迟"
+                            },
+                            "tooltip": "Verzögerung für das Einschalten in Sekunden",
+                            "min": 0,
+                            "default": 20
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOffDelay",
+                            "title": {
+                                "en": "Delay for switching off",
+                                "de": "Verzögerung beim Ausschalten",
+                                "ru": "Задержка для выключения",
+                                "pt": "Atraso para desligar",
+                                "nl": "Vertraging bij uitschakelen",
+                                "fr": "Retard pour l'arrêt",
+                                "it": "Ritardo per spegnimento",
+                                "es": "Delay para apagar",
+                                "pl": "Opóźnienie wyłączenia",
+                                "uk": "Прокладка для вимкнення",
+                                "zh-cn": "关闭延迟"
+                            },
+                            "tooltip": "Verzögerung für das Ausschalten in Sekunden",
+                            "min": 0,
+                            "default": 20
                         },
                         {
                             "type": "checkbox",
