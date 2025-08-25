@@ -22,11 +22,14 @@ class ZeroFeedIn extends utils.Adapter {
 
     async onReady() {
         try {
-            this.log.info(`=== Adapter started - PID: ${process.pid} ===`);
+            this.log.info(`=== Adapter gestartet - PID: ${process.pid} ===`);
+            await this.sendNotification('Adapter smartloadmanager gestartet.', {
+                title: 'Adapterstart',
+                type: 'notify',
+            });
 
             if (!this.config.FeedInDataPoint) {
                 this.log.error('No FeedInDataPoint configured!');
-                // zusätzlich als alert melden
                 await this.sendNotification('Kein FeedInDataPoint konfiguriert!', {
                     title: 'Startfehler',
                     type: 'alert',
@@ -40,10 +43,7 @@ class ZeroFeedIn extends utils.Adapter {
 
             this.consumerList = Array.isArray(this.config.consumer)
                 ? this.config.consumer.filter(
-                      v =>
-                          v &&
-                          v.enabled &&
-                          (v.ruletype === 'battery' || ((v.datapoint || v.numericDatapoint) && v.performance > 0)),
+                      v => v && v.enabled && (v.ruletype === 'battery' || (v.datapoint && v.performance > 0)),
                   )
                 : [];
 
@@ -63,7 +63,6 @@ class ZeroFeedIn extends utils.Adapter {
             await this.checkConsumers();
         } catch (error) {
             this.log.error(`Error in onReady: ${error.message}`);
-            // Fehler zusätzlich als alert melden
             await this.sendNotification(`Fehler in onReady: ${error.message}`, {
                 title: 'Adapterfehler',
                 type: 'alert',
@@ -77,12 +76,20 @@ class ZeroFeedIn extends utils.Adapter {
                 const obj = await this.getForeignObjectAsync(v.datapoint);
                 if (!obj) {
                     this.log.warn(`Consumer datapoint ${v.datapoint} does not exist!`);
+                    await this.sendNotification(
+                        `Datenpunkt für Verbraucher "${v.name}" existiert nicht: ${v.datapoint}`,
+                        { title: 'Fehlender Datenpunkt', type: 'alert' },
+                    );
                 }
             }
             if (v.numericDatapoint) {
                 const objNum = await this.getForeignObjectAsync(v.numericDatapoint);
                 if (!objNum) {
                     this.log.warn(`Consumer numericDatapoint ${v.numericDatapoint} does not exist!`);
+                    await this.sendNotification(
+                        `Numeric-Datenpunkt für Verbraucher "${v.name}" existiert nicht: ${v.numericDatapoint}`,
+                        { title: 'Fehlender Datenpunkt', type: 'alert' },
+                    );
                 }
             }
         }
@@ -260,68 +267,83 @@ class ZeroFeedIn extends utils.Adapter {
     }
 
     async onStateChange(id, state) {
-        if (state && !state.ack) {
-            this.log.debug(`State changed: ${id} => ${state.val}`);
+        if (!state || state.ack) {
+            return;
+        }
 
-            const match = id.match(/consumer\.(\d+)_.*?\.controlMode/);
-            if (match) {
-                const index = parseInt(match[1]);
-                const mode = state.val;
-                const v = this.consumerList[index];
+        this.log.debug(`State changed: ${id} => ${state.val}`);
 
-                if (mode === 0) {
-                    await this.switchConsumerWithDelay(v, false);
-                } else if (mode === 1) {
-                    await this.switchConsumerWithDelay(v, true);
-                }
+        // === controlMode ändern ===
+        const match = id.match(/consumer\.(\d+)_.*?\.controlMode/);
+        if (match) {
+            const index = parseInt(match[1]);
+            const mode = state.val;
+            const v = this.consumerList[index];
+
+            if (mode === 0) {
+                await this.switchConsumerWithDelay(v, false);
+            } else if (mode === 1) {
+                await this.switchConsumerWithDelay(v, true);
             }
 
-            const timeMatch = id.match(/consumer\.(\d+)_.*?\.(switchOnTime|switchOffTime)/);
-            if (timeMatch) {
-                const index = parseInt(timeMatch[1]);
-                const type = timeMatch[2];
-                this.consumerList[index][type] = state.val || '';
-                await this.checkConsumers();
-            }
-
-            if (id === this.feedInDatapoint) {
-                await this.checkConsumers();
-
-                if (this.percentTimer) {
-                    clearTimeout(this.percentTimer);
-                }
-                this.percentTimer = setTimeout(
-                    async () => {
-                        for (const v of this.consumerList.filter(v => v.ruletype === 'percent')) {
-                            await this.controlPercentConsumer(v);
-                        }
-                        this.percentTimer = null;
-                    },
-                    (this.config.delaySecondsProzent || 60) * 1000,
-                );
-
-                if (this.batteryTimer) {
-                    clearTimeout(this.batteryTimer);
-                }
-                this.batteryTimer = setTimeout(
-                    async () => {
-                        if (!this.feedInDatapoint) {
-                            return;
-                        }
-                        const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
-                        let feedIn = Number(feedInState?.val) || 0;
-                        if (this.config.feedinNegativ) {
-                            feedIn = -feedIn;
-                        }
-
-                        for (const v of this.consumerList.filter(v => v.ruletype === 'battery')) {
-                            await this.controlBattery(v, feedIn);
-                        }
-                        this.batteryTimer = null;
-                    },
-                    (this.config.batteryDelaySeconds || 60) * 1000,
+            // Notification für Binary-Verbraucher
+            if (v.ruletype === 'binary' && this.config.notifyBinary) {
+                await this.sendNotification(
+                    `${v.name} wurde ${mode === 0 ? 'ausgeschaltet' : 'eingeschaltet'} (Manueller Modus)`,
+                    { title: 'Verbraucher', type: 'notify' },
                 );
             }
+        }
+
+        // === Zeitfenster ändern ===
+        const timeMatch = id.match(/consumer\.(\d+)_.*?\.(switchOnTime|switchOffTime)/);
+        if (timeMatch) {
+            const index = parseInt(timeMatch[1]);
+            const type = timeMatch[2];
+            this.consumerList[index][type] = state.val || '';
+            await this.checkConsumers();
+        }
+
+        // === FeedIn Wert ===
+        if (id === this.feedInDatapoint) {
+            await this.checkConsumers();
+
+            // Prozent-Verbraucher
+            if (this.percentTimer) {
+                clearTimeout(this.percentTimer);
+            }
+            this.percentTimer = setTimeout(
+                async () => {
+                    for (const v of this.consumerList.filter(v => v.ruletype === 'percent')) {
+                        await this.controlPercentConsumer(v);
+                    }
+                    this.percentTimer = null;
+                },
+                (this.config.delaySecondsProzent || 60) * 1000,
+            );
+
+            // Batterie-Verbraucher
+            if (this.batteryTimer) {
+                clearTimeout(this.batteryTimer);
+            }
+            this.batteryTimer = setTimeout(
+                async () => {
+                    if (!this.feedInDatapoint) {
+                        return;
+                    }
+                    const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
+                    let feedIn = Number(feedInState?.val) || 0;
+                    if (this.config.feedinNegativ) {
+                        feedIn = -feedIn;
+                    }
+
+                    for (const v of this.consumerList.filter(v => v.ruletype === 'battery')) {
+                        await this.controlBattery(v, feedIn);
+                    }
+                    this.batteryTimer = null;
+                },
+                (this.config.batteryDelaySeconds || 60) * 1000,
+            );
         }
     }
 
@@ -511,9 +533,7 @@ class ZeroFeedIn extends utils.Adapter {
                 return;
             }
             const feedInState = await this.getForeignStateAsync(this.feedInDatapoint);
-
             const feedInValue = Number(feedInState?.val) || 0;
-
             let surplus = this.config.feedinNegativ
                 ? feedInValue < 0
                     ? -feedInValue
@@ -521,7 +541,6 @@ class ZeroFeedIn extends utils.Adapter {
                 : feedInValue > 0
                   ? feedInValue
                   : 0;
-
             surplus -= this.config.baseload || 0;
             if (surplus < 0) {
                 surplus = 0;
@@ -537,7 +556,6 @@ class ZeroFeedIn extends utils.Adapter {
             if (newPercent !== currentPercent) {
                 await this.setForeignStateAsync(v.datapoint, newPercent);
                 this.log.info(`🔁 ${v.name} wurde auf ${newPercent}% geregelt`);
-
                 if (this.config.notifyPercent) {
                     await this.sendNotification(`${v.name} wurde auf ${newPercent}% geregelt`, {
                         title: 'Prozentregelung',
@@ -559,7 +577,6 @@ class ZeroFeedIn extends utils.Adapter {
     async controlBattery(v, feedIn) {
         try {
             this.log.debug(`[Battery] Prüfung für ${v.name}`);
-
             const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
             if (!withinWindow) {
                 this.log.debug(`[Battery] ${v.name} außerhalb Zeitfenster – auf 0`);
@@ -574,6 +591,10 @@ class ZeroFeedIn extends utils.Adapter {
 
             if (!v.batterySetpoint) {
                 this.log.warn(`[Battery] ${v.name} hat keinen batterySetpoint`);
+                await this.sendNotification(`Batterie "${v.name}" hat keinen batterySetpoint konfiguriert!`, {
+                    title: 'Fehlender Datenpunkt',
+                    type: 'alert',
+                });
                 if (v.batteryControlModeDatapoint) {
                     await this.setForeignStateAsync(v.batteryControlModeDatapoint, { val: 0, ack: true });
                 }
@@ -623,8 +644,6 @@ class ZeroFeedIn extends utils.Adapter {
                         type: 'notify',
                     });
                 }
-            } else {
-                this.log.debug(`[Battery] ${v.name} Ladeleistung bleibt bei ${oldPower}W`);
             }
 
             if (this.batteryControlModeDatapoint && modeToSet !== oldMode) {
@@ -693,7 +712,6 @@ class ZeroFeedIn extends utils.Adapter {
             }
         };
 
-        // Vorherigen Timer abbrechen, wenn vorhanden
         if (consumer.timer) {
             clearTimeout(consumer.timer);
             consumer.timer = null;
@@ -701,33 +719,54 @@ class ZeroFeedIn extends utils.Adapter {
         }
 
         if (delay > 0) {
-            consumer.timerEnd = Date.now() + delay * 1000; // Zeitpunkt merken
+            consumer.timerEnd = Date.now() + delay * 1000;
             consumer.timer = setTimeout(async () => {
                 await doSwitch();
                 consumer.timer = null;
                 consumer.timerEnd = null;
             }, delay * 1000);
-
             this.log.debug(`📌 Timer für "${consumer.name}" gestartet: ${delay}s bis ${turnOn ? 'EIN' : 'AUS'}`);
         } else {
             await doSwitch();
         }
     }
 
-    // Zentrale, einheitliche Notification-Funktion
-    // Aufruf: await this.sendNotification('Nachricht', { title: 'Titel', type: 'notify'|'alert' });
-    async sendNotification(message, { title = 'SmartLoadManager', type = 'notify' } = {}) {
+    /**
+     * Zentrale, einheitliche Notification-Funktion
+     *
+     * @param {string} message - Die Nachricht
+     * @param {object} options - Optionen
+     * @param {string} [options.title] - Der Titel
+     * @param {string} [options.type] - Der Typ ('notify'|'alert')
+     */
+    async sendNotification(message, options) {
+        if (!options) {
+            options = {};
+        }
+
+        const title = options.title || 'SmartLoadManager';
+        const type = options.type || 'notify';
+
         try {
+            // Scope + Kategorie korrekt setzen
             await this.sendToAsync('notification-manager.0', 'registerUserNotification', {
-                // Notification Manager verwendet "category" zur Einordnung.
-                // Wir mappen direkt auf notify/alert.
-                category: type,
-                title,
-                message,
+                scope: 'user', // explizit Scope
+                category: 'smartloadManager', // exakt wie im Notification-Manager
+                message: message,
+                title: title,
             });
-            this.log.debug(`📨 NotificationManager: [${type}] ${title} - ${message}`);
+
+            this.log.debug(`📨 Notification gesendet: ${message}`);
         } catch (e) {
-            this.log.warn(`❗ Fehler beim Senden an NotificationManager: ${e.message}`);
+            // Fehler für Debugging protokollieren
+            this.log.debug(`Notification-Manager nicht verfügbar: ${e.message}`);
+
+            // Fallback: normaler Log
+            if (type === 'alert') {
+                this.log.error(`${title}: ${message}`);
+            } else {
+                this.log.info(`${title}: ${message}`);
+            }
         }
     }
 
@@ -737,10 +776,7 @@ class ZeroFeedIn extends utils.Adapter {
             const channelId = `consumer.${this.consumerList.indexOf(v)}_${v.name.replace(/\s+/g, '_')}`;
             const modeState = await this.getStateAsync(`${this.namespace}.${channelId}.controlMode`);
             if (!modeState) {
-                await this.setStateAsync(`${this.namespace}.${channelId}.controlMode`, {
-                    val: 2,
-                    ack: true,
-                });
+                await this.setStateAsync(`${this.namespace}.${channelId}.controlMode`, { val: 2, ack: true });
             }
         }
     }
