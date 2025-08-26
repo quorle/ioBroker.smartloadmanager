@@ -735,62 +735,13 @@ class ZeroFeedIn extends utils.Adapter {
     }
 
     // Zentrale, einheitliche Notification-Funktion
-    // Aufruf: await this.sendNotification('smartloadmanager', 'info'|'notify'|'alert', 'Nachricht');
+    // Aufruf: await this.sendNotification('Nachricht', { title: 'Titel', type: 'notify'|'alert' });
     async sendNotification(scope, category, message) {
         try {
-            // 1) Controller-Notification
             await this.registerNotification(scope, category, message);
-            this.log.debug(`📨 Controller-Notification [${scope}/${category}]: ${message}`);
-
-            // 2) Messenger-Nachrichten
-            const cfg = this.config;
-
-            // Telegram
-            if (cfg.telegramInstance) {
-                this.sendTo(cfg.telegramInstance, message);
-                this.log.debug(`📨 Telegram → ${cfg.telegramInstance}: ${message}`);
-            }
-
-            // Gotify
-            if (cfg.gotifyInstance) {
-                this.sendTo(cfg.gotifyInstance, {
-                    title: 'SmartLoadManager',
-                    message: message,
-                });
-                this.log.debug(`📨 Gotify → ${cfg.gotifyInstance}: ${message}`);
-            }
-
-            // E-Mail
-            if (cfg.emailInstance) {
-                this.sendTo(cfg.emailInstance, {
-                    text: message,
-                    subject: 'SmartLoadManager',
-                });
-                this.log.debug(`📨 Email → ${cfg.emailInstance}: ${message}`);
-            }
-
-            // WhatsApp-cmd
-            if (cfg.whatsappInstance) {
-                this.sendTo(cfg.whatsappInstance, { text: message });
-                this.log.debug(`📨 WhatsApp → ${cfg.whatsappInstance}: ${message}`);
-            }
-
-            // Signal-cmd
-            if (cfg.signalInstance) {
-                this.sendTo(cfg.signalInstance, { text: message });
-                this.log.debug(`📨 Signal → ${cfg.signalInstance}: ${message}`);
-            }
-
-            // Pushover
-            if (cfg.pushoverInstance) {
-                this.sendTo(cfg.pushoverInstance, {
-                    message: message,
-                    title: 'SmartLoadManager',
-                });
-                this.log.debug(`📨 Pushover → ${cfg.pushoverInstance}: ${message}`);
-            }
+            this.log.debug(`📨 Notification: [${scope}/${category}] ${message}`);
         } catch (e) {
-            this.log.warn(`❗ Fehler beim Senden der Notification: ${e.message}`);
+            this.log.warn(`❗ Fehler beim Registrieren der Notification: ${e.message}`);
         }
     }
 

@@ -645,57 +645,57 @@
             },
             "items": {
                 "telegramInstance": {
-                    "type": "instance",
+                    "type": "select",
                     "label": {
                         "en": "Telegram instance",
                         "de": "Telegram-Instanz"
                     },
-                    "adapter": "telegram",
+                    "options": "system.adapter.telegram.*",
                     "default": ""
                 },
                 "gotifyInstance": {
-                    "type": "instance",
+                    "type": "select",
                     "label": {
                         "en": "Gotify instance",
                         "de": "Gotify-Instanz"
                     },
-                    "adapter": "gotify",
+                    "options": "system.adapter.gotify.*",
                     "default": ""
                 },
                 "emailInstance": {
-                    "type": "instance",
+                    "type": "select",
                     "label": {
                         "en": "E-Mail instance",
                         "de": "E-Mail-Instanz"
                     },
-                    "adapter": "email",
+                    "options": "system.adapter.email.*",
                     "default": ""
                 },
                 "whatsappInstance": {
-                    "type": "instance",
+                    "type": "select",
                     "label": {
                         "en": "WhatsApp-cmd instance",
                         "de": "WhatsApp-cmd-Instanz"
                     },
-                    "adapter": "whatsapp-cmd",
+                    "options": "system.adapter.whatsapp-cmd.*",
                     "default": ""
                 },
                 "signalInstance": {
-                    "type": "instance",
+                    "type": "select",
                     "label": {
                         "en": "Signal-cmd instance",
                         "de": "Signal-cmd-Instanz"
                     },
-                    "adapter": "signal-cmd",
+                    "options": "system.adapter.signal-cmd.*",
                     "default": ""
                 },
                 "pushoverInstance": {
-                    "type": "instance",
+                    "type": "select",
                     "label": {
                         "en": "Pushover instance",
                         "de": "Pushover-Instanz"
                     },
-                    "adapter": "pushover",
+                    "options": "system.adapter.pushover.*",
                     "default": ""
                 }
             }

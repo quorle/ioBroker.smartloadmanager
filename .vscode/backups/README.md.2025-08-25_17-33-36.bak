@@ -174,7 +174,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 
 - (quorle) code changed
 - (quorle) Power off timer optimized for "AllwayOfAtTime"
-- (quorle) Messenger (Telegram, Notify, etc..) added
 
 ### 0.0.1-alpha.17 (2025-08-25)
 
