@@ -108,28 +108,6 @@
                         "zh-cn": "启用二进制电路通知"
                     }
                 },
-                "notifyHeating": {
-                    "type": "checkbox",
-                    "default": false,
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 3,
-                    "lg": 3,
-                    "xl": 3,
-                    "label": {
-                        "en": "Enable notifications for heating element",
-                        "de": "Benachrichtigungen für Heizstab aktivieren",
-                        "ru": "Включить уведомления для нагревательного элемента",
-                        "pt": "Habilitar notificações para o elemento de aquecimento",
-                        "nl": "Notificaties voor verwarmingselement inschakelen",
-                        "fr": "Activer les notifications pour l'élément chauffant",
-                        "it": "Abilitare le notifiche per elemento riscaldante",
-                        "es": "Permitir notificaciones para el elemento de calefacción",
-                        "pl": "Włącz powiadomienia dotyczące elementu grzewczego",
-                        "uk": "Увімкнути сповіщення про нагрівальний елемент",
-                        "zh-cn": "启用加热元素通知"
-                    }
-                },
                 "notifyPercent": {
                     "type": "checkbox",
                     "default": false,
@@ -251,6 +229,22 @@
                             }
                         },
                         {
+                            "type": "staticText",
+                            "title": {
+                                "en": "Data points",
+                                "de": "Datenpunkte",
+                                "ru": "Пункты данных",
+                                "pt": "Pontos de dados",
+                                "nl": "Gegevenspunten",
+                                "fr": "Points de données",
+                                "it": "Punti di dati",
+                                "es": "Puntos de datos",
+                                "pl": "Punkty danych",
+                                "uk": "Дані",
+                                "zh-cn": "数据点"
+                            }
+                        },
+                        {
                             "type": "objectId",
                             "attr": "datapoint",
                             "title": {
@@ -285,22 +279,6 @@
                                 "zh-cn": "数字控制"
                             },
                             "tooltip": "Numerischer Steuerdatenpunkt (Ausgabe 0=false, 1=true)"
-                        },
-                        {
-                            "type": "staticText",
-                            "title": {
-                                "en": "Battery management:",
-                                "de": "Batteriemanagment:",
-                                "ru": "Управление батареями:",
-                                "pt": "Gestão da bateria:",
-                                "nl": "Batterijbeheer:",
-                                "fr": "Gestion des batteries :",
-                                "it": "Gestione della batteria:",
-                                "es": "Gestión de baterías:",
-                                "pl": "Zarządzanie akumulatorem:",
-                                "uk": "Управління акумуляторами:",
-                                "zh-cn": "电池管理:"
-                            }
                         },
                         {
                             "type": "objectId",
@@ -412,64 +390,6 @@
                             "min": 40,
                             "max": 80,
                             "default": 40
-                        },
-                        {
-                            "type": "number",
-                            "attr": "minTemperature",
-                            "title": {
-                                "en": "--> Minimum temperature to switch on",
-                                "de": "--> Minimale Temperatur zum Einschalten",
-                                "ru": "- Минимальная температура для включения",
-                                "pt": "--> Temperatura mínima para ligar",
-                                "nl": "--> Minimumtemperatuur om in te schakelen",
-                                "fr": "--> Température minimale à activer",
-                                "it": "- > Temperatura minima per accendere",
-                                "es": "-- Temperatura mínima para encender",
-                                "pl": "-- > Minimalna temperatura do włączenia",
-                                "uk": "--> Мінімальна температура для перемикання на",
-                                "zh-cn": "-- > 说明 开关的最低温度"
-                            },
-                            "tooltip": "Erst ab dieser Temperatur darf eingeschaltet werden (verhindert unnötiges Takten). Wird nur beim Einschalten berücksichtigt.",
-                            "min": 25,
-                            "max": 50,
-                            "default": 25
-                        },
-                        {
-                            "type": "objectId",
-                            "attr": "enableDatapoint",
-                            "title": {
-                                "en": "--> Hardware release datapoint",
-                                "de": "--> Hardwarefreigabe-Datenpunkt",
-                                "ru": "- Устройство Release Datapoint",
-                                "pt": "--> Ponto de dados de lançamento de hardware",
-                                "nl": "--> Gegevenspunt voor hardwarevrijgave",
-                                "fr": "--> Point de données de sortie du matériel",
-                                "it": "- > Datapoint di rilascio hardware",
-                                "es": "-- Punto de datos de liberación de hardware",
-                                "pl": "-- > Hardware release datapoint",
-                                "uk": "--> Обладнання для видалення даних",
-                                "zh-cn": "-- > 说明 硬件释放数据点"
-                            },
-                            "tooltip": "Eingang vom Wechselrichter (Freigabe). Wenn nicht vorhanden oder false, sofort abschalten und kein Einschalten möglich."
-                        },
-                        {
-                            "type": "objectId",
-                            "attr": "heartbeatDatapoint",
-                            "title": {
-                                "en": "--> Heartbeat datapoint",
-                                "de": "--> Heartbeat-Datenpunkt",
-                                "ru": "- Heartbat датапойнт",
-                                "pt": "--> Ponto de dados do batimento cardíaco",
-                                "nl": "--> Hartslaggegevenspunt",
-                                "fr": "--> Point de données des battements cardiaques",
-                                "it": "- > Datapoint Heartbeat",
-                                "es": "-- Punto de datos Heartbeat",
-                                "pl": "-- > Punkt danych Heartbeat",
-                                "uk": "--> Точка даних про серцебиття",
-                                "zh-cn": "-- > 说明 心跳数据点"
-                            },
-                            "tooltip": "Optionaler Heartbeat-Datenpunkt (true/false). Wenn false → sofort Abschaltung. Bei true → Betrieb erlaubt.",
-                            "default": ""
                         },
                         {
                             "type": "number",

@@ -359,7 +359,7 @@ class ZeroFeedIn extends utils.Adapter {
             this.log.debug(`📊 FeedIn: ${feedIn} W, Baseload: ${baseload} W, GridUsage: ${gridUsage}`);
 
             // ----------------------------------
-            // Einschalten binary + heating
+            // Einschalten binary + heating (aufsteigend nach Prio)
             // ----------------------------------
             const sortedOn = [...this.consumerList]
                 .filter(v => v.ruletype === 'binary' || v.ruletype === 'heating')
@@ -399,9 +399,8 @@ class ZeroFeedIn extends utils.Adapter {
 
                 this.log.debug(`💡 "${v.name}" Status: isOn=${isOn}`);
 
-                // --- Zusatz-Checks für heating ---
+                // --- Zusatz: Temperaturprüfung für heating ---
                 if (v.ruletype === 'heating' && withinWindow && !isOn) {
-                    // Temperatur-Check
                     const tempState = v.temperatureDatapoint
                         ? await this.getForeignStateAsync(v.temperatureDatapoint)
                         : null;
@@ -411,31 +410,12 @@ class ZeroFeedIn extends utils.Adapter {
                         this.log.warn(
                             `🔥 "${v.name}" NICHT eingeschaltet – Temperatur ${currentTemp}°C >= MaxTemp ${v.maxTemperature}°C`,
                         );
-                        continue;
-                    }
-                    if (currentTemp !== null && v.minTemperature !== undefined && currentTemp < v.minTemperature) {
-                        this.log.debug(
-                            `🌡️ "${v.name}" noch nicht einschalten – Temperatur ${currentTemp}°C < MinTemp ${v.minTemperature}°C`,
+                        await this.sendNotification(
+                            'smartloadmanager',
+                            'notify',
+                            `🔥 ${v.name} blockiert: Temperatur ${currentTemp}°C erreicht MaxTemp ${v.maxTemperature}°C`,
                         );
                         continue;
-                    }
-
-                    // Hardware-Freigabe
-                    if (v.enableDatapoint) {
-                        const enableState = await this.getForeignStateAsync(v.enableDatapoint);
-                        if (!enableState?.val) {
-                            this.log.warn(`🔒 "${v.name}" NICHT eingeschaltet – Hardwarefreigabe fehlt.`);
-                            continue;
-                        }
-                    }
-
-                    // Heartbeat
-                    if (v.heartbeatDatapoint) {
-                        const hbState = await this.getForeignStateAsync(v.heartbeatDatapoint);
-                        if (!hbState?.val) {
-                            this.log.warn(`💔 "${v.name}" NICHT eingeschaltet – Heartbeat fehlt.`);
-                            continue;
-                        }
                     }
                 }
 
@@ -461,7 +441,7 @@ class ZeroFeedIn extends utils.Adapter {
             }
 
             // ----------------------------------
-            // Ausschalten binary + heating
+            // Ausschalten binary + heating (absteigend nach Prio)
             // ----------------------------------
             const sortedOff = [...this.consumerList]
                 .filter(v => v.ruletype === 'binary' || v.ruletype === 'heating')
@@ -494,26 +474,6 @@ class ZeroFeedIn extends utils.Adapter {
                     }
                 }
 
-                // --- Heizstab sofort abschalten bei fehlender Freigabe/Heartbeat ---
-                if (v.ruletype === 'heating' && isOn) {
-                    if (v.enableDatapoint) {
-                        const enableState = await this.getForeignStateAsync(v.enableDatapoint);
-                        if (!enableState?.val) {
-                            this.log.warn(`🔒 "${v.name}" wird abgeschaltet – Hardwarefreigabe fehlt.`);
-                            await this.switchConsumerWithDelay(v, false, 0);
-                            continue;
-                        }
-                    }
-                    if (v.heartbeatDatapoint) {
-                        const hbState = await this.getForeignStateAsync(v.heartbeatDatapoint);
-                        if (!hbState?.val) {
-                            this.log.warn(`💔 "${v.name}" wird abgeschaltet – Heartbeat fehlt.`);
-                            await this.switchConsumerWithDelay(v, false, 0);
-                            continue;
-                        }
-                    }
-                }
-
                 if (!isOn) {
                     continue;
                 }
@@ -529,13 +489,15 @@ class ZeroFeedIn extends utils.Adapter {
                 }
             }
 
-            // --- Batterie bleibt unverändert ---
+            // ----------------------------------
+            // Batterie-Verbraucher
+            // ----------------------------------
             const batteryConsumers = this.consumerList.filter(c => c.ruletype === 'battery');
             for (const v of batteryConsumers) {
                 await this.controlBattery(v, feedIn);
             }
 
-            // Timer-Übersicht
+            // --- Timer-Status anzeigen ---
             const runningTimers = this.consumerList
                 .filter(c => c.timer && c.timerEnd)
                 .map(c => {
@@ -740,7 +702,12 @@ class ZeroFeedIn extends utils.Adapter {
                   ? consumer.switchOnDelay || 0
                   : consumer.switchOffDelay || 0;
 
+        this.log.debug(
+            `⏳ Verzögerung ${delay}s für ${turnOn ? 'Einschalten' : 'Ausschalten'} von "${consumer.name}".`,
+        );
+
         const doSwitch = async () => {
+            // --- Temperatur-Schutz für heating ---
             if (consumer.ruletype === 'heating' && turnOn) {
                 const tempState = consumer.temperatureDatapoint
                     ? await this.getForeignStateAsync(consumer.temperatureDatapoint)
@@ -752,45 +719,37 @@ class ZeroFeedIn extends utils.Adapter {
                     consumer.maxTemperature !== undefined &&
                     currentTemp >= consumer.maxTemperature
                 ) {
+                    this.log.warn(
+                        `🔥 "${consumer.name}" wird NICHT eingeschaltet (Temp ${currentTemp}°C >= MaxTemp ${consumer.maxTemperature}°C)`,
+                    );
+                    await this.sendNotification(
+                        'smartloadmanager',
+                        'notify',
+                        `🔥 ${consumer.name} blockiert: Temperatur ${currentTemp}°C erreicht MaxTemp ${consumer.maxTemperature}°C`,
+                    );
                     consumer.timer = null;
                     consumer.timerEnd = null;
                     consumer.pendingAction = null;
                     return;
-                }
-
-                if (
-                    consumer.minTemperature !== undefined &&
-                    currentTemp !== null &&
-                    currentTemp < consumer.minTemperature
-                ) {
-                    consumer.timer = null;
-                    consumer.timerEnd = null;
-                    consumer.pendingAction = null;
-                    return;
-                }
-
-                if (consumer.enableDatapoint) {
-                    const enableState = await this.getForeignStateAsync(consumer.enableDatapoint);
-                    if (!enableState?.val) {
-                        consumer.timer = null;
-                        consumer.timerEnd = null;
-                        consumer.pendingAction = null;
-                        return;
-                    }
-                }
-
-                if (consumer.heartbeatDatapoint) {
-                    const hbState = await this.getForeignStateAsync(consumer.heartbeatDatapoint);
-                    if (!hbState?.val) {
-                        consumer.timer = null;
-                        consumer.timerEnd = null;
-                        consumer.pendingAction = null;
-                        return;
-                    }
                 }
             }
 
+            this.log.info(
+                `🔀 Schalte "${consumer.name}" ${turnOn ? 'EIN' : 'AUS'}${delay > 0 ? ' nach Delay' : ' sofort'}.`,
+            );
             await this.doSwitchConsumer(consumer, turnOn);
+
+            if (
+                (consumer.ruletype === 'binary' && this.config.notifyBinary) ||
+                (consumer.ruletype === 'heating' && this.config.notifyHeating)
+            ) {
+                await this.sendNotification(
+                    'smartloadmanager',
+                    'notify',
+                    `${consumer.ruletype === 'heating' ? '🔥 Heizstab' : '🔌'} ${consumer.name} wurde ${turnOn ? 'eingeschaltet' : 'ausgeschaltet'}`,
+                );
+            }
+
             consumer.timer = null;
             consumer.timerEnd = null;
             consumer.pendingAction = null;
@@ -798,8 +757,14 @@ class ZeroFeedIn extends utils.Adapter {
 
         if (consumer.timer) {
             if (consumer.pendingAction === turnOn) {
+                this.log.debug(
+                    `⏭️ Timer für "${consumer.name}" (${delay}s ${turnOn ? 'EIN' : 'AUS'}) läuft bereits – kein neuer Timer.`,
+                );
                 return;
             }
+            this.log.debug(
+                `🛑 Abbruch alter Timer für "${consumer.name}" (${consumer.pendingAction ? 'EIN' : 'AUS'}) – neuer Timer wird gesetzt.`,
+            );
             clearTimeout(consumer.timer);
             consumer.timer = null;
             consumer.timerEnd = null;
@@ -810,6 +775,8 @@ class ZeroFeedIn extends utils.Adapter {
             consumer.timerEnd = Date.now() + delay * 1000;
             consumer.pendingAction = turnOn;
             consumer.timer = setTimeout(doSwitch, delay * 1000);
+
+            this.log.debug(`📌 Timer für "${consumer.name}" gestartet: ${delay}s bis ${turnOn ? 'EIN' : 'AUS'}`);
         } else {
             await doSwitch();
         }

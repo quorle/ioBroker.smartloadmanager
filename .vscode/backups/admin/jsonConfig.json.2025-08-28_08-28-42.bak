@@ -251,6 +251,22 @@
                             }
                         },
                         {
+                            "type": "staticText",
+                            "title": {
+                                "en": "Data points",
+                                "de": "Datenpunkte",
+                                "ru": "Пункты данных",
+                                "pt": "Pontos de dados",
+                                "nl": "Gegevenspunten",
+                                "fr": "Points de données",
+                                "it": "Punti di dati",
+                                "es": "Puntos de datos",
+                                "pl": "Punkty danych",
+                                "uk": "Дані",
+                                "zh-cn": "数据点"
+                            }
+                        },
+                        {
                             "type": "objectId",
                             "attr": "datapoint",
                             "title": {
