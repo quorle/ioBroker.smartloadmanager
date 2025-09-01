@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.20",
+    "version": "0.0.1-alpha.21",
     "news": {
+      "0.0.1-alpha.21": {
+        "en": "code changed \"FeedIn\"",
+        "de": "code geändert \"FeedIn\"",
+        "ru": "код изменился на \"FeedIn\"",
+        "pt": "código alterado \"FeedIn\"",
+        "nl": "code gewijzigd \"FeedIn\"",
+        "fr": "code modifié \"FeedIn\"",
+        "it": "codice cambiato \"FeedIn\"",
+        "es": "el código cambió \"FeedIn\"",
+        "pl": "kod zmieniony \"FeedIn\"",
+        "uk": "код змінено \"ФеедІн\"",
+        "zh-cn": "代码已更改“ FeedIn ”"
+      },
       "0.0.1-alpha.20": {
         "en": "code changed \"heating element\"\nTimer handling for on and off timers optimized\nAdded notifications for heating element\nReadme changed",
         "de": "code geändert \"heizelement\"\nTimer Handling für Ein- und Aus-Timer optimiert\nZusätzliche Meldungen für Heizelement\nReader geändert",
@@ -80,19 +93,6 @@
         "pl": "kod zmieniony\nmanual _ on changed (ISSU # 14)",
         "uk": "змінено код\njavaScript licenses API Веб-сайт Go1.13.8",
         "zh-cn": "代码已更改\n手动更改( ISSU # 14)"
-      },
-      "0.0.1-alpha.14": {
-        "en": "code changed\nswitching on and off optimized",
-        "de": "code geändert\nein- und ausschalten optimiert",
-        "ru": "код изменен\nвключение и выключение оптимизировано",
-        "pt": "código alterado\nligar e desligar otimizado",
-        "nl": "code gewijzigd\naan- en uitschakelen geoptimaliseerd",
-        "fr": "code modifié\nactivation et arrêt optimisés",
-        "it": "codice cambiato\naccensione e spegnimento ottimizzati",
-        "es": "código cambiado\nencendido y apagado optimizado",
-        "pl": "kod zmieniony\nwłączanie i wyłączanie zoptymalizowane",
-        "uk": "змінено код\nпереключення і вимкнення оптимізованої",
-        "zh-cn": "代码已更改\n打开和关闭优化"
       }
     },
     "titleLang": {
