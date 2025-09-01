@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.19",
+    "version": "0.0.1-alpha.20",
     "news": {
+      "0.0.1-alpha.20": {
+        "en": "code changed \"heating element\"\nTimer handling for on and off timers optimized\nAdded notifications for heating element\nReadme changed",
+        "de": "code geändert \"heizelement\"\nTimer Handling für Ein- und Aus-Timer optimiert\nZusätzliche Meldungen für Heizelement\nReader geändert",
+        "ru": "код изменил «элемент нагрева»\nОбработка таймеров для включения и выключения таймеров оптимизирована\nДополнительные уведомления для нагревательного элемента\nReadme изменился",
+        "pt": "código alterado \"elemento de aquecimento\"\nManuseamento do temporizador para temporizadores ligados e desligados otimizados\nNotificações adicionais para o elemento de aquecimento\nReadme mudou",
+        "nl": "code gewijzigd \"verwarmingselement\"\nTimerafhandeling voor geoptimaliseerde aan- en uit-timers\nToegevoegde meldingen voor verwarmingselement\nLezen gewijzigd",
+        "fr": "code modifié \"élément chauffant\"\nManipulation des minuteries pour les minuteries on et off optimisées\nAjout de notifications pour élément chauffant\nLecture modifiée",
+        "it": "codice cambiato \"elemento riscaldante\"\nMovimentazione timer per timer on e off ottimizzata\nAggiunto notifiche per elemento di riscaldamento\nReadme è cambiato",
+        "es": "código cambiado \"elemento de calentamiento\"\nManejo de tiempo para los temporizadores encendidos y apagados optimizados\nNotificaciones adicionales para el elemento de calefacción\nEl texto cambió",
+        "pl": "kod zmieniony \"element grzewczy\"\nObróbka liczników dla timerów włączanych i wyłączanych zoptymalizowana\nDodano powiadomienia dotyczące elementu grzewczego\nReadme się zmienił",
+        "uk": "змінено код «теплий елемент»\nОптимізоване обслуговування таймерів та таймерів\nДодано повідомлення про нагрівальний елемент\nЗмінено",
+        "zh-cn": "代码更改了“ 加热元素”\n上下计时器处理优化\n添加的加热元素通知\n读取器已更改"
+      },
       "0.0.1-alpha.19": {
         "en": "Readme changed\nIntegration of heating element",
         "de": "Reader geändert\nIntegration von Heizelement",
@@ -80,19 +93,6 @@
         "pl": "kod zmieniony\nwłączanie i wyłączanie zoptymalizowane",
         "uk": "змінено код\nпереключення і вимкнення оптимізованої",
         "zh-cn": "代码已更改\n打开和关闭优化"
-      },
-      "0.0.1-alpha.13": {
-        "en": "code changed\nError handling improved",
-        "de": "code geändert\nFehlerbehandlung verbessert",
-        "ru": "код изменен\nОбработка ошибок улучшилась",
-        "pt": "código alterado\nO tratamento de erros melhorou",
-        "nl": "code gewijzigd\nFout bij verwerken verbeterd",
-        "fr": "code modifié\nGestion des erreurs améliorée",
-        "it": "codice cambiato\nMiglioramento della gestione degli errori",
-        "es": "código cambiado\nMejora del manejo de errores",
-        "pl": "kod zmieniony\nPoprawiono obsługę błędów",
-        "uk": "змінено код\nПоліпшений процес обробки помилок",
-        "zh-cn": "代码已更改\n处理错误得到改进"
       }
     },
     "titleLang": {
