@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.21",
+    "version": "0.0.1-alpha.22",
     "news": {
+      "0.0.1-alpha.22": {
+        "en": "code changed \"FeedIn\"",
+        "de": "code geändert \"FeedIn\"",
+        "ru": "код изменился на \"FeedIn\"",
+        "pt": "código alterado \"FeedIn\"",
+        "nl": "code gewijzigd \"FeedIn\"",
+        "fr": "code modifié \"FeedIn\"",
+        "it": "codice cambiato \"FeedIn\"",
+        "es": "el código cambió \"FeedIn\"",
+        "pl": "kod zmieniony \"FeedIn\"",
+        "uk": "код змінено \"ФеедІн\"",
+        "zh-cn": "代码已更改“ FeedIn ”"
+      },
       "0.0.1-alpha.21": {
         "en": "code changed \"FeedIn\"",
         "de": "code geändert \"FeedIn\"",
@@ -80,19 +93,6 @@
         "pl": "kod zmieniony\nZoptymalizowane logowanie\nPrzełączenie na zgłoszenie Menedżer powiadomień\nOpóźnienie na jednego konsumenta\nDodano drugi punkt wyboru dla wyjścia 0 / 1 (ISSU # 15)\nReadme się zmienił",
         "uk": "змінено код\nОптимізоване оновлення\nПеремикач Notification Менеджер для повідомлень\nЗменшення термінів на споживача\nДодано другий пункт відбору даних для виходу 0/1 (ISSU #15)\nЗмінено",
         "zh-cn": "代码已更改\n日志优化\n切换到通知 通知管理员\n延迟改为每个消费者\n0/1 输出的第二个选择数据点( ISSU # 15)\n读取器已更改"
-      },
-      "0.0.1-alpha.15": {
-        "en": "code changed\nmanual_on changed (ISSU #14)",
-        "de": "code geändert\nmanuell_on geändert (ISSU #14)",
-        "ru": "код изменен\nmanual_on Change (ISSU #14)",
-        "pt": "código alterado\nmanual_on alterado (ISSU # 14)",
-        "nl": "code gewijzigd\nman_uaal gewijzigd (ISSU #14)",
-        "fr": "code modifié\nmanuel_sur modifié (ISSU #14)",
-        "it": "codice cambiato\nmanuale_on cambiato (ISSU #14)",
-        "es": "código cambiado\nmanual_on cambiado (ISSU #14)",
-        "pl": "kod zmieniony\nmanual _ on changed (ISSU # 14)",
-        "uk": "змінено код\njavaScript licenses API Веб-сайт Go1.13.8",
-        "zh-cn": "代码已更改\n手动更改( ISSU # 14)"
       }
     },
     "titleLang": {
