@@ -102,16 +102,6 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 
 ---
 
-## 🌡️ Heating-Unterstützung
-
-- Verbraucher mit "ruletype": "heating" sind für Heizstäbe oder vergleichbare Verbraucher vorgesehen.
-- Steuerung erfolgt nur, wenn: - Aktuelle Temperatur unter maxTemperature liegt - Optional: über minTemperature abgesichert - Optional: enableDatapoint aktiv ist - Optional: heartbeatDatapoint gültig ist
-- Bei Nichterfüllung wird Schaltung sofort abgebrochen und Timer gestoppt.
-- Unterstützt Ein-/Ausschalt-Timer (onTimerRemaining / offTimerRemaining) mit Restzeitanzeige.
-- Detailliertes Logging und optionale Benachrichtigungen für Heating-Verbraucher.
-
----
-
 ## 🧠 Steuerlogik
 
 1. **Datenpunkt-Messwert wird basierend auf Konfiguration interpretiert** (positiv = Netzbezug oder Einspeisung)
@@ -136,9 +126,6 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 10. **Optimierung für 0/1-Datenpunkte**  
     → Unterstützt boolean oder numerische 0/1-Steuerung automatisch
 11. **Detailliertes Logging aller Schaltvorgänge, Überschüsse und Timer**
-12. **Regelung für Heating-Verbraucher:**
-    → Schaltung nur innerhalb min/max Temperatur und bei gültigen enable-/heartbeat-States
-    → Timer werden abgebrochen, sobald Bedingungen nicht mehr erfüllt sind
 
 ---
 
@@ -166,8 +153,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - `.alwaysOffAtTime` → true/false
 - `.performance`, `.switchOnPoint`, `.switchOffPoint`
 - `.batterySetpoint` (nur für "battery")
-- `.temperatureDatapoint` (nur für "heating")
-- `.onTimerRemaining / .offTimerRemaining` → Restlaufzeit für Ein-/Ausschalt-Timer
 - `.timer` → interner Timer für verzögerte Schaltungen
 - `.timerEnd` → Zeitstempel, wann Timer abläuft (für Log)
 
@@ -179,7 +164,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - Keine Mehrfachverwendung identischer Datenpunkte
 - Batterie-Steuerung basiert rein auf FeedIn, keine Rücksicht auf Entladeleistung
 - Keine prozentuale Mindestgrenze definierbar (z. B. 10 % min für Wallbox)
-- Heating ohne direkte Leistungsmessung – nur Grenzwerte und Freigabe-Checks
 
 ---
 

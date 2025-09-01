@@ -64,28 +64,24 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 
 ### 🔹 Verbraucher
 
-| Feld                                   | Beschreibung                                                                    |
-| -------------------------------------- | ------------------------------------------------------------------------------- |
-| **Name**                               | Anzeigename                                                                     |
-| **Aktiv**                              | Aktiviert die Steuerung für diesen Verbraucher                                  |
-| **Regeltyp**                           | `"binary"`, `"percent"` oder `"battery"`                                        |
-| **Steuer-Datenpunkt**                  | ID zum Schalten oder Regeln, auch 0/1-DP unterstützt                            |
-| **Leistung [W]**                       | Realistische elektrische Leistung des Verbrauchers                              |
-| **Einschaltgrenze [W]**                | Benötigter Überschuss für Aktivierung                                           |
-| **Abschaltgrenze [W]**                 | Untergrenze für Deaktivierung                                                   |
-| **Maximalleistung [W]**                | Referenzwert zur Prozentregelung                                                |
-| **Verzögerung Prozent [s]**            | Optionale Verzögerung für Rückregelung nur dieses Verbrauchers                  |
-| **Verzögerung Override [s]**           | Verbraucherindividuelle Schaltverzögerung (z. B. sofortige Zuschaltung möglich) |
-| **Einschaltzeit (HH:MM)**              | Uhrzeit, ab wann Steuerung aktiv sein darf                                      |
-| **Ausschaltzeit (HH:MM)**              | Uhrzeit, ab wann Steuerung beendet wird                                         |
-| **Nur zu Ausschaltzeit ausschalten**   | Checkbox: Abschaltung nur zu konfigurierter Uhrzeit                             |
-| **batterySetpoint (nur battery)**      | Datenpunkt, in den die gewünschte Ladeleistung geschrieben wird                 |
-| **batterySOC / targetSOC**             | Optional: SOC & Ziel-SOC zur Ladeverhinderung bei vollem Akku                   |
-| **Timer / TimerEnd**                   | Interner Timer für verzögerte Schaltungen, Restzeit im Log sichtbar             |
-| **minTemperature / maxTemperature**    | Unter- und Obergrenze für Heating-Betrieb                                       |
-| **temperatureDatapoint (nur heating)** | Temperatur-Datenpunkt zur Prüfung min/max Grenzwerte                            |
-| **enableDatapoint (nur heating)**      | Optionaler Datenpunkt: nur bei true darf Heizstab laufen                        |
-| **heartbeatDatapoint (nur heating)**   | Optional: muss zyklisch true liefern, sonst wird abgeschaltet                   |
+| Feld                                 | Beschreibung                                                                    |
+| ------------------------------------ | ------------------------------------------------------------------------------- |
+| **Name**                             | Anzeigename                                                                     |
+| **Aktiv**                            | Aktiviert die Steuerung für diesen Verbraucher                                  |
+| **Regeltyp**                         | `"binary"`, `"percent"` oder `"battery"`                                        |
+| **Steuer-Datenpunkt**                | ID zum Schalten oder Regeln, auch 0/1-DP unterstützt                            |
+| **Leistung [W]**                     | Realistische elektrische Leistung des Verbrauchers                              |
+| **Einschaltgrenze [W]**              | Benötigter Überschuss für Aktivierung                                           |
+| **Abschaltgrenze [W]**               | Untergrenze für Deaktivierung                                                   |
+| **Maximalleistung [W]**              | Referenzwert zur Prozentregelung                                                |
+| **Verzögerung Prozent [s]**          | Optionale Verzögerung für Rückregelung nur dieses Verbrauchers                  |
+| **Verzögerung Override [s]**         | Verbraucherindividuelle Schaltverzögerung (z. B. sofortige Zuschaltung möglich) |
+| **Einschaltzeit (HH:MM)**            | Uhrzeit, ab wann Steuerung aktiv sein darf                                      |
+| **Ausschaltzeit (HH:MM)**            | Uhrzeit, ab wann Steuerung beendet wird                                         |
+| **Nur zu Ausschaltzeit ausschalten** | Checkbox: Abschaltung nur zu konfigurierter Uhrzeit                             |
+| **batterySetpoint (nur battery)**    | Datenpunkt, in den die gewünschte Ladeleistung geschrieben wird                 |
+| **batterySOC / targetSOC**           | Optional: SOC & Ziel-SOC zur Ladeverhinderung bei vollem Akku                   |
+| **Timer / TimerEnd**                 | Interner Timer für verzögerte Schaltungen, Restzeit im Log sichtbar             |
 
 ---
 
@@ -99,16 +95,6 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 - Die Steuerung wird bei jedem FeedIn-Update nach konfigurierter Verzögerung (`batteryDelaySeconds`) erneut ausgeführt.
 - Verzögerungen für alle Schaltungen (binary, percent, battery) können pro Verbraucher oder global angepasst werden.
 - Detailliertes Logging und optionale Benachrichtigungen für Batterie-Schaltungen.
-
----
-
-## 🌡️ Heating-Unterstützung
-
-- Verbraucher mit "ruletype": "heating" sind für Heizstäbe oder vergleichbare Verbraucher vorgesehen.
-- Steuerung erfolgt nur, wenn: - Aktuelle Temperatur unter maxTemperature liegt - Optional: über minTemperature abgesichert - Optional: enableDatapoint aktiv ist - Optional: heartbeatDatapoint gültig ist
-- Bei Nichterfüllung wird Schaltung sofort abgebrochen und Timer gestoppt.
-- Unterstützt Ein-/Ausschalt-Timer (onTimerRemaining / offTimerRemaining) mit Restzeitanzeige.
-- Detailliertes Logging und optionale Benachrichtigungen für Heating-Verbraucher.
 
 ---
 
@@ -136,9 +122,6 @@ Der Adapter **smartloadmanager** dient der dynamischen Steuerung von Verbraucher
 10. **Optimierung für 0/1-Datenpunkte**  
     → Unterstützt boolean oder numerische 0/1-Steuerung automatisch
 11. **Detailliertes Logging aller Schaltvorgänge, Überschüsse und Timer**
-12. **Regelung für Heating-Verbraucher:**
-    → Schaltung nur innerhalb min/max Temperatur und bei gültigen enable-/heartbeat-States
-    → Timer werden abgebrochen, sobald Bedingungen nicht mehr erfüllt sind
 
 ---
 
@@ -166,8 +149,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - `.alwaysOffAtTime` → true/false
 - `.performance`, `.switchOnPoint`, `.switchOffPoint`
 - `.batterySetpoint` (nur für "battery")
-- `.temperatureDatapoint` (nur für "heating")
-- `.onTimerRemaining / .offTimerRemaining` → Restlaufzeit für Ein-/Ausschalt-Timer
 - `.timer` → interner Timer für verzögerte Schaltungen
 - `.timerEnd` → Zeitstempel, wann Timer abläuft (für Log)
 
@@ -179,7 +160,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - Keine Mehrfachverwendung identischer Datenpunkte
 - Batterie-Steuerung basiert rein auf FeedIn, keine Rücksicht auf Entladeleistung
 - Keine prozentuale Mindestgrenze definierbar (z. B. 10 % min für Wallbox)
-- Heating ohne direkte Leistungsmessung – nur Grenzwerte und Freigabe-Checks
 
 ---
 

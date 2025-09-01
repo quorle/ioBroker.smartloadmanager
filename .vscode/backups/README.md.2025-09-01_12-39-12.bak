@@ -166,8 +166,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - `.alwaysOffAtTime` → true/false
 - `.performance`, `.switchOnPoint`, `.switchOffPoint`
 - `.batterySetpoint` (nur für "battery")
-- `.temperatureDatapoint` (nur für "heating")
-- `.onTimerRemaining / .offTimerRemaining` → Restlaufzeit für Ein-/Ausschalt-Timer
 - `.timer` → interner Timer für verzögerte Schaltungen
 - `.timerEnd` → Zeitstempel, wann Timer abläuft (für Log)
 
@@ -179,7 +177,6 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 - Keine Mehrfachverwendung identischer Datenpunkte
 - Batterie-Steuerung basiert rein auf FeedIn, keine Rücksicht auf Entladeleistung
 - Keine prozentuale Mindestgrenze definierbar (z. B. 10 % min für Wallbox)
-- Heating ohne direkte Leistungsmessung – nur Grenzwerte und Freigabe-Checks
 
 ---
 

@@ -59,7 +59,7 @@ class ZeroFeedIn extends utils.Adapter {
 
             await this.checkConsumers();
 
-            /*  // Info beim erfolgreichen Start
+            // Info beim erfolgreichen Start
             if (!this.adapterStartedNotified) {
                 await this.sendNotification(
                     'smartloadmanager',
@@ -67,7 +67,7 @@ class ZeroFeedIn extends utils.Adapter {
                     'ℹ️ SmartLoadManager Adapter erfolgreich gestartet.',
                 );
                 this.adapterStartedNotified = true;
-            } */
+            }
         } catch (error) {
             this.log.error(`Error in onReady: ${error.message}`);
             // Fehler zusätzlich als alert melden
@@ -198,6 +198,7 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
+            // Batterie-spezifische States
             if (v.ruletype === 'battery') {
                 await this.setObjectNotExistsAsync(`${channelId}.batterySetpoint`, {
                     type: 'state',
@@ -213,12 +214,13 @@ class ZeroFeedIn extends utils.Adapter {
                 });
             }
 
+            // Timer-Status States (neu): onTimerRemaining / offTimerRemaining
             await this.setObjectNotExistsAsync(`${channelId}.onTimerRemaining`, {
                 type: 'state',
                 common: {
-                    name: `${v.name} Einschalt-Timer Restzeit (s)`,
+                    name: `${v.name} On-Timer Rest (s)`,
                     type: 'number',
-                    role: 'value.duration',
+                    role: 'value.interval',
                     read: true,
                     write: false,
                     def: 0,
@@ -230,9 +232,9 @@ class ZeroFeedIn extends utils.Adapter {
             await this.setObjectNotExistsAsync(`${channelId}.offTimerRemaining`, {
                 type: 'state',
                 common: {
-                    name: `${v.name} Ausschalt-Timer Restzeit (s)`,
+                    name: `${v.name} Off-Timer Rest (s)`,
                     type: 'number',
-                    role: 'value.duration',
+                    role: 'value.interval',
                     read: true,
                     write: false,
                     def: 0,
@@ -241,6 +243,7 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
+            // Initiale Werte setzen
             const finalOnTime = v.switchOnTime || '';
             const finalOffTime = v.switchOffTime || '';
 
@@ -263,6 +266,7 @@ class ZeroFeedIn extends utils.Adapter {
                 ack: true,
             });
 
+            // Timer-Initialisierung auf 0 beim Adapterstart
             await this.setStateAsync(`${this.namespace}.${channelId}.onTimerRemaining`, { val: 0, ack: true });
             await this.setStateAsync(`${this.namespace}.${channelId}.offTimerRemaining`, { val: 0, ack: true });
 
@@ -421,7 +425,8 @@ class ZeroFeedIn extends utils.Adapter {
                     if (dpState?.val === true) {
                         isOn = true;
                     }
-                } else if (v.numericDatapoint) {
+                }
+                if (v.numericDatapoint) {
                     const numState = await this.getForeignStateAsync(v.numericDatapoint);
                     const numVal = Number(numState?.val) || 0;
                     if (numVal === 1) {
@@ -432,7 +437,7 @@ class ZeroFeedIn extends utils.Adapter {
 
                 this.log.debug(`💡 "${v.name}" Status: isOn=${isOn}`);
 
-                // Zusatz-Checks heating
+                // --- Zusatz-Checks für heating ---
                 if (v.ruletype === 'heating' && withinWindow && !isOn) {
                     const tempState = v.temperatureDatapoint
                         ? await this.getForeignStateAsync(v.temperatureDatapoint)
@@ -469,20 +474,9 @@ class ZeroFeedIn extends utils.Adapter {
                     }
                 }
 
-                // Timer-Abbruch bei wegfallender Bedingung (Einschalten)
-                if (
-                    v.timer &&
-                    v.timerEnd &&
-                    v.pendingAction === true &&
-                    (!withinWindow || gridUsage || v.performance > feedIn - baseload)
-                ) {
-                    clearTimeout(v.timer);
-                    v.timer = null;
-                    v.timerEnd = null;
-                    v.pendingAction = null;
-                    const channelId = `consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
-                    await this.setStateAsync(`${this.namespace}.${channelId}.onTimerRemaining`, { val: 0, ack: true });
-                    await this.setStateAsync(`${this.namespace}.${channelId}.offTimerRemaining`, { val: 0, ack: true });
+                // --- Timer-Abbruch bei wegfallender Bedingung ---
+                if (v.timer && v.timerEnd && (!withinWindow || gridUsage || v.performance > feedIn - baseload)) {
+                    await this.clearConsumerTimer(v);
                     this.log.debug(`⏹️ Einschalt-Timer für "${v.name}" abgebrochen (Bedingung entfallen).`);
                 }
 
@@ -492,6 +486,7 @@ class ZeroFeedIn extends utils.Adapter {
                             `✅ Einschalten möglich: Überschuss ${feedIn - baseload} W, innerhalb Zeitfenster (onDelay ${v.switchOnDelay || 0}s).`,
                         );
                         await this.switchConsumerWithDelay(v, true, v.switchOnDelay || 0);
+
                         feedIn -= v.performance;
                         this.log.debug(`🔄 Verbleibender Überschuss nach Zuschaltung: ${feedIn - baseload} W`);
                     } else if (gridUsage && !isOn) {
@@ -540,39 +535,6 @@ class ZeroFeedIn extends utils.Adapter {
                     }
                 }
 
-                // AlwaysOffAtTime erzwingt Ausschalten
-                if (v.alwaysOffAtTime && !withinWindow && isOn) {
-                    if (v.timer && v.timerEnd && v.pendingAction === false) {
-                        const remaining = Math.max(0, Math.round((v.timerEnd - Date.now()) / 1000));
-                        this.log.debug(`📋 Aktive Timer → ${v.name}: noch ${remaining}s`);
-                    } else if (v.timer && v.timerEnd && v.pendingAction === true) {
-                        clearTimeout(v.timer);
-                        v.timer = null;
-                        v.timerEnd = null;
-                        v.pendingAction = null;
-                        const channelId = `consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
-                        await this.setStateAsync(`${this.namespace}.${channelId}.onTimerRemaining`, {
-                            val: 0,
-                            ack: true,
-                        });
-                        await this.setStateAsync(`${this.namespace}.${channelId}.offTimerRemaining`, {
-                            val: 0,
-                            ack: true,
-                        });
-                        this.log.debug(`⏹️ Einschalt-Timer für "${v.name}" abgebrochen (AlwaysOff aktiv).`);
-                        this.log.debug(
-                            `⏳ AlwaysOff aktiv: "${v.name}" - Zeitfenster vorbei, offDelay ${v.switchOffDelay || 0}s.`,
-                        );
-                        await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
-                    } else {
-                        this.log.debug(
-                            `⏳ AlwaysOff aktiv: "${v.name}" - Zeitfenster vorbei, offDelay ${v.switchOffDelay || 0}s.`,
-                        );
-                        await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
-                    }
-                    continue;
-                }
-
                 if (v.ruletype === 'heating' && isOn) {
                     if (v.enableDatapoint) {
                         const enableState = await this.getForeignStateAsync(v.enableDatapoint);
@@ -596,26 +558,20 @@ class ZeroFeedIn extends utils.Adapter {
                     continue;
                 }
 
-                // Timer-Abbruch bei wegfallender Bedingung (Ausschalten)
-                if (v.timer && v.timerEnd && v.pendingAction === false && withinWindow && !gridUsage) {
-                    clearTimeout(v.timer);
-                    v.timer = null;
-                    v.timerEnd = null;
-                    v.pendingAction = null;
-                    const channelId = `consumer.${idx}_${v.name.replace(/\s+/g, '_')}`;
-                    await this.setStateAsync(`${this.namespace}.${channelId}.onTimerRemaining`, { val: 0, ack: true });
-                    await this.setStateAsync(`${this.namespace}.${channelId}.offTimerRemaining`, { val: 0, ack: true });
+                // --- Timer-Abbruch bei wegfallender Bedingung ---
+                if (v.timer && v.timerEnd && (withinWindow && !gridUsage) === false) {
+                    await this.clearConsumerTimer(v);
                     this.log.debug(`⏹️ Ausschalt-Timer für "${v.name}" abgebrochen (Bedingung entfallen).`);
                 }
 
-                if (!v.alwaysOffAtTime && (!withinWindow || gridUsage)) {
-                    if (v.timer && v.timerEnd && v.pendingAction === false) {
-                        const remaining = Math.max(0, Math.round((v.timerEnd - Date.now()) / 1000));
-                        this.log.debug(`📋 Aktive Timer → ${v.name}: noch ${remaining}s`);
-                    } else {
-                        this.log.debug(`⏳ Ausschalten: "${v.name}" - offDelay ${v.switchOffDelay || 0}s.`);
-                        await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
-                    }
+                if (v.alwaysOffAtTime && !withinWindow) {
+                    this.log.debug(
+                        `⏳ AlwaysOff aktiv: "${v.name}" - Zeitfenster vorbei, offDelay ${v.switchOffDelay || 0}s.`,
+                    );
+                    await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
+                } else if (!v.alwaysOffAtTime && (!withinWindow || gridUsage)) {
+                    this.log.debug(`⏳ Ausschalten: "${v.name}" - offDelay ${v.switchOffDelay || 0}s.`);
+                    await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
                 }
             }
 
@@ -803,6 +759,33 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // Helfer: Timer sauber löschen + Timer-DP zurücksetzen
+    async clearConsumerTimer(consumer) {
+        try {
+            if (consumer.timer) {
+                clearTimeout(consumer.timer);
+                consumer.timer = null;
+            }
+            if (consumer.timerTick) {
+                clearInterval(consumer.timerTick);
+                consumer.timerTick = null;
+            }
+            consumer.timerEnd = null;
+            consumer.pendingAction = null;
+
+            const idx = this.consumerList.indexOf(consumer);
+            if (idx >= 0) {
+                const channelId = `consumer.${idx}_${consumer.name.replace(/\s+/g, '_')}`;
+                const onTimerState = `${this.namespace}.${channelId}.onTimerRemaining`;
+                const offTimerState = `${this.namespace}.${channelId}.offTimerRemaining`;
+                await this.setStateAsync(onTimerState, { val: 0, ack: true });
+                await this.setStateAsync(offTimerState, { val: 0, ack: true });
+            }
+        } catch (e) {
+            this.log.warn(`❗ Fehler beim Löschen des Timers für ${consumer.name}: ${e.message}`);
+        }
+    }
+
     /**
      * Zentrale Schaltfunktion: setzt sowohl booleanen Schalter-DP als auch optionalen numerischen DP (0/1)
      *
@@ -812,25 +795,38 @@ class ZeroFeedIn extends utils.Adapter {
     async doSwitchConsumer(consumer, turnOn) {
         const targetState = !!turnOn;
 
+        // Primärer boolean-DP
         if (consumer.datapoint) {
             await this.setForeignStateAsync(consumer.datapoint, { val: targetState, ack: true });
         }
 
+        // Optionaler numerischer DP
         if (consumer.numericDatapoint) {
             await this.setForeignStateAsync(consumer.numericDatapoint, { val: targetState ? 1 : 0, ack: true });
             this.log.debug(`🔢 NumericDatapoint für "${consumer.name}" gesetzt auf ${targetState ? 1 : 0}`);
         }
 
-        const msg = `${consumer.name} wurde ${targetState ? 'eingeschaltet' : 'ausgeschaltet'}`;
+        // Logging der Aktion
+        this.log.info(`🔀 Schalte "${consumer.name}" ${turnOn ? 'EIN' : 'AUS'}.`);
 
-        if (consumer.ruletype === 'heating') {
-            if (this.config.notifyHeating) {
-                await this.sendNotification('smartloadmanager', 'notify', msg);
+        // Notifications nach Typ (binary / heating)
+        try {
+            if (consumer.ruletype === 'binary' && this.config.notifyBinary) {
+                await this.sendNotification(
+                    'smartloadmanager',
+                    'notify',
+                    `🔌 ${consumer.name} wurde ${turnOn ? 'eingeschaltet' : 'ausgeschaltet'}`,
+                );
             }
-        } else if (consumer.ruletype === 'binary') {
-            if (this.config.notifyBinary) {
-                await this.sendNotification('smartloadmanager', 'notify', msg);
+            if (consumer.ruletype === 'heating' && this.config.notifyHeating) {
+                await this.sendNotification(
+                    'smartloadmanager',
+                    'notify',
+                    `🔥 Heizstab ${consumer.name} wurde ${turnOn ? 'eingeschaltet' : 'ausgeschaltet'}`,
+                );
             }
+        } catch (e) {
+            this.log.warn(`❗ Fehler beim Senden der Notification für ${consumer.name}: ${e.message}`);
         }
     }
 
@@ -842,19 +838,14 @@ class ZeroFeedIn extends utils.Adapter {
                   ? consumer.switchOnDelay || 0
                   : consumer.switchOffDelay || 0;
 
+        this.log.debug(
+            `⏳ Verzögerung ${delay}s für ${turnOn ? 'Einschalten' : 'Ausschalten'} von "${consumer.name}".`,
+        );
+
         const idx = this.consumerList.indexOf(consumer);
         const channelId = `consumer.${idx}_${consumer.name.replace(/\s+/g, '_')}`;
         const onTimerState = `${this.namespace}.${channelId}.onTimerRemaining`;
         const offTimerState = `${this.namespace}.${channelId}.offTimerRemaining`;
-
-        const stopTimerTicker = async () => {
-            if (consumer.timerTick) {
-                clearInterval(consumer.timerTick);
-                consumer.timerTick = null;
-            }
-            await this.setStateAsync(onTimerState, { val: 0, ack: true });
-            await this.setStateAsync(offTimerState, { val: 0, ack: true });
-        };
 
         const startTimerTicker = async () => {
             const tick = async () => {
@@ -864,7 +855,13 @@ class ZeroFeedIn extends utils.Adapter {
                     consumer.pendingAction === undefined ||
                     consumer.pendingAction === null
                 ) {
-                    await stopTimerTicker();
+                    // Timer abgebrochen oder bereits ausgeführt → stoppen
+                    if (consumer.timerTick) {
+                        clearInterval(consumer.timerTick);
+                        consumer.timerTick = null;
+                    }
+                    await this.setStateAsync(onTimerState, { val: 0, ack: true });
+                    await this.setStateAsync(offTimerState, { val: 0, ack: true });
                     return;
                 }
                 const remaining = Math.max(0, Math.round((consumer.timerEnd - Date.now()) / 1000));
@@ -885,7 +882,6 @@ class ZeroFeedIn extends utils.Adapter {
         };
 
         const doSwitch = async () => {
-            // nur bei heating: zusätzliche Sicherheitschecks
             if (consumer.ruletype === 'heating' && turnOn) {
                 const tempState = consumer.temperatureDatapoint
                     ? await this.getForeignStateAsync(consumer.temperatureDatapoint)
@@ -897,10 +893,19 @@ class ZeroFeedIn extends utils.Adapter {
                     consumer.maxTemperature !== undefined &&
                     currentTemp >= consumer.maxTemperature
                 ) {
-                    consumer.timer = null;
-                    consumer.timerEnd = null;
-                    consumer.pendingAction = null;
-                    await stopTimerTicker();
+                    this.log.warn(
+                        `🔥 "${consumer.name}" wird NICHT eingeschaltet (Temp ${currentTemp}°C >= MaxTemp ${consumer.maxTemperature}°C)`,
+                    );
+                    // sicheren Timer-Clear durchführen
+                    await this.clearConsumerTimer(consumer);
+                    // Benachrichtigung bei Blockierung
+                    if (this.config.notifyHeating) {
+                        await this.sendNotification(
+                            'smartloadmanager',
+                            'notify',
+                            `🔥 ${consumer.name} blockiert: Temperatur ${currentTemp}°C erreicht MaxTemp ${consumer.maxTemperature}°C`,
+                        );
+                    }
                     return;
                 }
 
@@ -909,20 +914,18 @@ class ZeroFeedIn extends utils.Adapter {
                     currentTemp !== null &&
                     currentTemp < consumer.minTemperature
                 ) {
-                    consumer.timer = null;
-                    consumer.timerEnd = null;
-                    consumer.pendingAction = null;
-                    await stopTimerTicker();
+                    this.log.debug(
+                        `🌡️ "${consumer.name}" wird NICHT eingeschaltet (Temp ${currentTemp}°C < MinTemp ${consumer.minTemperature}°C)`,
+                    );
+                    await this.clearConsumerTimer(consumer);
                     return;
                 }
 
                 if (consumer.enableDatapoint) {
                     const enableState = await this.getForeignStateAsync(consumer.enableDatapoint);
                     if (!enableState?.val) {
-                        consumer.timer = null;
-                        consumer.timerEnd = null;
-                        consumer.pendingAction = null;
-                        await stopTimerTicker();
+                        this.log.warn(`🔒 "${consumer.name}" wird NICHT eingeschaltet – Hardwarefreigabe fehlt.`);
+                        await this.clearConsumerTimer(consumer);
                         return;
                     }
                 }
@@ -930,59 +933,29 @@ class ZeroFeedIn extends utils.Adapter {
                 if (consumer.heartbeatDatapoint) {
                     const hbState = await this.getForeignStateAsync(consumer.heartbeatDatapoint);
                     if (!hbState?.val) {
-                        consumer.timer = null;
-                        consumer.timerEnd = null;
-                        consumer.pendingAction = null;
-                        await stopTimerTicker();
+                        this.log.warn(`💔 "${consumer.name}" wird NICHT eingeschaltet – Heartbeat fehlt.`);
+                        await this.clearConsumerTimer(consumer);
                         return;
                     }
                 }
             }
 
             await this.doSwitchConsumer(consumer, turnOn);
-            if (consumer.timer) {
-                clearTimeout(consumer.timer);
-            }
-            consumer.timer = null;
-            consumer.timerEnd = null;
-            consumer.pendingAction = null;
-            await stopTimerTicker();
+            // Aufräumen der Timer und Timer-DP
+            await this.clearConsumerTimer(consumer);
         };
 
-        // 🟢 Hier ist der Fix:
-        // Falls Timer läuft, aber Bedingung sich geändert hat → Timer abbrechen
         if (consumer.timer) {
-            // wenn Einschalt-Timer läuft, aber turnOn nicht mehr gilt → abbrechen
-            if (consumer.pendingAction === true && !turnOn) {
-                clearTimeout(consumer.timer);
-                consumer.timer = null;
-                consumer.timerEnd = null;
-                consumer.pendingAction = null;
-                await stopTimerTicker();
-                return; // Timer beendet, keine neue Aktion starten
-            }
-
-            // wenn Ausschalt-Timer läuft, aber turnOn wieder gilt → abbrechen
-            if (consumer.pendingAction === false && turnOn) {
-                clearTimeout(consumer.timer);
-                consumer.timer = null;
-                consumer.timerEnd = null;
-                consumer.pendingAction = null;
-                await stopTimerTicker();
-                return; // Timer beendet, keine neue Aktion starten
-            }
-
-            // wenn gleiches Ziel wie bisher → nichts neu starten
             if (consumer.pendingAction === turnOn) {
+                this.log.debug(
+                    `⏭️ Timer für "${consumer.name}" (${delay}s ${turnOn ? 'EIN' : 'AUS'}) läuft bereits – kein neuer Timer.`,
+                );
                 return;
             }
-
-            // ansonsten Timer neu setzen
-            clearTimeout(consumer.timer);
-            consumer.timer = null;
-            consumer.timerEnd = null;
-            consumer.pendingAction = null;
-            await stopTimerTicker();
+            this.log.debug(
+                `🛑 Abbruch alter Timer für "${consumer.name}" (${consumer.pendingAction ? 'EIN' : 'AUS'}) – neuer Timer wird gesetzt.`,
+            );
+            await this.clearConsumerTimer(consumer);
         }
 
         if (delay > 0) {
@@ -990,6 +963,7 @@ class ZeroFeedIn extends utils.Adapter {
             consumer.pendingAction = turnOn;
             consumer.timer = setTimeout(doSwitch, delay * 1000);
             await startTimerTicker();
+            this.log.debug(`📌 Timer für "${consumer.name}" gestartet: ${delay}s bis ${turnOn ? 'EIN' : 'AUS'}`);
         } else {
             await doSwitch();
         }
@@ -1068,6 +1042,42 @@ class ZeroFeedIn extends utils.Adapter {
             }
         }
     }
+
+    /*
+    // Testfunktion
+    async testBatteryControlModeWrite() {
+        this.log.info(`Teste Schreibzugriff auf batteryControlModeDatapoint: ${this.batteryControlModeDatapoint}`);
+
+        if (!this.batteryControlModeDatapoint) {
+            this.log.error("batteryControlModeDatapoint nicht konfiguriert");
+            return;
+        }
+
+        const obj = await this.getForeignObjectAsync(this.batteryControlModeDatapoint);
+        if (!obj) {
+            this.log.error(`batteryControlModeDatapoint ${this.batteryControlModeDatapoint} existiert nicht!`);
+            return;
+        }
+
+        if (!obj.common?.write) {
+            this.log.warn(`batteryControlModeDatapoint ist nicht schreibbar!`);
+            return;
+        }
+
+        const valBefore = await this.getForeignStateAsync(this.batteryControlModeDatapoint);
+        this.log.info(`Vor Schreibversuch aktueller Wert: ${valBefore?.val}`);
+
+        try {
+            await this.setForeignStateAsync(this.batteryControlModeDatapoint, { val: 1, ack: true });
+            this.log.info(`Schreibversuch durchgeführt`);
+
+            const valAfter = await this.getForeignStateAsync(this.batteryControlModeDatapoint);
+            this.log.info(`Nach Schreibversuch aktueller Wert: ${valAfter?.val}`);
+        } catch (e) {
+            this.log.error(`Fehler beim Schreiben: ${e.message}`);
+        }
+    }
+    */
 
     sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

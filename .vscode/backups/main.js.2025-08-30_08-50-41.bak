@@ -416,12 +416,16 @@ class ZeroFeedIn extends utils.Adapter {
                 const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime, v.name);
 
                 let isOn = false;
+
+                // zuerst echten Schalt-Datenpunkt prüfen
                 if (v.datapoint) {
                     const dpState = await this.getForeignStateAsync(v.datapoint);
                     if (dpState?.val === true) {
                         isOn = true;
                     }
-                } else if (v.numericDatapoint) {
+                }
+                // numericDatapoint nur verwenden, wenn KEIN eigener Schalt-DP existiert
+                else if (v.numericDatapoint) {
                     const numState = await this.getForeignStateAsync(v.numericDatapoint);
                     const numVal = Number(numState?.val) || 0;
                     if (numVal === 1) {
@@ -432,7 +436,7 @@ class ZeroFeedIn extends utils.Adapter {
 
                 this.log.debug(`💡 "${v.name}" Status: isOn=${isOn}`);
 
-                // Zusatz-Checks heating
+                // --- Zusatz-Checks für heating ---
                 if (v.ruletype === 'heating' && withinWindow && !isOn) {
                     const tempState = v.temperatureDatapoint
                         ? await this.getForeignStateAsync(v.temperatureDatapoint)
@@ -469,7 +473,8 @@ class ZeroFeedIn extends utils.Adapter {
                     }
                 }
 
-                // Timer-Abbruch bei wegfallender Bedingung (Einschalten)
+                // --- Timer-Abbruch bei wegfallender Bedingung ---
+                // Nur Einschalt-Timer abbrechen, wenn gerade ein Einschalt-Timer läuft (pendingAction === true)
                 if (
                     v.timer &&
                     v.timerEnd &&
@@ -542,10 +547,12 @@ class ZeroFeedIn extends utils.Adapter {
 
                 // AlwaysOffAtTime erzwingt Ausschalten
                 if (v.alwaysOffAtTime && !withinWindow && isOn) {
+                    // Wenn bereits ein Ausschalt-Timer läuft (pendingAction === false), nur Restzeit anzeigen
                     if (v.timer && v.timerEnd && v.pendingAction === false) {
                         const remaining = Math.max(0, Math.round((v.timerEnd - Date.now()) / 1000));
                         this.log.debug(`📋 Aktive Timer → ${v.name}: noch ${remaining}s`);
                     } else if (v.timer && v.timerEnd && v.pendingAction === true) {
+                        // Es läuft ein Einschalt-Timer, der jetzt sinnlos ist — abbrechen und einen Ausschalt-Timer starten
                         clearTimeout(v.timer);
                         v.timer = null;
                         v.timerEnd = null;
@@ -596,8 +603,9 @@ class ZeroFeedIn extends utils.Adapter {
                     continue;
                 }
 
-                // Timer-Abbruch bei wegfallender Bedingung (Ausschalten)
-                if (v.timer && v.timerEnd && v.pendingAction === false && withinWindow && !gridUsage) {
+                // Timer-Abbruch bei wegfallender Bedingung
+                // Nur Ausschalt-Timer abbrechen, wenn gerade ein Ausschalt-Timer läuft (pendingAction === false)
+                if (v.timer && v.timerEnd && v.pendingAction === false && (withinWindow && !gridUsage) === false) {
                     clearTimeout(v.timer);
                     v.timer = null;
                     v.timerEnd = null;
@@ -609,13 +617,8 @@ class ZeroFeedIn extends utils.Adapter {
                 }
 
                 if (!v.alwaysOffAtTime && (!withinWindow || gridUsage)) {
-                    if (v.timer && v.timerEnd && v.pendingAction === false) {
-                        const remaining = Math.max(0, Math.round((v.timerEnd - Date.now()) / 1000));
-                        this.log.debug(`📋 Aktive Timer → ${v.name}: noch ${remaining}s`);
-                    } else {
-                        this.log.debug(`⏳ Ausschalten: "${v.name}" - offDelay ${v.switchOffDelay || 0}s.`);
-                        await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
-                    }
+                    this.log.debug(`⏳ Ausschalten: "${v.name}" - offDelay ${v.switchOffDelay || 0}s.`);
+                    await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
                 }
             }
 
@@ -885,7 +888,6 @@ class ZeroFeedIn extends utils.Adapter {
         };
 
         const doSwitch = async () => {
-            // nur bei heating: zusätzliche Sicherheitschecks
             if (consumer.ruletype === 'heating' && turnOn) {
                 const tempState = consumer.temperatureDatapoint
                     ? await this.getForeignStateAsync(consumer.temperatureDatapoint)
@@ -949,35 +951,10 @@ class ZeroFeedIn extends utils.Adapter {
             await stopTimerTicker();
         };
 
-        // 🟢 Hier ist der Fix:
-        // Falls Timer läuft, aber Bedingung sich geändert hat → Timer abbrechen
         if (consumer.timer) {
-            // wenn Einschalt-Timer läuft, aber turnOn nicht mehr gilt → abbrechen
-            if (consumer.pendingAction === true && !turnOn) {
-                clearTimeout(consumer.timer);
-                consumer.timer = null;
-                consumer.timerEnd = null;
-                consumer.pendingAction = null;
-                await stopTimerTicker();
-                return; // Timer beendet, keine neue Aktion starten
-            }
-
-            // wenn Ausschalt-Timer läuft, aber turnOn wieder gilt → abbrechen
-            if (consumer.pendingAction === false && turnOn) {
-                clearTimeout(consumer.timer);
-                consumer.timer = null;
-                consumer.timerEnd = null;
-                consumer.pendingAction = null;
-                await stopTimerTicker();
-                return; // Timer beendet, keine neue Aktion starten
-            }
-
-            // wenn gleiches Ziel wie bisher → nichts neu starten
             if (consumer.pendingAction === turnOn) {
                 return;
             }
-
-            // ansonsten Timer neu setzen
             clearTimeout(consumer.timer);
             consumer.timer = null;
             consumer.timerEnd = null;
