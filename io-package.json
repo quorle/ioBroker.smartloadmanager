@@ -1,257 +1,257 @@
 {
-    "common": {
-        "name": "smartloadmanager",
-        "version": "0.0.1-alpha.22",
-        "news": {
-            "0.0.1-alpha.22": {
-                "en": "code changed \"FeedIn\"",
-                "de": "code geändert \"FeedIn\"",
-                "ru": "код изменился на \"FeedIn\"",
-                "pt": "código alterado \"FeedIn\"",
-                "nl": "code gewijzigd \"FeedIn\"",
-                "fr": "code modifié \"FeedIn\"",
-                "it": "codice cambiato \"FeedIn\"",
-                "es": "el código cambió \"FeedIn\"",
-                "pl": "kod zmieniony \"FeedIn\"",
-                "uk": "код змінено \"ФеедІн\"",
-                "zh-cn": "代码已更改“ FeedIn ”"
-            },
-            "0.0.1-alpha.21": {
-                "en": "code changed \"FeedIn\"",
-                "de": "code geändert \"FeedIn\"",
-                "ru": "код изменился на \"FeedIn\"",
-                "pt": "código alterado \"FeedIn\"",
-                "nl": "code gewijzigd \"FeedIn\"",
-                "fr": "code modifié \"FeedIn\"",
-                "it": "codice cambiato \"FeedIn\"",
-                "es": "el código cambió \"FeedIn\"",
-                "pl": "kod zmieniony \"FeedIn\"",
-                "uk": "код змінено \"ФеедІн\"",
-                "zh-cn": "代码已更改“ FeedIn ”"
-            },
-            "0.0.1-alpha.20": {
-                "en": "code changed \"heating element\"\nTimer handling for on and off timers optimized\nAdded notifications for heating element\nReadme changed",
-                "de": "code geändert \"heizelement\"\nTimer Handling für Ein- und Aus-Timer optimiert\nZusätzliche Meldungen für Heizelement\nReader geändert",
-                "ru": "код изменил «элемент нагрева»\nОбработка таймеров для включения и выключения таймеров оптимизирована\nДополнительные уведомления для нагревательного элемента\nReadme изменился",
-                "pt": "código alterado \"elemento de aquecimento\"\nManuseamento do temporizador para temporizadores ligados e desligados otimizados\nNotificações adicionais para o elemento de aquecimento\nReadme mudou",
-                "nl": "code gewijzigd \"verwarmingselement\"\nTimerafhandeling voor geoptimaliseerde aan- en uit-timers\nToegevoegde meldingen voor verwarmingselement\nLezen gewijzigd",
-                "fr": "code modifié \"élément chauffant\"\nManipulation des minuteries pour les minuteries on et off optimisées\nAjout de notifications pour élément chauffant\nLecture modifiée",
-                "it": "codice cambiato \"elemento riscaldante\"\nMovimentazione timer per timer on e off ottimizzata\nAggiunto notifiche per elemento di riscaldamento\nReadme è cambiato",
-                "es": "código cambiado \"elemento de calentamiento\"\nManejo de tiempo para los temporizadores encendidos y apagados optimizados\nNotificaciones adicionales para el elemento de calefacción\nEl texto cambió",
-                "pl": "kod zmieniony \"element grzewczy\"\nObróbka liczników dla timerów włączanych i wyłączanych zoptymalizowana\nDodano powiadomienia dotyczące elementu grzewczego\nReadme się zmienił",
-                "uk": "змінено код «теплий елемент»\nОптимізоване обслуговування таймерів та таймерів\nДодано повідомлення про нагрівальний елемент\nЗмінено",
-                "zh-cn": "代码更改了“ 加热元素”\n上下计时器处理优化\n添加的加热元素通知\n读取器已更改"
-            },
-            "0.0.1-alpha.19": {
-                "en": "Readme changed\nIntegration of heating element",
-                "de": "Reader geändert\nIntegration von Heizelement",
-                "ru": "Readme изменился\nИнтеграция нагревательного элемента",
-                "pt": "Readme mudou\nIntegração do elemento de aquecimento",
-                "nl": "Lezen gewijzigd\nIntegratie van verwarmingselement",
-                "fr": "Lecture modifiée\nIntégration de l'élément de chauffage",
-                "it": "Readme è cambiato\nIntegrazione degli elementi di riscaldamento",
-                "es": "El texto cambió\nIntegración del elemento de calefacción",
-                "pl": "Readme się zmienił\nIntegracja elementu grzewczego",
-                "uk": "Змінено\nІнтеграція нагрівального елементу",
-                "zh-cn": "读取器已更改\n暖气元素的整合"
-            },
-            "0.0.1-alpha.18": {
-                "en": "code changed\nPower off timer optimized for \"AllwayOfAtTime\"\nMessenger (Telegram, Notify, etc..) added",
-                "de": "code geändert\nAusschalten Timer für \"AllwayOfAtTime\" optimiert\nMessenger (Telegramm, Benachrichtigen, etc.) hinzugefügt",
-                "ru": "код изменен\nТаймер отключения питания оптимизирован для «AllwayOfAtTime»\nMessenger (Telegram, Notify и т.д.)",
-                "pt": "código alterado\nTemporizador de desligamento otimizado para \"AllwayOfAtTime\"\nMessenger (Telegrama, Notificação, etc.) adicionado",
-                "nl": "code gewijzigd\nUitschakelen timer geoptimaliseerd voor \"AllwayOfAtTime\"\nBoodschapper (Telegram, kennisgeving enz.) toegevoegd",
-                "fr": "code modifié\nInterrupteur optimisé pour \"AllwayOfAtTime\"\nMessager (télégramme, avis, etc.) ajouté",
-                "it": "codice cambiato\nPower off timer ottimizzato per \"AllwayOfAtTime\"\nMessenger (Telegramma, notifica, ecc.) aggiunto",
-                "es": "código cambiado\nTiempo libre optimizado para \"AllwayOfAtTime\"\nMensajero (Telegrama, Notificar, etc.) añadido",
-                "pl": "kod zmieniony\nZegar zasilania zoptymalizowany dla \"AllwayOfAtTime\"\nDodano posłańca (Telegram, Powiadomienie itp..)",
-                "uk": "змінено код\nОптимізований таймер живлення для \"AllwayOfAtTime\"\nДодано месенджер (Telegram, Notify тощо)",
-                "zh-cn": "代码已更改\n为\"AllwayOf Attime\"优化了停电定时器\n增加了信使(电报、通知等)"
-            },
-            "0.0.1-alpha.17": {
-                "en": "Optimation data point for 0/1 output (ISSU #15)",
-                "de": "Optimierungsdatenpunkt für 0/1 Ausgang (ISSU #15)",
-                "ru": "Точка оптимизационных данных для вывода 0/1 (ISSU #15)",
-                "pt": "Ponto de dados de otimização para 0/1 saída (ISSU # 15)",
-                "nl": "Optimalisatiegegevenspunt voor 0/1 uitvoer (ISSU #15)",
-                "fr": "Point de données d'optimisation pour la sortie 0/1 (ISSU #15)",
-                "it": "Optimation data point per 0/1 output (ISSU #15)",
-                "es": "Punto de datos de optimización para la salida 0/1 (ISSU #15)",
-                "pl": "Optymalizacja punktu danych dla wyjścia 0 / 1 (ISSU # 15)",
-                "uk": "Оптимізація точки даних для виходу 0/1 (ISSU #15)",
-                "zh-cn": "0/1输出的优化数据点(ISSU #15)"
-            },
-            "0.0.1-alpha.16": {
-                "en": "code changed\nLogging optimized\nSwitch to Notification Manager for notifications\nDelay´s changed to per consumer\nAdded second selection data point for 0/1 output (ISSU #15)\nReadme changed",
-                "de": "code geändert\nProtokollierung optimiert\nZur Meldung wechseln Manager für Benachrichtigungen\nVerzögerungen je Verbraucher verändert\nHinzugefügt zweiter Selektionsdatenpunkt für 0/1 Ausgang (ISSU #15)\nReader geändert",
-                "ru": "код изменен\nОптимизация лесозаготовок\nПереключитесь на уведомление Менеджер уведомлений\nЗадержка изменилась на одного потребителя\nДобавлена вторая точка выбора для вывода 0/1 (ISSU #15)\nReadme изменился",
-                "pt": "código alterado\nRegisto otimizado\nMudar para Notificação Gestor de notificações\nO atraso é alterado para por consumidor\nAdicionado segundo ponto de dados de seleção para 0/1 saída (ISSU # 15)\nReadme mudou",
-                "nl": "code gewijzigd\nGeoptimaliseerd loggen\nOverschakelen naar kennisgeving Beheerder voor meldingen\nVertraging van de omzet per consument\nTweede selectiegegevenspunt toegevoegd voor 0/1 uitvoer (ISSU #15)\nLezen gewijzigd",
-                "fr": "code modifié\nExploitation optimisée\nPasser à la notification Gestionnaire des notifications\nLe délai est passé à un délai par consommateur\nAjout du deuxième point de données de sélection pour la sortie 0/1 (ISSU #15)\nLecture modifiée",
-                "it": "codice cambiato\nLogging ottimizzato\nPassare alla notifica Gestione delle notifiche\nDelay è cambiato in per consumatore\nAggiunto secondo punto di selezione per 0/1 output (ISSU #15)\nReadme è cambiato",
-                "es": "código cambiado\nLogging optimizado\nCambiar a la notificación Manager for notifications\nDelay ha cambiado a por consumidor\nAñadido segundo punto de datos de selección para 0/1 salida (ISSU #15)\nEl texto cambió",
-                "pl": "kod zmieniony\nZoptymalizowane logowanie\nPrzełączenie na zgłoszenie Menedżer powiadomień\nOpóźnienie na jednego konsumenta\nDodano drugi punkt wyboru dla wyjścia 0 / 1 (ISSU # 15)\nReadme się zmienił",
-                "uk": "змінено код\nОптимізоване оновлення\nПеремикач Notification Менеджер для повідомлень\nЗменшення термінів на споживача\nДодано другий пункт відбору даних для виходу 0/1 (ISSU #15)\nЗмінено",
-                "zh-cn": "代码已更改\n日志优化\n切换到通知 通知管理员\n延迟改为每个消费者\n0/1 输出的第二个选择数据点( ISSU # 15)\n读取器已更改"
-            }
-        },
-        "titleLang": {
-            "en": "smartloadmanager",
-            "de": "smartloadmanager",
-            "ru": "smartloadmanager",
-            "pt": "smartloadmanager",
-            "nl": "smartloadmanager",
-            "fr": "smartloadmanager",
-            "it": "smartloadmanager",
-            "es": "smartloadmanager",
-            "pl": "smartloadmanager",
-            "uk": "smartloadmanager",
-            "zh-cn": "smartloadmanager"
-        },
-        "desc": {
-            "en": "Smart load management for home energy systems",
-            "de": "Smartes Lastmanagement für Heimenergiesysteme",
-            "ru": "Умное управление нагрузками для домашних энергетических систем",
-            "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
-            "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
-            "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
-            "it": "Gestione intelligente del carico per sistemi di energia domestica",
-            "es": "Gestión inteligente de carga para sistemas de energía doméstica",
-            "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
-            "uk": "Розумне управління навантаженням для побутових енергосистем",
-            "zh-cn": "家庭能源系统的智能负荷管理"
-        },
-        "authors": [
-            "quorle <quorle12@gmail.com>"
-        ],
-        "keywords": [
-            "Surplus",
-            "Feed-in",
-            "PV system",
-            "Zero feed-in",
-            "Zero feed-in",
-            "Zero feed-in"
-        ],
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "smartloadmanager.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
-        "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 3,
-        "mode": "daemon",
-        "type": "logic",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "adminUI": {
-            "config": "json"
-        },
-        "supportedMessages": {
-            "notifications": true
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=6.0.11"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.6.17"
-            }
-        ]
+  "common": {
+    "name": "smartloadmanager",
+    "version": "0.0.1-alpha.23",
+    "news": {
+      "0.0.1-alpha.23": {
+        "en": "Recipient settings for notifications\nThe Adapter Notification Manager is now an option\nTranslations expanded",
+        "de": "Empfängereinstellungen für Benachrichtigungen\nDer Adapter Notification Manager ist jetzt eine Option\nÜbersetzungen erweitert",
+        "ru": "Настройки получателей уведомлений\nАдаптерный диспетчер уведомлений теперь является опцией\nПереводы расширяются",
+        "pt": "Configurações do destinatário para notificações\nO Gerenciador de Notificação do Adaptador agora é uma opção\nTraduções expandidas",
+        "nl": "Instellingen voor ontvangers voor meldingen\nDe Adapter Notification Manager is nu een optie\nVertalingen uitgebreid",
+        "fr": "Paramètres des destinataires pour les notifications\nLe gestionnaire de notification adaptateur est maintenant une option\nTraductions élargies",
+        "it": "Impostazioni sensibili per le notifiche\nL'Adattatore Notification Manager è ora un'opzione\nTraduzioni ampliate",
+        "es": "Ajustes de referencia para notificaciones\nEl Administrador de Notificación de Adaptador es ahora una opción\nAmpliación de las traducciones",
+        "pl": "Ustawienia odbiorcy powiadomień\nMenedżer powiadomień Adaptera jest teraz opcją\nTłumaczenia rozszerzone",
+        "uk": "Параметри одержувача для повідомлень\nПерехідник Notification Manager тепер опція\nПереклади розширені",
+        "zh-cn": "通知的收件人设置\n适配器通知管理器现在是一个选项\n扩大翻译"
+      },
+      "0.0.1-alpha.22": {
+        "en": "code changed \"FeedIn\"",
+        "de": "code geändert \"FeedIn\"",
+        "ru": "код изменился на \"FeedIn\"",
+        "pt": "código alterado \"FeedIn\"",
+        "nl": "code gewijzigd \"FeedIn\"",
+        "fr": "code modifié \"FeedIn\"",
+        "it": "codice cambiato \"FeedIn\"",
+        "es": "el código cambió \"FeedIn\"",
+        "pl": "kod zmieniony \"FeedIn\"",
+        "uk": "код змінено \"ФеедІн\"",
+        "zh-cn": "代码已更改“ FeedIn ”"
+      },
+      "0.0.1-alpha.21": {
+        "en": "code changed \"FeedIn\"",
+        "de": "code geändert \"FeedIn\"",
+        "ru": "код изменился на \"FeedIn\"",
+        "pt": "código alterado \"FeedIn\"",
+        "nl": "code gewijzigd \"FeedIn\"",
+        "fr": "code modifié \"FeedIn\"",
+        "it": "codice cambiato \"FeedIn\"",
+        "es": "el código cambió \"FeedIn\"",
+        "pl": "kod zmieniony \"FeedIn\"",
+        "uk": "код змінено \"ФеедІн\"",
+        "zh-cn": "代码已更改“ FeedIn ”"
+      },
+      "0.0.1-alpha.20": {
+        "en": "code changed \"heating element\"\nTimer handling for on and off timers optimized\nAdded notifications for heating element\nReadme changed",
+        "de": "code geändert \"heizelement\"\nTimer Handling für Ein- und Aus-Timer optimiert\nZusätzliche Meldungen für Heizelement\nReader geändert",
+        "ru": "код изменил «элемент нагрева»\nОбработка таймеров для включения и выключения таймеров оптимизирована\nДополнительные уведомления для нагревательного элемента\nReadme изменился",
+        "pt": "código alterado \"elemento de aquecimento\"\nManuseamento do temporizador para temporizadores ligados e desligados otimizados\nNotificações adicionais para o elemento de aquecimento\nReadme mudou",
+        "nl": "code gewijzigd \"verwarmingselement\"\nTimerafhandeling voor geoptimaliseerde aan- en uit-timers\nToegevoegde meldingen voor verwarmingselement\nLezen gewijzigd",
+        "fr": "code modifié \"élément chauffant\"\nManipulation des minuteries pour les minuteries on et off optimisées\nAjout de notifications pour élément chauffant\nLecture modifiée",
+        "it": "codice cambiato \"elemento riscaldante\"\nMovimentazione timer per timer on e off ottimizzata\nAggiunto notifiche per elemento di riscaldamento\nReadme è cambiato",
+        "es": "código cambiado \"elemento de calentamiento\"\nManejo de tiempo para los temporizadores encendidos y apagados optimizados\nNotificaciones adicionales para el elemento de calefacción\nEl texto cambió",
+        "pl": "kod zmieniony \"element grzewczy\"\nObróbka liczników dla timerów włączanych i wyłączanych zoptymalizowana\nDodano powiadomienia dotyczące elementu grzewczego\nReadme się zmienił",
+        "uk": "змінено код «теплий елемент»\nОптимізоване обслуговування таймерів та таймерів\nДодано повідомлення про нагрівальний елемент\nЗмінено",
+        "zh-cn": "代码更改了“ 加热元素”\n上下计时器处理优化\n添加的加热元素通知\n读取器已更改"
+      },
+      "0.0.1-alpha.19": {
+        "en": "Readme changed\nIntegration of heating element",
+        "de": "Reader geändert\nIntegration von Heizelement",
+        "ru": "Readme изменился\nИнтеграция нагревательного элемента",
+        "pt": "Readme mudou\nIntegração do elemento de aquecimento",
+        "nl": "Lezen gewijzigd\nIntegratie van verwarmingselement",
+        "fr": "Lecture modifiée\nIntégration de l'élément de chauffage",
+        "it": "Readme è cambiato\nIntegrazione degli elementi di riscaldamento",
+        "es": "El texto cambió\nIntegración del elemento de calefacción",
+        "pl": "Readme się zmienił\nIntegracja elementu grzewczego",
+        "uk": "Змінено\nІнтеграція нагрівального елементу",
+        "zh-cn": "读取器已更改\n暖气元素的整合"
+      },
+      "0.0.1-alpha.18": {
+        "en": "code changed\nPower off timer optimized for \"AllwayOfAtTime\"\nMessenger (Telegram, Notify, etc..) added",
+        "de": "code geändert\nAusschalten Timer für \"AllwayOfAtTime\" optimiert\nMessenger (Telegramm, Benachrichtigen, etc.) hinzugefügt",
+        "ru": "код изменен\nТаймер отключения питания оптимизирован для «AllwayOfAtTime»\nMessenger (Telegram, Notify и т.д.)",
+        "pt": "código alterado\nTemporizador de desligamento otimizado para \"AllwayOfAtTime\"\nMessenger (Telegrama, Notificação, etc.) adicionado",
+        "nl": "code gewijzigd\nUitschakelen timer geoptimaliseerd voor \"AllwayOfAtTime\"\nBoodschapper (Telegram, kennisgeving enz.) toegevoegd",
+        "fr": "code modifié\nInterrupteur optimisé pour \"AllwayOfAtTime\"\nMessager (télégramme, avis, etc.) ajouté",
+        "it": "codice cambiato\nPower off timer ottimizzato per \"AllwayOfAtTime\"\nMessenger (Telegramma, notifica, ecc.) aggiunto",
+        "es": "código cambiado\nTiempo libre optimizado para \"AllwayOfAtTime\"\nMensajero (Telegrama, Notificar, etc.) añadido",
+        "pl": "kod zmieniony\nZegar zasilania zoptymalizowany dla \"AllwayOfAtTime\"\nDodano posłańca (Telegram, Powiadomienie itp..)",
+        "uk": "змінено код\nОптимізований таймер живлення для \"AllwayOfAtTime\"\nДодано месенджер (Telegram, Notify тощо)",
+        "zh-cn": "代码已更改\n为\"AllwayOf Attime\"优化了停电定时器\n增加了信使(电报、通知等)"
+      },
+      "0.0.1-alpha.17": {
+        "en": "Optimation data point for 0/1 output (ISSU #15)",
+        "de": "Optimierungsdatenpunkt für 0/1 Ausgang (ISSU #15)",
+        "ru": "Точка оптимизационных данных для вывода 0/1 (ISSU #15)",
+        "pt": "Ponto de dados de otimização para 0/1 saída (ISSU # 15)",
+        "nl": "Optimalisatiegegevenspunt voor 0/1 uitvoer (ISSU #15)",
+        "fr": "Point de données d'optimisation pour la sortie 0/1 (ISSU #15)",
+        "it": "Optimation data point per 0/1 output (ISSU #15)",
+        "es": "Punto de datos de optimización para la salida 0/1 (ISSU #15)",
+        "pl": "Optymalizacja punktu danych dla wyjścia 0 / 1 (ISSU # 15)",
+        "uk": "Оптимізація точки даних для виходу 0/1 (ISSU #15)",
+        "zh-cn": "0/1输出的优化数据点(ISSU #15)"
+      }
     },
-    "notifications": [
-        {
-            "scope": "smartloadmanager",
-            "name": {
-                "en": "SmartLoadManager",
-                "de": "SmartLoadManager"
-            },
-            "description": {
-                "en": "Notifications from SmartLoadManager",
-                "de": "Benachrichtigungen vom SmartLoadManager"
-            },
-            "categories": [
-                {
-                    "category": "info",
-                    "name": {
-                        "en": "Info",
-                        "de": "Info"
-                    },
-                    "severity": "notify",
-                    "description": {
-                        "en": "Information about consumer switching or battery adjustments",
-                        "de": "Informationen zu Verbraucherschaltungen oder Batterieanpassungen"
-                    },
-                    "regex": [],
-                    "limit": 1
-                },
-                {
-                    "category": "notify",
-                    "name": {
-                        "en": "Notify",
-                        "de": "Benachrichtigen"
-                    },
-                    "severity": "notify",
-                    "description": {
-                        "en": "Notify about events",
-                        "de": "Benachrichtigen über Ereignisse"
-                    },
-                    "regex": [],
-                    "limit": 1
-                },
-                {
-                    "category": "alert",
-                    "name": {
-                        "en": "Alert",
-                        "de": "Alarm"
-                    },
-                    "severity": "alert",
-                    "description": {
-                        "en": "Alarm or failures in the adapter",
-                        "de": "Alarm oder Ausfälle im Adapter"
-                    },
-                    "regex": [],
-                    "limit": 1
-                }
-            ]
-        }
+    "titleLang": {
+      "en": "smartloadmanager",
+      "de": "smartloadmanager",
+      "ru": "smartloadmanager",
+      "pt": "smartloadmanager",
+      "nl": "smartloadmanager",
+      "fr": "smartloadmanager",
+      "it": "smartloadmanager",
+      "es": "smartloadmanager",
+      "pl": "smartloadmanager",
+      "uk": "smartloadmanager",
+      "zh-cn": "smartloadmanager"
+    },
+    "desc": {
+      "en": "Smart load management for home energy systems",
+      "de": "Smartes Lastmanagement für Heimenergiesysteme",
+      "ru": "Умное управление нагрузками для домашних энергетических систем",
+      "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
+      "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
+      "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
+      "it": "Gestione intelligente del carico per sistemi di energia domestica",
+      "es": "Gestión inteligente de carga para sistemas de energía doméstica",
+      "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
+      "uk": "Розумне управління навантаженням для побутових енергосистем",
+      "zh-cn": "家庭能源系统的智能负荷管理"
+    },
+    "authors": [
+      "quorle <quorle12@gmail.com>"
     ],
-    "native": {
-        "feedInDatapoint": "",
-        "FeedInDataPoint": "",
-        "feedinNegativ": false,
-        "switchOnPoint": 0,
-        "switchOffPoint": 0,
-        "consumer": [],
-        "baseload": 0,
-        "batteryControlModeDatapoint": "",
-        "notifyBinary": false,
-        "notifyPercent": false,
-        "notifyBattery": false,
-        "notifyHeating": false,
-        "switchOnDelay": 20,
-        "switchOffDelay": 20,
-        "delaySecondsProzent": 0,
-        "batteryDelaySeconds": 0,
-        "telegramInstance": "",
-        "gotifyInstance": "",
-        "emailInstance": "",
-        "whatsappInstance": "",
-        "signalInstance": "",
-        "pushoverInstance": "",
-        "telegramRecipients": "",
-        "emailRecipients": "",
-        "whatsappRecipients": "",
-        "signalRecipients": "",
-        "pushoverRecipients": "",
-        "enableNotificationManager": false
+    "keywords": [
+      "Surplus",
+      "Feed-in",
+      "PV system",
+      "Zero feed-in",
+      "Zero feed-in",
+      "Zero feed-in"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
     },
-    "objects": [],
-    "instanceObjects": []
+    "platform": "Javascript/Node.js",
+    "icon": "smartloadmanager.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
+    "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "logic",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "supportedMessages": {
+      "notifications": true
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ]
+  },
+  "notifications": [
+    {
+      "scope": "smartloadmanager",
+      "name": {
+        "en": "SmartLoadManager",
+        "de": "SmartLoadManager"
+      },
+      "description": {
+        "en": "Notifications from SmartLoadManager",
+        "de": "Benachrichtigungen vom SmartLoadManager"
+      },
+      "categories": [
+        {
+          "category": "info",
+          "name": {
+            "en": "Info",
+            "de": "Info"
+          },
+          "severity": "notify",
+          "description": {
+            "en": "Information about consumer switching or battery adjustments",
+            "de": "Informationen zu Verbraucherschaltungen oder Batterieanpassungen"
+          },
+          "regex": [],
+          "limit": 1
+        },
+        {
+          "category": "notify",
+          "name": {
+            "en": "Notify",
+            "de": "Benachrichtigen"
+          },
+          "severity": "notify",
+          "description": {
+            "en": "Notify about events",
+            "de": "Benachrichtigen über Ereignisse"
+          },
+          "regex": [],
+          "limit": 1
+        },
+        {
+          "category": "alert",
+          "name": {
+            "en": "Alert",
+            "de": "Alarm"
+          },
+          "severity": "alert",
+          "description": {
+            "en": "Alarm or failures in the adapter",
+            "de": "Alarm oder Ausfälle im Adapter"
+          },
+          "regex": [],
+          "limit": 1
+        }
+      ]
+    }
+  ],
+  "native": {
+    "feedInDatapoint": "",
+    "FeedInDataPoint": "",
+    "feedinNegativ": false,
+    "switchOnPoint": 0,
+    "switchOffPoint": 0,
+    "consumer": [],
+    "baseload": 0,
+    "batteryControlModeDatapoint": "",
+    "notifyBinary": false,
+    "notifyPercent": false,
+    "notifyBattery": false,
+    "notifyHeating": false,
+    "switchOnDelay": 20,
+    "switchOffDelay": 20,
+    "delaySecondsProzent": 0,
+    "batteryDelaySeconds": 0,
+    "telegramInstance": "",
+    "gotifyInstance": "",
+    "emailInstance": "",
+    "whatsappInstance": "",
+    "signalInstance": "",
+    "pushoverInstance": "",
+    "telegramRecipients": "",
+    "emailRecipients": "",
+    "whatsappRecipients": "",
+    "signalRecipients": "",
+    "pushoverRecipients": "",
+    "enableNotificationManager": false
+  },
+  "objects": [],
+  "instanceObjects": []
 }
