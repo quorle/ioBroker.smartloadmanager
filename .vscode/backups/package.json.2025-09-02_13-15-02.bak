@@ -10,11 +10,9 @@
     "license": "MIT",
     "keywords": [
         "ioBroker",
-        "excess",
-        "feed-in",
-        "PV System",
-        "Smart Home",
-        "home automation"
+        "Überschuss",
+        "Einspeisung",
+        "PV-Anlage"
     ],
     "repository": {
         "type": "git",
