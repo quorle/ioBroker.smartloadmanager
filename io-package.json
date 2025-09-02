@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.24",
+    "version": "0.0.1",
     "news": {
+      "0.0.1": {
+        "en": "Release",
+        "de": "Release",
+        "ru": "Выпуск",
+        "pt": "Lançar",
+        "nl": "Loslaten",
+        "fr": "Libération",
+        "it": "Comunicato",
+        "es": "Liberación",
+        "pl": "Zwolnienie",
+        "uk": "Релізи",
+        "zh-cn": "发布"
+      },
       "0.0.1-alpha.24": {
         "en": "Readme changed",
         "de": "Reader geändert",
@@ -80,19 +93,6 @@
         "pl": "Readme się zmienił\nIntegracja elementu grzewczego",
         "uk": "Змінено\nІнтеграція нагрівального елементу",
         "zh-cn": "读取器已更改\n暖气元素的整合"
-      },
-      "0.0.1-alpha.18": {
-        "en": "code changed\nPower off timer optimized for \"AllwayOfAtTime\"\nMessenger (Telegram, Notify, etc..) added",
-        "de": "code geändert\nAusschalten Timer für \"AllwayOfAtTime\" optimiert\nMessenger (Telegramm, Benachrichtigen, etc.) hinzugefügt",
-        "ru": "код изменен\nТаймер отключения питания оптимизирован для «AllwayOfAtTime»\nMessenger (Telegram, Notify и т.д.)",
-        "pt": "código alterado\nTemporizador de desligamento otimizado para \"AllwayOfAtTime\"\nMessenger (Telegrama, Notificação, etc.) adicionado",
-        "nl": "code gewijzigd\nUitschakelen timer geoptimaliseerd voor \"AllwayOfAtTime\"\nBoodschapper (Telegram, kennisgeving enz.) toegevoegd",
-        "fr": "code modifié\nInterrupteur optimisé pour \"AllwayOfAtTime\"\nMessager (télégramme, avis, etc.) ajouté",
-        "it": "codice cambiato\nPower off timer ottimizzato per \"AllwayOfAtTime\"\nMessenger (Telegramma, notifica, ecc.) aggiunto",
-        "es": "código cambiado\nTiempo libre optimizado para \"AllwayOfAtTime\"\nMensajero (Telegrama, Notificar, etc.) añadido",
-        "pl": "kod zmieniony\nZegar zasilania zoptymalizowany dla \"AllwayOfAtTime\"\nDodano posłańca (Telegram, Powiadomienie itp..)",
-        "uk": "змінено код\nОптимізований таймер живлення для \"AllwayOfAtTime\"\nДодано месенджер (Telegram, Notify тощо)",
-        "zh-cn": "代码已更改\n为\"AllwayOf Attime\"优化了停电定时器\n增加了信使(电报、通知等)"
       }
     },
     "titleLang": {
