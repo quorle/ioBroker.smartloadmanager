@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.1-alpha.23",
+    "version": "0.0.1-alpha.24",
     "news": {
+      "0.0.1-alpha.24": {
+        "en": "Readme changed",
+        "de": "Reader geändert",
+        "ru": "Readme изменился",
+        "pt": "Readme mudou",
+        "nl": "Lezen gewijzigd",
+        "fr": "Lecture modifiée",
+        "it": "Readme è cambiato",
+        "es": "El texto cambió",
+        "pl": "Readme się zmienił",
+        "uk": "Змінено",
+        "zh-cn": "读取器已更改"
+      },
       "0.0.1-alpha.23": {
         "en": "Recipient settings for notifications\nThe Adapter Notification Manager is now an option\nTranslations expanded",
         "de": "Empfängereinstellungen für Benachrichtigungen\nDer Adapter Notification Manager ist jetzt eine Option\nÜbersetzungen erweitert",
@@ -80,19 +93,6 @@
         "pl": "kod zmieniony\nZegar zasilania zoptymalizowany dla \"AllwayOfAtTime\"\nDodano posłańca (Telegram, Powiadomienie itp..)",
         "uk": "змінено код\nОптимізований таймер живлення для \"AllwayOfAtTime\"\nДодано месенджер (Telegram, Notify тощо)",
         "zh-cn": "代码已更改\n为\"AllwayOf Attime\"优化了停电定时器\n增加了信使(电报、通知等)"
-      },
-      "0.0.1-alpha.17": {
-        "en": "Optimation data point for 0/1 output (ISSU #15)",
-        "de": "Optimierungsdatenpunkt für 0/1 Ausgang (ISSU #15)",
-        "ru": "Точка оптимизационных данных для вывода 0/1 (ISSU #15)",
-        "pt": "Ponto de dados de otimização para 0/1 saída (ISSU # 15)",
-        "nl": "Optimalisatiegegevenspunt voor 0/1 uitvoer (ISSU #15)",
-        "fr": "Point de données d'optimisation pour la sortie 0/1 (ISSU #15)",
-        "it": "Optimation data point per 0/1 output (ISSU #15)",
-        "es": "Punto de datos de optimización para la salida 0/1 (ISSU #15)",
-        "pl": "Optymalizacja punktu danych dla wyjścia 0 / 1 (ISSU # 15)",
-        "uk": "Оптимізація точки даних для виходу 0/1 (ISSU #15)",
-        "zh-cn": "0/1输出的优化数据点(ISSU #15)"
       }
     },
     "titleLang": {

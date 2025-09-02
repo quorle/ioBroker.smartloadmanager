@@ -200,8 +200,7 @@ Für jeden Verbraucher wird ein eigener Channel mit folgenden States erzeugt:
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.0.1-alpha.24 (2025-09-02)
 
 - (quorle) Readme changed
 
