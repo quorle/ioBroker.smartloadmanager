@@ -121,17 +121,8 @@
             "uk": "Розумне управління навантаженням для побутових енергосистем",
             "zh-cn": "家庭能源系统的智能负荷管理"
         },
-        "authors": [
-            "quorle <quorle12@gmail.com>"
-        ],
-        "keywords": [
-            "Surplus",
-            "Feed-in",
-            "PV system",
-            "Zero feed-in",
-            "Zero feed-in",
-            "Zero feed-in"
-        ],
+        "authors": ["quorle <quorle12@gmail.com>"],
+        "keywords": ["Surplus", "Feed-in", "PV system", "Zero feed-in", "Zero feed-in", "Zero feed-in"],
         "licenseInformation": {
             "type": "free",
             "license": "MIT"
@@ -245,12 +236,7 @@
         "whatsappInstance": "",
         "signalInstance": "",
         "pushoverInstance": "",
-        "telegramRecipients": "",
-        "emailRecipients": "",
-        "whatsappRecipients": "",
-        "signalRecipients": "",
-        "pushoverRecipients": "",
-        "enableNotificationManager": false
+        "telegramRecipients": ""
     },
     "objects": [],
     "instanceObjects": []

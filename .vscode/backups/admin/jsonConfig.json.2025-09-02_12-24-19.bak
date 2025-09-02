@@ -213,7 +213,7 @@
                     "lg": 8,
                     "xl": 8,
                     "showSecondAddAt": 10,
-                    "useCardFor": ["xs", "sm", "md", "lg", "xl"],
+                    "useCardFor": ["xs", "sm", "md", "md", "lg", "xl"],
                     "compact": true,
                     "items": [
                         {
@@ -1069,29 +1069,6 @@
                     "md": 12,
                     "lg": 6,
                     "xl": 6
-                },
-                "enableNotificationManager": {
-                    "type": "checkbox",
-                    "label": {
-                        "en": "Use Notification Manager",
-                        "de": "Notification Manager verwenden",
-                        "ru": "Используйте Notification Manager",
-                        "pt": "Usar o Gestor de Notificações",
-                        "nl": "Notificatiebeheer gebruiken",
-                        "fr": "Utiliser le gestionnaire de notification",
-                        "it": "Utilizzare Gestione notifiche",
-                        "es": "Use Notification Manager",
-                        "pl": "Użyj menedżera powiadomień",
-                        "uk": "Використовуйте диспетчер повідомлень",
-                        "zh-cn": "使用通知管理器"
-                    },
-                    "default": false,
-                    "newLine": true,
-                    "xs": 12,
-                    "sm": 12,
-                    "md": 3,
-                    "lg": 3,
-                    "xl": 3
                 }
             }
         }

@@ -463,7 +463,7 @@ class ZeroFeedIn extends utils.Adapter {
                     if (v.enableDatapoint) {
                         const enableState = await this.getForeignStateAsync(v.enableDatapoint);
                         if (!enableState?.val) {
-                            this.log.debug(`🔒 "${v.name}" NICHT eingeschaltet – Hardwarefreigabe fehlt.`);
+                            this.log.warn(`🔒 "${v.name}" NICHT eingeschaltet – Hardwarefreigabe fehlt.`);
                             continue;
                         }
                     }
@@ -1007,15 +1007,12 @@ class ZeroFeedIn extends utils.Adapter {
     // Aufruf: await this.sendNotification('smartloadmanager', 'info'|'notify'|'alert', 'Nachricht');
     async sendNotification(scope, category, message) {
         try {
-            const cfg = this.config;
-
-            // 1) Controller-Notification (nur wenn Option aktiv ist)
-            if (cfg.enableNotificationManager) {
-                await this.registerNotification(scope, category, message);
-                this.log.debug(`📨 Controller-Notification [${scope}/${category}]: ${message}`);
-            }
+            // 1) Controller-Notification
+            await this.registerNotification(scope, category, message);
+            this.log.debug(`📨 Controller-Notification [${scope}/${category}]: ${message}`);
 
             // 2) Messenger-Nachrichten
+            const cfg = this.config;
 
             // Telegram
             if (cfg.telegramInstance) {

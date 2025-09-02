@@ -26,11 +26,11 @@
     "feedinNegativ": "feedinNegativ",
     "delaySecondsProzent": "Delay seconds for percent",
     "batteryDelaySeconds": "Delay seconds for batterie",
-    "Battery charging power data point (e.g. setPower)": "Battery charging power data point (e.g. setPower)",
-    "Battery SOC data point (current state of charge %)": "Battery SOC data point (current state of charge %)",
-    "Battery setpoint data point (e.g. target SOC %)": "Battery setpoint data point (e.g. target SOC %)",
-    "Battery control mode": "Battery control mode",
-    "Minimum tax value in % (from which the regulation becomes active). Only used for percentage regulation!": "Minimum tax value in % (from which the regulation becomes active). Only used for percentage regulation!",
-    "Minimum SOC (%) to stop discharge": "Minimum SOC (%) to stop discharge",
-    "Priority (smallest number = highest priority)": "Priority (smallest number = highest priority)"
+    "Battery charging power data point (e.g. setPower)": "Batterie Ladeleistungs-Datenpunkt (z.B. setPower)",
+    "Battery SOC data point (current state of charge %)": "Batterie SOC-Datenpunkt (aktueller Ladezustand %)",
+    "Battery setpoint data point (e.g. target SOC %)": "Batterie Sollwert-Datenpunkt (z.B. Ziel-SOC %)",
+    "Battery control mode": "Batterie Kontrollmode",
+    "Minimum tax value in % (from which the regulation becomes active). Only used for percentage regulation!": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
+    "Minimum SOC (%) to stop discharge": "Minimaler SOC (%) zum Stoppen der Entladung",
+    "Priority (smallest number = highest priority)": "Priorität (kleinste Zahl = höchste Priorität)"
 }

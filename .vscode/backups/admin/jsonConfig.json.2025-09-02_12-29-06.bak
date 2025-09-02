@@ -213,7 +213,7 @@
                     "lg": 8,
                     "xl": 8,
                     "showSecondAddAt": 10,
-                    "useCardFor": ["xs", "sm", "md", "lg", "xl"],
+                    "useCardFor": ["xs", "sm", "md", "md", "lg", "xl"],
                     "compact": true,
                     "items": [
                         {
@@ -1086,7 +1086,6 @@
                         "zh-cn": "使用通知管理器"
                     },
                     "default": false,
-                    "newLine": true,
                     "xs": 12,
                     "sm": 12,
                     "md": 3,
