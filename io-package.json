@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "news": {
+      "0.0.3": {
+        "en": "Adjustments package.json\nCode changed",
+        "de": "Anpassungen Paket.json\nCode geändert",
+        "ru": "Корректировка package.json\nИзменился код",
+        "pt": "Pacote de ajustes.json\nCódigo alterado",
+        "nl": "Aanpassingen pakket.json\nCode gewijzigd",
+        "fr": "Réglages package.json\nCode modifié",
+        "it": "Aggiustazioni pacchetto.json\nCodice cambiato",
+        "es": "Paquete de ajustes.json\nCambio de código",
+        "pl": "Dostosowania package.json\nZmieniony kod",
+        "uk": "Налаштування пакета.json\nЗмінено код",
+        "zh-cn": "调整包.json\n代码已更改"
+      },
       "0.0.2": {
         "en": "Adjustments package.json\nCode changed",
         "de": "Anpassungen Paket.json\nCode geändert",
