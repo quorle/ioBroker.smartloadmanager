@@ -39,9 +39,9 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 - (quorle) Add "label" to jsonConfig.json everywhere
 - (quorle) Fixed bugs in timeouts in functions
 - (quorle) setTimeout/setInterval allowed maximum values ​​implemented
-- (quorle) adapter-core 3.2.3 to 3.3.2 updated
-- (quorle) eslint-config 2.0.2 to 2.1.0 updated
-- (quorle) testing 5.0.4 to 5.1.0 updated
+- (quorle) adapter-core 3.2.3 -> 3.3.2 updated
+- (quorle) eslint-config 2.0.2 -> 2.1.0 updated
+- (quorle) testing 5.0.4 -> 5.1.0 updated
 
 ### 0.0.6 (2025-09-03)
 
