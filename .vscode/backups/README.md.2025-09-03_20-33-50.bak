@@ -1,0 +1,199 @@
+![Logo](admin/smartloadmanager.png)
+
+# ioBroker.smartloadmanager
+
+[![NPM version](https://img.shields.io/npm/v/iobroker.smartloadmanager.svg)](https://www.npmjs.com/package/iobroker.smartloadmanager)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.smartloadmanager.svg)](https://www.npmjs.com/package/iobroker.smartloadmanager)
+![Number of Installations](https://iobroker.live/badges/smartloadmanager-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/smartloadmanager-stable.svg)
+
+[![NPM](https://nodei.co/npm/iobroker.smartloadmanager.png?downloads=true)](https://nodei.co/npm/iobroker.smartloadmanager/)
+
+**Tests:** ![Test and Release](https://github.com/quorle/ioBroker.smartloadmanager/workflows/Test%20and%20Release/badge.svg)
+
+## 🔧 Description
+
+The **smartloadmanager** adapter is used for dynamic control of loads based on a PV feed-in value. The goal is to consume surplus electricity locally, thus minimizing or completely avoiding feed-in to the public grid. It supports both on/off loads and percentage-controlled devices and battery storage.
+
+---
+
+## Documentation
+
+- [English documentation](./docs/en/README.md)
+- [Deutsche Dokumentation](./docs/de/README.md)
+
+---
+
+## Changelog
+
+<!--
+	Placeholder for the next version (at the beginning of the line):
+	### **WORK IN PROGRESS**
+-->
+
+### 0.0.6 (2025-09-03)
+
+- (quorle) Adjustments package.json
+- (quorle) Code changed
+
+### 0.0.3 (2025-09-03)
+
+- (quorle) Adjustments package.json
+- (quorle) Code changed
+
+### 0.0.2 (2025-09-03)
+
+- (quorle) Adjustments package.json
+- (quorle) Code changed
+
+### 0.0.1 (2025-09-02)
+
+- (quorle) Release
+
+### 0.0.1-alpha.24 (2025-09-02)
+
+- (quorle) Readme changed
+
+### 0.0.1-alpha.23 (2025-09-02)
+
+- (quorle) Recipient settings for notifications
+- (quorle) The Adapter Notification Manager is now an option
+- (quorle) Translations expanded
+
+### 0.0.1-alpha.22 (2025-09-01)
+
+- (quorle) code changed "FeedIn"
+
+### 0.0.1-alpha.21 (2025-09-01)
+
+- (quorle) code changed "FeedIn"
+
+### 0.0.1-alpha.20 (2025-09-01)
+
+- (quorle) code changed "heating element"
+- (quorle) Timer handling for on and off timers optimized
+- (quorle) Added notifications for heating element
+- (quorle) Readme changed
+
+### 0.0.1-alpha.19 (2025-08-28)
+
+- (quorle) Readme changed
+- (quorle) Integration of heating element
+
+### 0.0.1-alpha.18 (2025-08-26)
+
+- (quorle) code changed
+- (quorle) Power off timer optimized for "AllwayOfAtTime"
+- (quorle) Messenger (Telegram, Notify, etc..) added
+
+### 0.0.1-alpha.17 (2025-08-25)
+
+- (quorle) Optimation data point for 0/1 output (ISSU #15)
+
+### 0.0.1-alpha.16 (2025-08-24)
+
+- (quorle) code changed
+- (quorle) Logging optimized
+- (quorle) Switch to Notification Manager for notifications
+- (quorle) Delay´s changed to per consumer
+- (quorle) Added second selection data point for 0/1 output (ISSU #15)
+- (quorle) Readme changed
+
+### 0.0.1-alpha.15 (2025-08-17)
+
+- (quorle) code changed
+- (quorle) manual_on changed (ISSU #14)
+
+### 0.0.1-alpha.14 (2025-08-17)
+
+- (quorle) code changed
+- (quorle) switching on and off optimized
+
+### 0.0.1-alpha.13 (2025-08-01)
+
+- (quorle) code changed
+- (quorle) Error handling improved
+
+### 0.0.1-alpha.12 (2025-07-31)
+
+- (quorle) code "switch-off time" changed
+
+### 0.0.1-alpha.11 (2025-07-31)
+
+- (quorle) code changed
+- (quorle) Migration Eslint 8 --> 9
+
+### 0.0.1-alpha.10 (2025-07-30)
+
+- (quorle) Settings UI of the adapter changed (thanks to **oweitman**)
+- (quorle) Translation adjusted
+
+### 0.0.1-alpha.9 (2025-07-26)
+
+- (quorle) Unterstützung für Batterie-Verbraucher erweitert
+- (quorle) Batterie-Verzögerung eingebaut (`batteryDelaySeconds`)
+- (quorle) Prozentregelung verbessert (sanfte Rückregelung)
+- (quorle) Zeitfenster + „Nur zu Ausschaltzeit“ implementiert
+- (quorle) Steuerlogik überarbeitet und robust gemacht
+- (quorle) Neue Objektstruktur je Verbraucher mit `controlMode` etc.
+- (quorle) Readme changed
+
+### 0.0.1-alpha.7 (2025-07-26)
+
+- (quorle) Readme changed
+
+### 0.0.1-alpha.6 (2025-07-26)
+
+- (quorle) Readme changed
+
+### 0.0.1-alpha.5 (2025-07-26)
+
+- (quorle) repush to "https://github.com/quorle/ioBroker.smartloadmanager"
+
+### 0.0.1-alpha.4 (2025-07-26)
+
+- (quorle) Rename to **smartloadmanager**
+- (quorle) Battery management added
+
+### 0.0.1-alpha.3 (2025-07-25)
+
+- (quorle) Turn-off time changed. It will only turn off at the turn-off time (formerly "zero feed-in")
+- (quorle) Readme changed (formerly "zero feed-in")
+
+### 0.0.1-alpha.2 (2025-07-24)
+
+- (quorle) Added on and off times (formerly "zero feed-in")
+- (quorle) Objects adjusted (formerly "zero feed-in")
+- (quorle) code adapted (formerly "zero feed-in")
+
+### 0.0.1-alpha.1 (2025-07-23)
+
+- (quorle) Control mode for consumers added (formerly "zero feed-in")
+
+### 0.0.1-alpha.0 (2025-07-15)
+
+- (quorle) Readme changed (formerly "zero feed-in")
+
+## License
+
+MIT License
+
+Copyright (c) 2025 quorle <quorle12@gmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

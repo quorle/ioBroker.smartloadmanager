@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+    "checkJs": true,
+    "lib": ["es2020"]
+  },
+  "include": ["*.js"],
+  "exclude": ["node_modules"]
+}

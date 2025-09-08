@@ -1,0 +1,979 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_main": {
+            "type": "panel",
+            "label": "Main settings",
+            "items": {
+                "FeedInDataPoint": {
+                    "type": "objectId",
+                    "label": "FeedInDataPoint",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "baseload": {
+                    "type": "number",
+                    "label": "Baseload",
+                    "default": 100,
+                    "min": 0,
+                    "max": 10000,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "feedinNegativ": {
+                    "type": "checkbox",
+                    "label": "feedinNegativ",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "notifyBinary": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyBinary"
+                },
+                "notifyHeating": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyHeating"
+                },
+                "notifyPercent": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyPercent"
+                },
+                "notifyBattery": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyBattery"
+                }
+            }
+        },
+        "_consumer": {
+            "type": "panel",
+            "label": "consumer-Panel",
+            "items": {
+                "consumer": {
+                    "type": "table",
+                    "label": "consumer",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 8,
+                    "xl": 8,
+                    "showSecondAddAt": 10,
+                    "useCardFor": ["xs", "sm", "md", "lg", "xl"],
+                    "compact": true,
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": {
+                                "en": "Name",
+                                "de": "Name",
+                                "ru": "Имя",
+                                "pt": "Nome",
+                                "nl": "Naam",
+                                "fr": "Dénomination",
+                                "it": "Nome",
+                                "es": "Nombre",
+                                "pl": "Nazwa",
+                                "uk": "Ім'я",
+                                "zh-cn": "名称"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": {
+                                "en": "Active",
+                                "de": "Aktiv",
+                                "ru": "Активный",
+                                "pt": "Activo",
+                                "nl": "Actief",
+                                "fr": "Activité",
+                                "it": "Attivo",
+                                "es": "Activo",
+                                "pl": "Aktywne",
+                                "uk": "Активний",
+                                "zh-cn": "活动"
+                            }
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "datapoint",
+                            "title": {
+                                "en": "--> Control",
+                                "de": "--> Boolischer Steuerdatenpunkt",
+                                "ru": "--> Контроль",
+                                "pt": "--> Controlo",
+                                "nl": "--> Controle",
+                                "fr": "--> Contrôle",
+                                "it": "--> Controllo",
+                                "es": "--> Control",
+                                "pl": "--> Kontrola",
+                                "uk": "--> Контроль",
+                                "zh-cn": "--> 说明 控件"
+                            },
+                            "tooltip": "tooltip_Boolean control data point"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "numericDatapoint",
+                            "title": {
+                                "en": "--> Numerical control",
+                                "de": "--> Numerische Steuerdatenpunk",
+                                "ru": "--> Численный контроль",
+                                "pt": "--> Controlo numérico",
+                                "nl": "--> Numerieke controle",
+                                "fr": "--> Contrôle numérique",
+                                "it": "--> Controllo numerico",
+                                "es": "--> Control numérico",
+                                "pl": "--> Kontrola numeryczna",
+                                "uk": "--> Чисельний контроль",
+                                "zh-cn": "数字控制"
+                            },
+                            "tooltip": "tooltip_numericDatapoint"
+                        },
+                        {
+                            "type": "staticText",
+                            "title": {
+                                "en": "Battery management:",
+                                "de": "Batteriemanagment:",
+                                "ru": "Управление батареями:",
+                                "pt": "Gestão da bateria:",
+                                "nl": "Batterijbeheer:",
+                                "fr": "Gestion des batteries :",
+                                "it": "Gestione della batteria:",
+                                "es": "Gestión de baterías:",
+                                "pl": "Zarządzanie akumulatorem:",
+                                "uk": "Управління акумуляторами:",
+                                "zh-cn": "电池管理:"
+                            }
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batterySetpoint",
+                            "title": {
+                                "en": "--> Charging power",
+                                "de": "--> Ladeleistung",
+                                "ru": "--> Заряжающая мощность",
+                                "pt": "--> Potência de carregamento",
+                                "nl": "--> Oplaadvermogen",
+                                "fr": "--> Puissance de charge",
+                                "it": "--> Potenza di carica",
+                                "es": "--> Potencia de carga",
+                                "pl": "--> Moc ładowania",
+                                "uk": "--> Зарядна потужність",
+                                "zh-cn": "--> 说明 充电"
+                            },
+                            "tooltip": "tooltip_batterySetpoint"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batterySOC",
+                            "title": {
+                                "en": "--> SOC",
+                                "de": "--> SOC",
+                                "ru": "--> СОК",
+                                "pt": "--> SOC",
+                                "nl": "--> SOC",
+                                "fr": "--> CONSEIL",
+                                "it": "--> SO",
+                                "es": "--> SOC",
+                                "pl": "--> SOC",
+                                "uk": "--> СОЦІ",
+                                "zh-cn": "--> 说明 索科"
+                            },
+                            "tooltip": "Batterie SOC-Datenpunkt (aktueller Ladezustand %)"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batteryTargetSOC",
+                            "title": {
+                                "en": "--> Setpoint",
+                                "de": "--> Sollwert",
+                                "ru": "--> точка",
+                                "pt": "--> Setpoint",
+                                "nl": "--> Setpoint",
+                                "fr": "--> Positionnement",
+                                "it": "--> Setpoint",
+                                "es": "--> Setpoint",
+                                "pl": "--> Ustawienie",
+                                "uk": "--> Комплекти",
+                                "zh-cn": "--> 说明 设置点"
+                            },
+                            "tooltip": "Batterie Sollwert-Datenpunkt (z.B. Ziel-SOC %)"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batteryControlModeDatapoint",
+                            "title": {
+                                "en": "--> Control mode",
+                                "de": "--> Kontrollmodus",
+                                "ru": "--> Режим управления",
+                                "pt": "--> Modo de controle",
+                                "nl": "--> Controlemodus",
+                                "fr": "--> Mode de commande",
+                                "it": "--> Modalità di controllo",
+                                "es": "--> Modo de control",
+                                "pl": "--> Tryb sterowania",
+                                "uk": "--> Режим управління",
+                                "zh-cn": "--> 说明 控制模式"
+                            },
+                            "tooltip": "Batterie Kontrollmodus"
+                        },
+                        {
+                            "type": "staticText",
+                            "title": {
+                                "en": "heating element:",
+                                "de": "Heizelement:",
+                                "ru": "нагревательный элемент:",
+                                "pt": "elemento de aquecimento:",
+                                "nl": "verwarmingselement:",
+                                "fr": "élément chauffant:",
+                                "it": "elemento riscaldante:",
+                                "es": "elemento de calefacción:",
+                                "pl": "element grzewczy:",
+                                "uk": "нагрівальний елемент:",
+                                "zh-cn": "加热元素:"
+                            },
+                            "newLine": true
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "temperatureDatapoint",
+                            "title": {
+                                "en": "--> Current temperature value",
+                                "de": "--> Aktueller Temperaturwert",
+                                "ru": "--> Текущее значение температуры",
+                                "pt": "--> Valor da temperatura atual",
+                                "nl": "--> Huidige temperatuurwaarde",
+                                "fr": "--> Valeur de la température actuelle",
+                                "it": "--> Valore di temperatura attuale",
+                                "es": "--> Valor de temperatura actual",
+                                "pl": "--> Bieżąca wartość temperatury",
+                                "uk": "--> Поточна вартість температури",
+                                "zh-cn": "--> 当前温度值"
+                            },
+                            "tooltip": "Aktueller Temperaturwert im Speicher (Aktueller Wesswert) für den Heizstab"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "maxTemperature",
+                            "title": {
+                                "en": "--> Maximum temperature to switch off",
+                                "de": "--> Maximale Temperatur zum Ausschalten",
+                                "ru": "--> Максимальная температура для выключения",
+                                "pt": "--> Temperatura máxima para desligar",
+                                "nl": "--> Maximale temperatuur om uit te schakelen",
+                                "fr": "--> Température maximale à éteindre",
+                                "it": "--> Temperatura massima per spegnere",
+                                "es": "--> Temperatura máxima para apagar",
+                                "pl": "--> Maksymalna temperatura do wyłączenia",
+                                "uk": "--> Максимальна температура для вимкнення",
+                                "zh-cn": "--> 关闭的最大温度"
+                            },
+                            "tooltip": "Maximale Abschalttemperatur für den Heizstab",
+                            "min": 40,
+                            "max": 80,
+                            "default": 40
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minTemperature",
+                            "title": {
+                                "en": "--> Minimum temperature to switch on",
+                                "de": "--> Minimale Temperatur zum Einschalten",
+                                "ru": "- Минимальная температура для включения",
+                                "pt": "--> Temperatura mínima para ligar",
+                                "nl": "--> Minimumtemperatuur om in te schakelen",
+                                "fr": "--> Température minimale à activer",
+                                "it": "- > Temperatura minima per accendere",
+                                "es": "-- Temperatura mínima para encender",
+                                "pl": "-- > Minimalna temperatura do włączenia",
+                                "uk": "--> Мінімальна температура для перемикання на",
+                                "zh-cn": "-- > 说明 开关的最低温度"
+                            },
+                            "tooltip": "Erst ab dieser Temperatur darf eingeschaltet werden (verhindert unnötiges Takten). Wird nur beim Einschalten berücksichtigt.",
+                            "min": 25,
+                            "max": 50,
+                            "default": 25
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "enableDatapoint",
+                            "title": {
+                                "en": "--> Hardware release datapoint",
+                                "de": "--> Hardwarefreigabe-Datenpunkt",
+                                "ru": "- Устройство Release Datapoint",
+                                "pt": "--> Ponto de dados de lançamento de hardware",
+                                "nl": "--> Gegevenspunt voor hardwarevrijgave",
+                                "fr": "--> Point de données de sortie du matériel",
+                                "it": "- > Datapoint di rilascio hardware",
+                                "es": "-- Punto de datos de liberación de hardware",
+                                "pl": "-- > Hardware release datapoint",
+                                "uk": "--> Обладнання для видалення даних",
+                                "zh-cn": "-- > 说明 硬件释放数据点"
+                            },
+                            "tooltip": "Eingang vom Wechselrichter (Freigabe). Wenn nicht vorhanden oder false, sofort abschalten und kein Einschalten möglich."
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "heartbeatDatapoint",
+                            "title": {
+                                "en": "--> Heartbeat datapoint",
+                                "de": "--> Heartbeat-Datenpunkt",
+                                "ru": "- Heartbat датапойнт",
+                                "pt": "--> Ponto de dados do batimento cardíaco",
+                                "nl": "--> Hartslaggegevenspunt",
+                                "fr": "--> Point de données des battements cardiaques",
+                                "it": "- > Datapoint Heartbeat",
+                                "es": "-- Punto de datos Heartbeat",
+                                "pl": "-- > Punkt danych Heartbeat",
+                                "uk": "--> Точка даних про серцебиття",
+                                "zh-cn": "-- > 说明 心跳数据点"
+                            },
+                            "tooltip": "Optionaler Heartbeat-Datenpunkt (true/false). Wenn false → sofort Abschaltung. Bei true → Betrieb erlaubt.",
+                            "default": ""
+                        },
+                        {
+                            "type": "staticText",
+                            "title": {
+                                "en": "Consumer settings:",
+                                "de": "Verbrauchereinstellungen:",
+                                "ru": "Потребительские настройки:",
+                                "pt": "Configurações do consumidor:",
+                                "nl": "Instellingen voor consumenten:",
+                                "fr": "Paramètres des consommateurs & #160;:",
+                                "it": "Impostazioni dei consumatori:",
+                                "es": "Ajustes del consumidor:",
+                                "pl": "Ustawienia konsumentów:",
+                                "uk": "Параметри споживача:",
+                                "zh-cn": "消费者环境:"
+                            },
+                            "newLine": true
+                        },
+                        {
+                            "type": "number",
+                            "attr": "performance",
+                            "title": {
+                                "en": "Total power (watts)",
+                                "de": "Gesamtleistung (Watt)",
+                                "ru": "Полная мощность (ватты)",
+                                "pt": "Potência total (watts)",
+                                "nl": "Totaal vermogen (watt)",
+                                "fr": "Puissance totale (watts)",
+                                "it": "Potenza totale (watts)",
+                                "es": "Potencia total (vatios)",
+                                "pl": "Moc całkowita (waty)",
+                                "uk": "Загальна потужність (ват)",
+                                "zh-cn": "总功率(瓦)"
+                            },
+                            "tooltip": "Gesamtleistung des Verbrauchers (Watt)",
+                            "min": 1
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOnPoint",
+                            "title": {
+                                "en": "Switch-on (watts)",
+                                "de": "Einschaltung (Watt)",
+                                "ru": "Коммутатор (Watts)",
+                                "pt": "Ligar (watts)",
+                                "nl": "Inschakelen (watt)",
+                                "fr": "Interrupteur (watts)",
+                                "it": "Interruttore (watt)",
+                                "es": "Interruptor (vacas)",
+                                "pl": "Włączanie (w watach)",
+                                "uk": "Switch-on (ват)",
+                                "zh-cn": "开关(瓦特)"
+                            },
+                            "tooltip": "Ab welcher Leistung soll eingeschaltet werden",
+                            "min": 1
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOffPoint",
+                            "title": {
+                                "en": "Shutdown (watts)",
+                                "de": "Abschaltung (Watt)",
+                                "ru": "Отключение (Watts)",
+                                "pt": "Desligar (watts)",
+                                "nl": "Afsluiten (watt)",
+                                "fr": "Arrêt (watts)",
+                                "it": "Chiusura (watts)",
+                                "es": "Desactivación (vatios)",
+                                "pl": "Wyłączenie (waty)",
+                                "uk": "Відключення (ват)",
+                                "zh-cn": "关闭(瓦)"
+                            },
+                            "tooltip": "Ab welcher Leistung soll abgeschaltet werden",
+                            "min": 0
+                        },
+                        {
+                            "type": "select",
+                            "attr": "ruletype",
+                            "title": {
+                                "en": "Rule type",
+                                "de": "Regeltyp",
+                                "ru": "Тип правила",
+                                "pt": "Tipo de regra",
+                                "nl": "Regeltype",
+                                "fr": "Type de règle",
+                                "it": "Tipo di regola",
+                                "es": "Tipo de regla",
+                                "pl": "Rodzaj zasady",
+                                "uk": "Тип Рулі",
+                                "zh-cn": "规则类型"
+                            },
+                            "options": [
+                                {
+                                    "value": "binary",
+                                    "label": {
+                                        "en": "On off",
+                                        "de": "Ein/Aus",
+                                        "ru": "Выключай",
+                                        "pt": "Desligado",
+                                        "nl": "Uit",
+                                        "fr": "En route",
+                                        "it": "In partenza",
+                                        "es": "Apagó",
+                                        "pl": "Wyłączony",
+                                        "uk": "Увімкніть",
+                                        "zh-cn": "关机"
+                                    }
+                                },
+                                {
+                                    "value": "percent",
+                                    "label": {
+                                        "en": "Percentage regulation",
+                                        "de": "Prozentregelung",
+                                        "ru": "Процентное регулирование",
+                                        "pt": "Regulação percentual",
+                                        "nl": "Percentageregeling",
+                                        "fr": "Pourcentage de réglementation",
+                                        "it": "Regolamentazione del percentuale",
+                                        "es": "Regulación porcentual",
+                                        "pl": "Procent regulacji",
+                                        "uk": "Регулювання відсотків",
+                                        "zh-cn": "条例百分比"
+                                    }
+                                },
+                                {
+                                    "value": "battery",
+                                    "label": {
+                                        "en": "battery",
+                                        "de": "Batterie",
+                                        "ru": "аккумулятор",
+                                        "pt": "bateria",
+                                        "nl": "batterij",
+                                        "fr": "batterie",
+                                        "it": "batteria",
+                                        "es": "batería",
+                                        "pl": "akumulator",
+                                        "uk": "акумулятор",
+                                        "zh-cn": "电池"
+                                    }
+                                },
+                                {
+                                    "value": "heating",
+                                    "label": {
+                                        "en": "heating element",
+                                        "de": "Heizstab",
+                                        "ru": "нагревательный элемент",
+                                        "pt": "elemento de aquecimento",
+                                        "nl": "verwarmingselement",
+                                        "fr": "élément chauffant",
+                                        "it": "elemento riscaldante",
+                                        "es": "elemento de calefacción",
+                                        "pl": "element grzewczy",
+                                        "uk": "нагрівальний елемент",
+                                        "zh-cn": "加热元素"
+                                    }
+                                }
+                            ],
+                            "default": "binary"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minPercentStart",
+                            "title": {
+                                "en": "Tax value min %",
+                                "de": "Steuerwert min %",
+                                "ru": "Налоговая стоимость min %",
+                                "pt": "Valor fiscal min %",
+                                "nl": "Belastingwaarde min %",
+                                "fr": "Valeur fiscale min %",
+                                "it": "Valore fiscale min %",
+                                "es": "Valor fiscal min %",
+                                "pl": "Wartość podatkowa min%",
+                                "uk": "Податкове значення min %",
+                                "zh-cn": "税额"
+                            },
+                            "tooltip": "Minimaler Steuerwert in % (ab wann die Regelung aktiv wird). Wird nur für Prozentregelung verwendet!",
+                            "min": 0,
+                            "max": 100,
+                            "default": 10
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minSOC",
+                            "title": {
+                                "en": "SOC min %",
+                                "de": "SOC min %",
+                                "ru": "SOC min %",
+                                "pt": "SOC min %",
+                                "nl": "SOC min %",
+                                "fr": "COS min %",
+                                "it": "SOC min %",
+                                "es": "SOC min %",
+                                "pl": "SOC min",
+                                "uk": "СОЦ хв %",
+                                "zh-cn": "SOC 分钟%"
+                            },
+                            "tooltip": "Minimaler SOC (%) zum Stoppen der Entladung",
+                            "min": 0,
+                            "max": 100,
+                            "default": 20
+                        },
+                        {
+                            "type": "text",
+                            "attr": "switchOnTime",
+                            "title": {
+                                "en": "Power-on time (HH:MM)",
+                                "de": "EinschalZeit (HH:MM)",
+                                "ru": "Время работы (HH:MM)",
+                                "pt": "Tempo de funcionamento (HH:MM)",
+                                "nl": "Vermogenstijd (HH:MM)",
+                                "fr": "Temps d'alimentation (HH:MM)",
+                                "it": "Tempo di alimentazione (HH:MM)",
+                                "es": "Tiempo de encendido (HH:MM)",
+                                "pl": "Czas włączenia mocy (HH: MM)",
+                                "uk": "Час електроживлення (HH:MM)",
+                                "zh-cn": "电源时间( HH: MM)"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "switchOffTime",
+                            "title": {
+                                "en": "Switch-off time (HH:MM)",
+                                "de": "Ausschaltzeit (HH:MM)",
+                                "ru": "Время выключения (HH:MM)",
+                                "pt": "Tempo de desligamento (HH:MM)",
+                                "nl": "Uitschakeltijd (HH:MM)",
+                                "fr": "Temps d'arrêt (HH:MM)",
+                                "it": "Tempo di spegnimento (HH:MM)",
+                                "es": "Hora de despegue (HH:MM)",
+                                "pl": "Czas wyłączenia (HH: MM)",
+                                "uk": "Час відключення (HH:MM)",
+                                "zh-cn": "关闭时间( HH: MM)"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOnDelay",
+                            "title": {
+                                "en": "Delay for switching on",
+                                "de": "Verzögerung beim Einschalten",
+                                "ru": "Задержка включения",
+                                "pt": "Atraso para ligar",
+                                "nl": "Vertraging bij inschakelen",
+                                "fr": "Retard de mise en marche",
+                                "it": "Delay per l'accensione",
+                                "es": "Delay para encender",
+                                "pl": "Opóźnienie włączenia",
+                                "uk": "Прокладка для перемикання на",
+                                "zh-cn": "打开延迟"
+                            },
+                            "tooltip": "Verzögerung für das Einschalten in Sekunden",
+                            "min": 0,
+                            "default": 20
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOffDelay",
+                            "title": {
+                                "en": "Delay for switching off",
+                                "de": "Verzögerung beim Ausschalten",
+                                "ru": "Задержка для выключения",
+                                "pt": "Atraso para desligar",
+                                "nl": "Vertraging bij uitschakelen",
+                                "fr": "Retard pour l'arrêt",
+                                "it": "Ritardo per spegnimento",
+                                "es": "Delay para apagar",
+                                "pl": "Opóźnienie wyłączenia",
+                                "uk": "Прокладка для вимкнення",
+                                "zh-cn": "关闭延迟"
+                            },
+                            "tooltip": "Verzögerung für das Ausschalten in Sekunden",
+                            "min": 0,
+                            "default": 20
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "alwaysOffAtTime",
+                            "title": {
+                                "en": "Switch off only at switch-off time",
+                                "de": "Ausschalten nur zu Ausschaltzeit",
+                                "ru": "Выключать только во время выключения",
+                                "pt": "Desligar apenas na hora de desligar",
+                                "nl": "Alleen uitschakelen bij uitschakeltijd",
+                                "fr": "Arrêt uniquement au moment de l'arrêt",
+                                "it": "Spegnere solo al momento di spegnimento",
+                                "es": "Apaga sólo en el tiempo de apagado",
+                                "pl": "Wyłączanie tylko w momencie wyłączenia",
+                                "uk": "Вимкніть тільки в режимі перемикання",
+                                "zh-cn": "仅在关机时关闭"
+                            },
+                            "default": ""
+                        },
+                        {
+                            "type": "number",
+                            "attr": "priority",
+                            "title": {
+                                "en": "priority",
+                                "de": "Priorität",
+                                "ru": "приоритет",
+                                "pt": "prioridade",
+                                "nl": "prioriteit",
+                                "fr": "priorité",
+                                "it": "priorità",
+                                "es": "prioridad",
+                                "pl": "priorytet",
+                                "uk": "головна",
+                                "zh-cn": "优先级"
+                            },
+                            "tooltip": "Priorität (kleinste Zahl = höchste Priorität)",
+                            "min": 1,
+                            "default": 1
+                        }
+                    ]
+                }
+            }
+        },
+        "_notifications": {
+            "type": "panel",
+            "label": {
+                "en": "Notifications",
+                "de": "Benachrichtigungen",
+                "ru": "Уведомления",
+                "pt": "Notificação",
+                "nl": "Kennisgevingen",
+                "fr": "Notifications",
+                "it": "Notifica",
+                "es": "Notificaciones",
+                "pl": "Powiadomienia",
+                "uk": "Повідомлення",
+                "zh-cn": "通知"
+            },
+            "items": {
+                "telegramInstance": {
+                    "type": "instance",
+                    "label": {
+                        "en": "Telegram instance",
+                        "de": "Telegramm-Instanz",
+                        "ru": "Пример Telegram",
+                        "pt": "Exemplo de telegrama",
+                        "nl": "Telegram instantie",
+                        "fr": "Instance télégramme",
+                        "it": "Esempio di telegramma",
+                        "es": "Telegram instance",
+                        "pl": "Przykład telegramu",
+                        "uk": "Телеграма",
+                        "zh-cn": "电报实例"
+                    },
+                    "adapter": "telegram",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "telegramRecipients": {
+                    "type": "text",
+                    "label": {
+                        "en": "Telegram recipients (comma separated)",
+                        "de": "Telegrammempfänger (Komma getrennt)",
+                        "ru": "Получатели Telegram (разделенная запятая)",
+                        "pt": "Receptores de telegrama (separados por vírgula)",
+                        "nl": "Telegramontvangers (afzonderlijk)",
+                        "fr": "Télégrammes (comma séparés)",
+                        "it": "Telegram destinatari (comma separato)",
+                        "es": "Receptores de telegramas (comma separados)",
+                        "pl": "Odbiorcy telegram (przecinek oddzielony)",
+                        "uk": "Телеграма одержувачів (відокремлення коми)",
+                        "zh-cn": "电报收件人( comma 分离)"
+                    },
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "gotifyInstance": {
+                    "type": "instance",
+                    "label": {
+                        "en": "Gotify instance",
+                        "de": "Gotify instance",
+                        "ru": "Взять пример",
+                        "pt": "Gotify instância",
+                        "nl": "Initialiseren",
+                        "fr": "Gatify instance",
+                        "it": "Esempio di guadagno",
+                        "es": "Caso Gotify",
+                        "pl": "Przykłady Gotify",
+                        "uk": "Зареєструватися",
+                        "zh-cn": "Gotify 实例"
+                    },
+                    "adapter": "gotify",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "emailInstance": {
+                    "type": "instance",
+                    "label": {
+                        "en": "E-Mail instance",
+                        "de": "E-Mail-Instanz",
+                        "ru": "Пример электронной почты",
+                        "pt": "E- mail instance",
+                        "nl": "E-mail instantie",
+                        "fr": "Instance de courrier électronique",
+                        "it": "Esempio E-Mail",
+                        "es": "E-Mail instance",
+                        "pl": "Przykład e- Mail",
+                        "uk": "Електронна пошта",
+                        "zh-cn": "电子邮件实例"
+                    },
+                    "adapter": "email",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "emailRecipients": {
+                    "type": "text",
+                    "label": {
+                        "en": "E-Mail recipients (comma separated)",
+                        "de": "E-Mail-Empfänger (Komma getrennt)",
+                        "ru": "Получатели электронной почты (раздельная запятая)",
+                        "pt": "Destinatários de e- mail (separados por vírgula)",
+                        "nl": "E-mailontvangers (komma gescheiden)",
+                        "fr": "Récipiendaires de courrier électronique (comma séparé)",
+                        "it": "Ricevitori E-Mail (comma separato)",
+                        "es": "E-Mail recipients (comma separated)",
+                        "pl": "Odbiorcy poczty elektronicznej (oddzieleni przecinkami)",
+                        "uk": "Одержувачі електронної пошти (відокремлення коми)",
+                        "zh-cn": "电子邮件收件人( comma 分离)"
+                    },
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "whatsappInstance": {
+                    "type": "instance",
+                    "label": {
+                        "en": "WhatsApp-cmd instance",
+                        "de": "WhatsApp-cmd Instance",
+                        "ru": "WhatsApp-cmd экземпляр",
+                        "pt": "Instância WhatsApp-cmd",
+                        "nl": "WhatsApp-cmd instantie",
+                        "fr": "Instance WhatsApp-cmd",
+                        "it": "Esempio WhatsApp-cmd",
+                        "es": "WhatsApp-cmd instance",
+                        "pl": "WhatsApp- cmd instance",
+                        "uk": "Додаток для WhatsApp",
+                        "zh-cn": "WhatsApp-cmd 实例"
+                    },
+                    "adapter": "whatsapp-cmd",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "whatsappRecipients": {
+                    "type": "text",
+                    "label": {
+                        "en": "WhatsApp recipients (comma separated)",
+                        "de": "WhatsApp Empfänger (Komma getrennt)",
+                        "ru": "Получатели WhatsApp (разделенная запятая)",
+                        "pt": "Destinatários do WhatsApp (separados por vírgula)",
+                        "nl": "WhatsApp ontvangers (komma gescheiden)",
+                        "fr": "Destinataires de WhatsApp (comma séparé)",
+                        "it": "Destinatari WhatsApp (comma separato)",
+                        "es": "Receptores de WhatsApp (comma separados)",
+                        "pl": "WhatsApp biorcy (przecinek oddzielony)",
+                        "uk": "WhatsApp одержувачів (відокремлення коми)",
+                        "zh-cn": "WhatsApp 收件人( comma 分离)"
+                    },
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "signalInstance": {
+                    "type": "instance",
+                    "label": {
+                        "en": "Signal-cmd instance",
+                        "de": "Signal-cmd Instanz",
+                        "ru": "Сигнальная камера",
+                        "pt": "Instância do sinal- cmd",
+                        "nl": "Signaal-cmd instantie",
+                        "fr": "Instance signal-cmd",
+                        "it": "Segnale-cmd esempio",
+                        "es": "Signal-cmd instance",
+                        "pl": "Przykład signal- cmd",
+                        "uk": "Пристрої сигналу",
+                        "zh-cn": "信号成像实例"
+                    },
+                    "adapter": "signal-cmd",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "signalRecipients": {
+                    "type": "text",
+                    "label": {
+                        "en": "Signal recipients (comma separated)",
+                        "de": "Signalempfänger (Komma getrennt)",
+                        "ru": "Получатели сигнала (разделенная запятая)",
+                        "pt": "Receptores de sinal (separados por vírgulas)",
+                        "nl": "Signaalontvangers (komma gescheiden)",
+                        "fr": "Récepteurs de signaux (comma séparés)",
+                        "it": "Ricevitori di segnale (comma separato)",
+                        "es": "Receptores de señalización (comma separado)",
+                        "pl": "Odbiorcy sygnału (oddzieleni przecinkami)",
+                        "uk": "Сигналові одержувачі (упорядковані коми)",
+                        "zh-cn": "信号收件人( comma 分离)"
+                    },
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "pushoverInstance": {
+                    "type": "instance",
+                    "label": {
+                        "en": "Pushover instance",
+                        "de": "Pushover-Instanz",
+                        "ru": "Пушкинская инстанция",
+                        "pt": "Exemplo do Pushover",
+                        "nl": "Pushover instantie",
+                        "fr": "Instance pushover",
+                        "it": "Esempio di pushover",
+                        "es": "Ejemplo de empuje",
+                        "pl": "Przykład pushover",
+                        "uk": "Пушун екземпляр",
+                        "zh-cn": "推进实例"
+                    },
+                    "adapter": "pushover",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "pushoverRecipients": {
+                    "type": "text",
+                    "label": {
+                        "en": "Pushover recipients (comma separated)",
+                        "de": "Pushover-Empfänger (Komma getrennt)",
+                        "ru": "Получатели Pushover (разделенная запятая)",
+                        "pt": "Destinatários Pushover (separados por vírgulas)",
+                        "nl": "Ontvangers van pushover (afzonderlijk)",
+                        "fr": "Récepteurs pushover (comma séparés)",
+                        "it": "Ricevitori pushover (comma separato)",
+                        "es": "Receptores de empuje (comma separado)",
+                        "pl": "Odbiorcy (oddzieleni przecinkami)",
+                        "uk": "Pushover одержувачів (кома відокремлений)",
+                        "zh-cn": "推进接收者( comma 分离)"
+                    },
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "enableNotificationManager": {
+                    "type": "checkbox",
+                    "label": {
+                        "en": "Use Notification Manager",
+                        "de": "Notification Manager verwenden",
+                        "ru": "Используйте Notification Manager",
+                        "pt": "Usar o Gestor de Notificações",
+                        "nl": "Notificatiebeheer gebruiken",
+                        "fr": "Utiliser le gestionnaire de notification",
+                        "it": "Utilizzare Gestione notifiche",
+                        "es": "Use Notification Manager",
+                        "pl": "Użyj menedżera powiadomień",
+                        "uk": "Використовуйте диспетчер повідомлень",
+                        "zh-cn": "使用通知管理器"
+                    },
+                    "default": false,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                }
+            }
+        }
+    }
+}

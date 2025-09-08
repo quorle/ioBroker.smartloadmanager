@@ -1,0 +1,440 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_main": {
+            "type": "panel",
+            "label": "Main settings",
+            "items": {
+                "FeedInDataPoint": {
+                    "type": "objectId",
+                    "label": "FeedInDataPoint",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "baseload": {
+                    "type": "number",
+                    "label": "Baseload",
+                    "default": 100,
+                    "min": 0,
+                    "max": 10000,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "feedinNegativ": {
+                    "type": "checkbox",
+                    "label": "feedinNegativ",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "notifyBinary": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyBinary"
+                },
+                "notifyHeating": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyHeating"
+                },
+                "notifyPercent": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyPercent"
+                },
+                "notifyBattery": {
+                    "type": "checkbox",
+                    "default": false,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "notifyBattery"
+                }
+            }
+        },
+        "_consumer": {
+            "type": "panel",
+            "label": "consumer-Panel",
+            "items": {
+                "consumer": {
+                    "type": "table",
+                    "label": "Consumer List",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 8,
+                    "xl": 8,
+                    "showSecondAddAt": 10,
+                    "useCardFor": ["xs", "sm", "md", "lg", "xl"],
+                    "compact": true,
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "label": "name"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "label": "Active",
+                            "default":
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "datapoint",
+                            "label": "Boolean control data point",
+                            "tooltip": "tooltip_Boolean control data point"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "numericDatapoint",
+                            "label": "numericDatapoint",
+                            "tooltip": "tooltip_numericDatapoint"
+                        },
+                        {
+                            "type": "staticText",
+                            "label": "Battery management:"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batterySetpoint",
+                            "label": "batterySetpoint",
+                            "tooltip": "tooltip_batterySetpoint"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batterySOC",
+                            "label": "batterySOC",
+                            "tooltip": "tooltip_batterySOC"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batteryTargetSOC",
+                            "label": "batteryTargetSOC",
+                            "tooltip": "tooltip_batteryTargetSOC"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "batteryControlModeDatapoint",
+                            "label": "batteryControlModeDatapoint",
+                            "tooltip": "tooltip_batteryControlModeDatapoint"
+                        },
+                        {
+                            "type": "staticText",
+                            "label": "heating element",
+                            "newLine": true
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "temperatureDatapoint",
+                            "label": "temperatureDatapoint",
+                            "tooltip": "tooltip_temperatureDatapoint"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "maxTemperature",
+                            "label": "maxTemperature",
+                            "tooltip": "tooltip_maxTemperature",
+                            "min": 40,
+                            "max": 80,
+                            "default": 40
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minTemperature",
+                            "label": "minTemperature",
+                            "tooltip": "tooltip_minTemperature",
+                            "min": 25,
+                            "max": 50,
+                            "default": 25
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "enableDatapoint",
+                            "label": "enableDatapoint",
+                            "tooltip": "tooltip_enableDatapoint"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "heartbeatDatapoint",
+                            "label": "heartbeatDatapoint",
+                            "tooltip": "tooltip_heartbeatDatapoint",
+                            "default": ""
+                        },
+                        {
+                            "type": "staticText",
+                            "label": "Consumer settings:",
+                            "newLine": true
+                        },
+                        {
+                            "type": "number",
+                            "attr": "performance",
+                            "label": "performance",
+                            "tooltip": "tooltip_performance",
+                            "min": 1
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOnPoint",
+                            "label": "switchOnPoint",
+                            "tooltip": "tooltip_switchOnPoint",
+                            "min": 1
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOffPoint",
+                            "label": "switchOffPoint",
+                            "tooltip": "tooltip_switchOffPoint",
+                            "min": 0
+                        },
+                        {
+                            "type": "select",
+                            "attr": "ruletype",
+                            "label": "ruletype",
+                            "options": [
+                                {
+                                    "value": "binary",
+                                    "label": "binary"
+                                },
+                                {
+                                    "value": "percent",
+                                    "label": "percent"
+                                },
+                                {
+                                    "value": "battery",
+                                    "label": "battery"
+                                },
+                                {
+                                    "value": "heating",
+                                    "label": "heating"
+                                }
+                            ],
+                            "default": "binary"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minPercentStart",
+                            "label": "minPercentStart",
+                            "tooltip": "tooltip_minPercentStart",
+                            "min": 0,
+                            "max": 100,
+                            "default": 10
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minSOC",
+                            "label": "minSOC",
+                            "tooltip": "tooltip_minSOC",
+                            "min": 0,
+                            "max": 100,
+                            "default": 20
+                        },
+                        {
+                            "type": "text",
+                            "attr": "switchOnTime",
+                            "label": "switchOnTime",
+                            "default": ""
+                        },
+                        {
+                            "type": "text",
+                            "attr": "switchOffTime",
+                            "label": "switchOffTime",
+                            "default": ""
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOnDelay",
+                            "label": "switchOnDelay",
+                            "tooltip": "tooltip_switchOnDelay",
+                            "min": 0,
+                            "default": 20
+                        },
+                        {
+                            "type": "number",
+                            "attr": "switchOffDelay",
+                            "label": "switchOffDelay",
+                            "tooltip": "tooltip_switchOffDelay",
+                            "min": 0,
+                            "default": 20
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "alwaysOffAtTime",
+                            "label": "alwaysOffAtTime",
+                            "default": false
+                        },
+                        {
+                            "type": "number",
+                            "attr": "priority",
+                            "label": "priority",
+                            "tooltip": "tooltip_priority",
+                            "min": 1,
+                            "default": 1
+                        }
+                    ]
+                }
+            }
+        },
+        "_notifications": {
+            "type": "panel",
+            "label": "Notifications",
+            "items": {
+                "telegramInstance": {
+                    "type": "instance",
+                    "label": "telegramInstance",
+                    "adapter": "telegram",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "telegramRecipients": {
+                    "type": "text",
+                    "label": "telegramRecipients",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "gotifyInstance": {
+                    "type": "instance",
+                    "label": "gotifyInstance",
+                    "adapter": "gotify",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 12,
+                    "xl": 12
+                },
+                "emailInstance": {
+                    "type": "instance",
+                    "label": "emailInstance",
+                    "adapter": "email",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "emailRecipients": {
+                    "type": "text",
+                    "label": "emailRecipients",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "whatsappInstance": {
+                    "type": "instance",
+                    "label": "whatsappInstance",
+                    "adapter": "whatsapp-cmd",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "whatsappRecipients": {
+                    "type": "text",
+                    "label": "whatsappRecipients",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "signalInstance": {
+                    "type": "instance",
+                    "label": "signalInstance",
+                    "adapter": "signal-cmd",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "signalRecipients": {
+                    "type": "text",
+                    "label": "signalRecipients",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "pushoverInstance": {
+                    "type": "instance",
+                    "label": "pushoverInstance",
+                    "adapter": "pushover",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "pushoverRecipients": {
+                    "type": "text",
+                    "label": "pushoverRecipients",
+                    "default": "",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 12,
+                    "lg": 6,
+                    "xl": 6
+                },
+                "enableNotificationManager": {
+                    "type": "checkbox",
+                    "label": "enableNotificationManager",
+                    "default": false,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                }
+            }
+        }
+    }
+}
