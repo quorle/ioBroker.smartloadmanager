@@ -30,7 +30,7 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.0.7 (2025-09-09)
 
 - (quorle) modified Readme
 - (quorle) German and English description created
