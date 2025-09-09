@@ -18,7 +18,6 @@ admin/i18n/*/flat.txt
 
 # Ignore commitinfo
 .commitinfo
-.commitmessage
 
 # Ignore jsconfig
 .jsconfig.json
