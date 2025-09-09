@@ -1,209 +1,216 @@
 {
-    "common": {
-        "name": "smartloadmanager",
-        "version": "0.0.6",
-        "news": {
-            "0.0.7": {
-                "en": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n",
-                "de": "geänderte Readme\nDeutsche und englische Beschreibung erstellt\nchore: devDependencies aufräumen\nFehler bei Timeouts in Funktionen behoben\nsetTimeout/setInterval erlaubte Höchstwerte implementiert\n",
-                "ru": "Измененное Readme\nСоздано немецкое и английское описание\nработа: очистка devDependencies\nИсправлены ошибки с таймаутами в функциях\nsetTimeout/setInterval реализованы допустимые максимальные значения\n",
-                "pt": "Leiame modificado\nDescrição em alemão e inglês criada\ntarefa: limpar devDependencies\nCorreção de erros nos tempos limite das funções\nsetTimeout/setInterval valores máximos permitidos implementados\n",
-                "nl": "gewijzigde Readme\nDuitse en Engelse beschrijving gemaakt\nkarwei: devDependencies opruimen\nBugs in time-outs in functies opgelost\nsetTimeout/setInterval toegestane maximumwaarden geïmplementeerd\n",
-                "fr": "Readme modifié\nCréation d'une description en allemand et en anglais\nChorée : nettoyage des dépendances devDependencies\nCorrection de bogues concernant les délais d'attente dans les fonctions\nsetTimeout/setInterval valeurs maximales autorisées mises en œuvre\n",
-                "it": "Readme modificato\nCreazione di una descrizione in tedesco e inglese\ncore: ripulire devDependencies\nCorretti i bug dei timeout nelle funzioni\nsetTimeout/setInterval Valori massimi consentiti implementati\n",
-                "es": "Léame modificado\nDescripción en alemán e inglés\ntarea: limpiar devDependencies\nCorregidos errores en los tiempos de espera de las funciones\nsetTimeout/setInterval valores máximos permitidos implementados\n",
-                "pl": "zmodyfikowany plik Readme\nStworzono opis w języku niemieckim i angielskim\nchore: czyszczenie devDependencies\nNaprawiono błędy w limitach czasu w funkcjach\nsetTimeout/setInterval dozwolone zaimplementowane wartości maksymalne\n",
-                "uk": "змінено Readme\nСтворено опис німецькою та англійською мовами\nchore: очищення devDependencies\nВиправлено помилки таймаутів у функціях\nsetTimeout/setInterval дозволені максимальні значення реалізовані\n",
-                "zh-cn": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n"
-            },
-            "0.0.6": {
-                "en": "Adjustments package.json\nCode changed",
-                "de": "Anpassungen Paket.json\nCode geändert",
-                "ru": "Корректировка package.json\nИзменился код",
-                "pt": "Pacote de ajustes.json\nCódigo alterado",
-                "nl": "Aanpassingen pakket.json\nCode gewijzigd",
-                "fr": "Réglages package.json\nCode modifié",
-                "it": "Aggiustazioni pacchetto.json\nCodice cambiato",
-                "es": "Paquete de ajustes.json\nCambio de código",
-                "pl": "Dostosowania package.json\nZmieniony kod",
-                "uk": "Налаштування пакета.json\nЗмінено код",
-                "zh-cn": "调整包.json\n代码已更改"
-            },
-            "0.0.1": {
-                "en": "Release",
-                "de": "Release",
-                "ru": "Выпуск",
-                "pt": "Lançar",
-                "nl": "Loslaten",
-                "fr": "Libération",
-                "it": "Comunicato",
-                "es": "Liberación",
-                "pl": "Zwolnienie",
-                "uk": "Релізи",
-                "zh-cn": "发布"
-            }
-        },
-        "titleLang": {
-            "en": "smartloadmanager",
-            "de": "smartloadmanager",
-            "ru": "smartloadmanager",
-            "pt": "smartloadmanager",
-            "nl": "smartloadmanager",
-            "fr": "smartloadmanager",
-            "it": "smartloadmanager",
-            "es": "smartloadmanager",
-            "pl": "smartloadmanager",
-            "uk": "smartloadmanager",
-            "zh-cn": "smartloadmanager"
-        },
-        "desc": {
-            "en": "Smart load management for home energy systems",
-            "de": "Smartes Lastmanagement für Heimenergiesysteme",
-            "ru": "Умное управление нагрузками для домашних энергетических систем",
-            "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
-            "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
-            "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
-            "it": "Gestione intelligente del carico per sistemi di energia domestica",
-            "es": "Gestión inteligente de carga para sistemas de energía doméstica",
-            "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
-            "uk": "Розумне управління навантаженням для побутових енергосистем",
-            "zh-cn": "家庭能源系统的智能负荷管理"
-        },
-        "authors": ["quorle <quorle12@gmail.com>"],
-        "keywords": ["Surplus", "Feed-in", "PV system", "Zero feed-in"],
-        "licenseInformation": {
-            "type": "free",
-            "license": "MIT"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "smartloadmanager.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
-        "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 3,
-        "mode": "daemon",
-        "type": "logic",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "poll",
-        "adminUI": {
-            "config": "json"
-        },
-        "docs": {
-            "en": "docs/en/README.md",
-            "de": "docs/de/README.md"
-        },
-        "supportedMessages": {
-            "notifications": true
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=6.0.11"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.6.17"
-            }
-        ]
+  "common": {
+    "name": "smartloadmanager",
+    "version": "0.0.7",
+    "news": {
+      "0.0.7": {
+        "en": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n",
+        "de": "geänderte Readme\nDeutsche und englische Beschreibung erstellt\nchore: devDependencies aufräumen\nFehler bei Timeouts in Funktionen behoben\nsetTimeout/setInterval erlaubte Höchstwerte implementiert\n",
+        "ru": "Измененное Readme\nСоздано немецкое и английское описание\nработа: очистка devDependencies\nИсправлены ошибки с таймаутами в функциях\nsetTimeout/setInterval реализованы допустимые максимальные значения\n",
+        "pt": "Leiame modificado\nDescrição em alemão e inglês criada\ntarefa: limpar devDependencies\nCorreção de erros nos tempos limite das funções\nsetTimeout/setInterval valores máximos permitidos implementados\n",
+        "nl": "gewijzigde Readme\nDuitse en Engelse beschrijving gemaakt\nkarwei: devDependencies opruimen\nBugs in time-outs in functies opgelost\nsetTimeout/setInterval toegestane maximumwaarden geïmplementeerd\n",
+        "fr": "Readme modifié\nCréation d'une description en allemand et en anglais\nChorée : nettoyage des dépendances devDependencies\nCorrection de bogues concernant les délais d'attente dans les fonctions\nsetTimeout/setInterval valeurs maximales autorisées mises en œuvre\n",
+        "it": "Readme modificato\nCreazione di una descrizione in tedesco e inglese\ncore: ripulire devDependencies\nCorretti i bug dei timeout nelle funzioni\nsetTimeout/setInterval Valori massimi consentiti implementati\n",
+        "es": "Léame modificado\nDescripción en alemán e inglés\ntarea: limpiar devDependencies\nCorregidos errores en los tiempos de espera de las funciones\nsetTimeout/setInterval valores máximos permitidos implementados\n",
+        "pl": "zmodyfikowany plik Readme\nStworzono opis w języku niemieckim i angielskim\nchore: czyszczenie devDependencies\nNaprawiono błędy w limitach czasu w funkcjach\nsetTimeout/setInterval dozwolone zaimplementowane wartości maksymalne\n",
+        "uk": "змінено Readme\nСтворено опис німецькою та англійською мовами\nchore: очищення devDependencies\nВиправлено помилки таймаутів у функціях\nsetTimeout/setInterval дозволені максимальні значення реалізовані\n",
+        "zh-cn": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n"
+      },
+      "0.0.6": {
+        "en": "Adjustments package.json\nCode changed",
+        "de": "Anpassungen Paket.json\nCode geändert",
+        "ru": "Корректировка package.json\nИзменился код",
+        "pt": "Pacote de ajustes.json\nCódigo alterado",
+        "nl": "Aanpassingen pakket.json\nCode gewijzigd",
+        "fr": "Réglages package.json\nCode modifié",
+        "it": "Aggiustazioni pacchetto.json\nCodice cambiato",
+        "es": "Paquete de ajustes.json\nCambio de código",
+        "pl": "Dostosowania package.json\nZmieniony kod",
+        "uk": "Налаштування пакета.json\nЗмінено код",
+        "zh-cn": "调整包.json\n代码已更改"
+      },
+      "0.0.1": {
+        "en": "Release",
+        "de": "Release",
+        "ru": "Выпуск",
+        "pt": "Lançar",
+        "nl": "Loslaten",
+        "fr": "Libération",
+        "it": "Comunicato",
+        "es": "Liberación",
+        "pl": "Zwolnienie",
+        "uk": "Релізи",
+        "zh-cn": "发布"
+      }
     },
-    "notifications": [
-        {
-            "scope": "smartloadmanager",
-            "name": {
-                "en": "SmartLoadManager",
-                "de": "SmartLoadManager",
-                "ru": "smartloadmanager",
-                "pt": "smartloadmanager",
-                "nl": "smartloadmanager",
-                "fr": "smartloadmanager",
-                "it": "smartloadmanager",
-                "es": "smartloadmanager",
-                "pl": "smartloadmanager",
-                "uk": "smartloadmanager",
-                "zh-cn": "smartloadmanager"
-            },
-            "description": {
-                "en": "Notifications from SmartLoadManager",
-                "de": "Benachrichtigungen vom SmartLoadManager"
-            },
-            "categories": [
-                {
-                    "category": "info",
-                    "name": {
-                        "en": "Info",
-                        "de": "Info"
-                    },
-                    "severity": "notify",
-                    "description": {
-                        "en": "Information about consumer switching or battery adjustments",
-                        "de": "Informationen zu Verbraucherschaltungen oder Batterieanpassungen"
-                    },
-                    "regex": [],
-                    "limit": 1
-                },
-                {
-                    "category": "notify",
-                    "name": {
-                        "en": "Notify",
-                        "de": "Benachrichtigen"
-                    },
-                    "severity": "notify",
-                    "description": {
-                        "en": "Notify about events",
-                        "de": "Benachrichtigen über Ereignisse"
-                    },
-                    "regex": [],
-                    "limit": 1
-                },
-                {
-                    "category": "alert",
-                    "name": {
-                        "en": "Alert",
-                        "de": "Alarm"
-                    },
-                    "severity": "alert",
-                    "description": {
-                        "en": "Alarm or failures in the adapter",
-                        "de": "Alarm oder Ausfälle im Adapter"
-                    },
-                    "regex": [],
-                    "limit": 1
-                }
-            ]
-        }
+    "titleLang": {
+      "en": "smartloadmanager",
+      "de": "smartloadmanager",
+      "ru": "smartloadmanager",
+      "pt": "smartloadmanager",
+      "nl": "smartloadmanager",
+      "fr": "smartloadmanager",
+      "it": "smartloadmanager",
+      "es": "smartloadmanager",
+      "pl": "smartloadmanager",
+      "uk": "smartloadmanager",
+      "zh-cn": "smartloadmanager"
+    },
+    "desc": {
+      "en": "Smart load management for home energy systems",
+      "de": "Smartes Lastmanagement für Heimenergiesysteme",
+      "ru": "Умное управление нагрузками для домашних энергетических систем",
+      "pt": "Gerenciamento inteligente de carga para sistemas de energia doméstica",
+      "nl": "Slim belastingsbeheer voor thuisenergiesystemen",
+      "fr": "Gestion intelligente des charges pour les systèmes d'énergie domestique",
+      "it": "Gestione intelligente del carico per sistemi di energia domestica",
+      "es": "Gestión inteligente de carga para sistemas de energía doméstica",
+      "pl": "Inteligentne zarządzanie obciążeniem dla domowych systemów energetycznych",
+      "uk": "Розумне управління навантаженням для побутових енергосистем",
+      "zh-cn": "家庭能源系统的智能负荷管理"
+    },
+    "authors": [
+      "quorle <quorle12@gmail.com>"
     ],
-    "native": {
-        "feedInDatapoint": "",
-        "FeedInDataPoint": "",
-        "feedinNegativ": false,
-        "switchOnPoint": 0,
-        "switchOffPoint": 0,
-        "consumer": [],
-        "baseload": 0,
-        "batteryControlModeDatapoint": "",
-        "notifyBinary": false,
-        "notifyPercent": false,
-        "notifyBattery": false,
-        "notifyHeating": false,
-        "switchOnDelay": 20,
-        "switchOffDelay": 20,
-        "delaySecondsProzent": 0,
-        "batteryDelaySeconds": 0,
-        "telegramInstance": "",
-        "gotifyInstance": "",
-        "emailInstance": "",
-        "whatsappInstance": "",
-        "signalInstance": "",
-        "pushoverInstance": "",
-        "telegramRecipients": "",
-        "emailRecipients": "",
-        "whatsappRecipients": "",
-        "signalRecipients": "",
-        "pushoverRecipients": "",
-        "enableNotificationManager": false
+    "keywords": [
+      "Surplus",
+      "Feed-in",
+      "PV system",
+      "Zero feed-in"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
     },
-    "objects": [],
-    "instanceObjects": []
+    "platform": "Javascript/Node.js",
+    "icon": "smartloadmanager.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/quorle/ioBroker.smartloadmanager/main/admin/smartloadmanager.png",
+    "readme": "https://github.com/quorle/ioBroker.smartloadmanager/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "logic",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "docs": {
+      "en": "docs/en/README.md",
+      "de": "docs/de/README.md"
+    },
+    "supportedMessages": {
+      "notifications": true
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.17"
+      }
+    ]
+  },
+  "notifications": [
+    {
+      "scope": "smartloadmanager",
+      "name": {
+        "en": "SmartLoadManager",
+        "de": "SmartLoadManager",
+        "ru": "smartloadmanager",
+        "pt": "smartloadmanager",
+        "nl": "smartloadmanager",
+        "fr": "smartloadmanager",
+        "it": "smartloadmanager",
+        "es": "smartloadmanager",
+        "pl": "smartloadmanager",
+        "uk": "smartloadmanager",
+        "zh-cn": "smartloadmanager"
+      },
+      "description": {
+        "en": "Notifications from SmartLoadManager",
+        "de": "Benachrichtigungen vom SmartLoadManager"
+      },
+      "categories": [
+        {
+          "category": "info",
+          "name": {
+            "en": "Info",
+            "de": "Info"
+          },
+          "severity": "notify",
+          "description": {
+            "en": "Information about consumer switching or battery adjustments",
+            "de": "Informationen zu Verbraucherschaltungen oder Batterieanpassungen"
+          },
+          "regex": [],
+          "limit": 1
+        },
+        {
+          "category": "notify",
+          "name": {
+            "en": "Notify",
+            "de": "Benachrichtigen"
+          },
+          "severity": "notify",
+          "description": {
+            "en": "Notify about events",
+            "de": "Benachrichtigen über Ereignisse"
+          },
+          "regex": [],
+          "limit": 1
+        },
+        {
+          "category": "alert",
+          "name": {
+            "en": "Alert",
+            "de": "Alarm"
+          },
+          "severity": "alert",
+          "description": {
+            "en": "Alarm or failures in the adapter",
+            "de": "Alarm oder Ausfälle im Adapter"
+          },
+          "regex": [],
+          "limit": 1
+        }
+      ]
+    }
+  ],
+  "native": {
+    "feedInDatapoint": "",
+    "FeedInDataPoint": "",
+    "feedinNegativ": false,
+    "switchOnPoint": 0,
+    "switchOffPoint": 0,
+    "consumer": [],
+    "baseload": 0,
+    "batteryControlModeDatapoint": "",
+    "notifyBinary": false,
+    "notifyPercent": false,
+    "notifyBattery": false,
+    "notifyHeating": false,
+    "switchOnDelay": 20,
+    "switchOffDelay": 20,
+    "delaySecondsProzent": 0,
+    "batteryDelaySeconds": 0,
+    "telegramInstance": "",
+    "gotifyInstance": "",
+    "emailInstance": "",
+    "whatsappInstance": "",
+    "signalInstance": "",
+    "pushoverInstance": "",
+    "telegramRecipients": "",
+    "emailRecipients": "",
+    "whatsappRecipients": "",
+    "signalRecipients": "",
+    "pushoverRecipients": "",
+    "enableNotificationManager": false
+  },
+  "objects": [],
+  "instanceObjects": []
 }
