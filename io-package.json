@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "smartloadmanager",
-        "version": "0.0.7",
+        "version": "0.0.6",
         "news": {
             "0.0.7": {
                 "en": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n",
