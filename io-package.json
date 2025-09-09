@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "smartloadmanager",
-        "version": "0.0.6",
+        "version": "0.0.7",
         "news": {
+            "0.0.7": {
+                "en": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n",
+                "de": "geänderte Readme\nDeutsche und englische Beschreibung erstellt\nchore: devDependencies aufräumen\nFehler bei Timeouts in Funktionen behoben\nsetTimeout/setInterval erlaubte Höchstwerte implementiert\n",
+                "ru": "Измененное Readme\nСоздано немецкое и английское описание\nработа: очистка devDependencies\nИсправлены ошибки с таймаутами в функциях\nsetTimeout/setInterval реализованы допустимые максимальные значения\n",
+                "pt": "Leiame modificado\nDescrição em alemão e inglês criada\ntarefa: limpar devDependencies\nCorreção de erros nos tempos limite das funções\nsetTimeout/setInterval valores máximos permitidos implementados\n",
+                "nl": "gewijzigde Readme\nDuitse en Engelse beschrijving gemaakt\nkarwei: devDependencies opruimen\nBugs in time-outs in functies opgelost\nsetTimeout/setInterval toegestane maximumwaarden geïmplementeerd\n",
+                "fr": "Readme modifié\nCréation d'une description en allemand et en anglais\nChorée : nettoyage des dépendances devDependencies\nCorrection de bogues concernant les délais d'attente dans les fonctions\nsetTimeout/setInterval valeurs maximales autorisées mises en œuvre\n",
+                "it": "Readme modificato\nCreazione di una descrizione in tedesco e inglese\ncore: ripulire devDependencies\nCorretti i bug dei timeout nelle funzioni\nsetTimeout/setInterval Valori massimi consentiti implementati\n",
+                "es": "Léame modificado\nDescripción en alemán e inglés\ntarea: limpiar devDependencies\nCorregidos errores en los tiempos de espera de las funciones\nsetTimeout/setInterval valores máximos permitidos implementados\n",
+                "pl": "zmodyfikowany plik Readme\nStworzono opis w języku niemieckim i angielskim\nchore: czyszczenie devDependencies\nNaprawiono błędy w limitach czasu w funkcjach\nsetTimeout/setInterval dozwolone zaimplementowane wartości maksymalne\n",
+                "uk": "змінено Readme\nСтворено опис німецькою та англійською мовами\nchore: очищення devDependencies\nВиправлено помилки таймаутів у функціях\nsetTimeout/setInterval дозволені максимальні значення реалізовані\n",
+                "zh-cn": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n"
+            },
             "0.0.6": {
                 "en": "Adjustments package.json\nCode changed",
                 "de": "Anpassungen Paket.json\nCode geändert",
