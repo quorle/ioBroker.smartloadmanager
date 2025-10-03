@@ -1,6 +1,6 @@
 {
   "name": "iobroker.smartloadmanager",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "This adapter allows devices to be controlled via PV surplus and thus achieve zero feed-in.",
   "author": {
     "name": "quorle",

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "news": {
+      "0.0.8": {
+        "en": "Fix for binary consumers that do not turn off\nFix for heating elements that are not switched off at max temperature",
+        "de": "Fix für binäre Verbraucher, die nicht ausschalten\nBefestigung für Heizelemente, die bei max Temperatur nicht abgeschaltet werden",
+        "ru": "Исправьте для бинарных потребителей, которые не отключаются\nИсправьте нагревательные элементы, которые не выключены при максимальной температуре",
+        "pt": "Corrigir para consumidores binários que não se desligam\nFixação para elementos de aquecimento que não são desligados à temperatura máxima",
+        "nl": "Fix voor binaire consumenten die niet uitschakelen\nFix voor verwarmingselementen die niet zijn uitgeschakeld bij maximale temperatuur",
+        "fr": "Correction pour les consommateurs binaires qui ne s'arrêtent pas\nFixation pour éléments chauffants qui ne sont pas éteints à la température maximale",
+        "it": "Fissare per i consumatori binari che non si spegne\nFissaggio per elementi di riscaldamento non spenti a temperatura massima",
+        "es": "Fijación para los consumidores binarios que no apagan\nFijación para elementos de calefacción que no se apagan a temperatura máxima",
+        "pl": "Napraw dla konsumentów binarnych, którzy nie wyłączają\nNaprawa elementów grzewczych, które nie są wyłączone w maksymalnej temperaturze",
+        "uk": "Виправлення для бінарних споживачів, які не вимкнено\nФіксація нагрівальних елементів, які не відключені при максимальній температурі",
+        "zh-cn": "为不关闭的二进制消费者修复\n用于未在最大温度下关闭的加热元素的修复"
+      },
       "0.0.7": {
         "en": "modified Readme\nGerman and English description created\nchore: cleanup devDependencies\nFixed bugs in timeouts in functions\nsetTimeout/setInterval allowed maximum values ​​implemented\n",
         "de": "geänderte Readme\nDeutsche und englische Beschreibung erstellt\nchore: devDependencies aufräumen\nFehler bei Timeouts in Funktionen behoben\nsetTimeout/setInterval erlaubte Höchstwerte implementiert\n",

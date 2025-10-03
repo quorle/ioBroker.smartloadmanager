@@ -1,4 +1,8 @@
 # Older changes
+## 0.0.1 (2025-09-02)
+
+- (quorle) Release
+
 ## 0.0.1-alpha.24 (2025-09-02)
 
 - (quorle) Readme changed
