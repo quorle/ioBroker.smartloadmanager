@@ -654,8 +654,24 @@ class ZeroFeedIn extends utils.Adapter {
                     continue;
                 }
 
+                // Temperatur-basierte Ausschaltung für heating
+                if (v.ruletype === 'heating' && v.maxTemperature !== undefined && isOn) {
+                    const tempState = v.temperatureDatapoint
+                        ? await this.getForeignStateAsync(v.temperatureDatapoint)
+                        : null;
+                    const currentTemp = tempState?.val !== undefined ? Number(tempState.val) : null;
+                    if (currentTemp !== null && currentTemp >= v.maxTemperature) {
+                        this.log.warn(
+                            `"${v.name}" switched off due to maxTemperature reached: ${currentTemp}°C >= ${v.maxTemperature}°C`,
+                        );
+                        await this.switchConsumerWithDelay(v, false, 0);
+                        continue; // weiter zum nächsten Verbraucher
+                    }
+                }
+
                 // Timer-Abbruch bei wegfallender Bedingung (Ausschalten)
-                if (v.timer && v.timerEnd && v.pendingAction === false && withinWindow && !gridUsage) {
+                const surplus = feedIn - baseload;
+                if (v.timer && v.timerEnd && v.pendingAction === false && withinWindow && surplus >= v.switchOffPoint) {
                     clearTimeout(v.timer);
                     v.timer = null;
                     v.timerEnd = null;
@@ -666,18 +682,26 @@ class ZeroFeedIn extends utils.Adapter {
                     this.log.debug(`Switch-off timer for "${v.name}" canceled (condition no longer valid).`);
                 }
 
-                if (!v.alwaysOffAtTime && (!withinWindow || gridUsage)) {
+                // Ausschalten, wenn:
+                // - Zeitfenster verlassen ODER
+                // - Netzbezug aktiv ODER
+                // - Überschuss < switchOffPoint
+                const shouldSwitchOff = !withinWindow || gridUsage || surplus < v.switchOffPoint;
+
+                if (!v.alwaysOffAtTime && shouldSwitchOff) {
                     if (v.timer && v.timerEnd && v.pendingAction === false) {
                         const remaining = Math.max(0, Math.round((v.timerEnd - Date.now()) / 1000));
                         this.log.debug(`Active timer for ${v.name}: ${remaining}s remaining`);
                     } else {
-                        this.log.debug(`Switching off: "${v.name}" - offDelay ${v.switchOffDelay || 0}s.`);
+                        this.log.debug(
+                            `Switching off: "${v.name}" - surplus ${surplus}W < switchOffPoint ${v.switchOffPoint}W, offDelay ${v.switchOffDelay || 0}s.`,
+                        );
                         await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
                     }
                 }
             }
 
-            // --- Batterie bleibt unverändert ---
+            // --- Batterie unverändert ---
             const batteryConsumers = this.consumerList.filter(c => c.ruletype === 'battery');
             for (const v of batteryConsumers) {
                 await this.controlBattery(v, feedIn);

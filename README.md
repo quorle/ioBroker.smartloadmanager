@@ -30,6 +30,12 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (quorle) Fix for binary consumers that do not turn off
+- (quorle) Fix for heating elements that are not switched off at max temperature
+
 ### 0.0.7 (2025-09-09)
 
 - (quorle) modified Readme
