@@ -30,6 +30,11 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (quorle) Added a checkbox for activating consumers from the settings to the object tree
+
 ### 0.0.8 (2025-10-03)
 
 - (quorle) Fix for binary consumers that do not turn off

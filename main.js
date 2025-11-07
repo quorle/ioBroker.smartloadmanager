@@ -66,13 +66,22 @@ class ZeroFeedIn extends utils.Adapter {
             this.consumerList = Array.isArray(this.config.consumer)
                 ? this.config.consumer.filter(
                       v =>
-                          v &&
-                          v.enabled &&
-                          (v.ruletype === 'battery' || ((v.datapoint || v.numericDatapoint) && v.performance > 0)),
+                          v && (v.ruletype === 'battery' || ((v.datapoint || v.numericDatapoint) && v.performance > 0)),
                   )
                 : [];
 
             this.consumerList.forEach(v => (v.processingLockSwitch = false));
+
+            for (let i = 0; i < this.consumerList.length; i++) {
+                const v = this.consumerList[i];
+                const safeName = this.name2id(v.name);
+                const id = `${this.namespace}.consumer.${i}_${safeName}.active`;
+                const state = await this.getStateAsync(id);
+                if (state && state.val !== null) {
+                    v.enabled = state.val;
+                    this.log.debug(`"${v.name}": Active status taken from object tree (${state.val})`);
+                }
+            }
 
             this.log.info(`Loaded consumers: ${this.consumerList.map(v => v.name).join(', ')}`);
 
@@ -227,6 +236,20 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
+            // === NEUER STATE: Aktiv-Status ============================
+            await this.setObjectNotExistsAsync(`${channelId}.active`, {
+                type: 'state',
+                common: {
+                    name: `${v.name} aktiv`,
+                    type: 'boolean',
+                    role: 'switch',
+                    read: true,
+                    write: true,
+                    def: v.enabled || false,
+                },
+                native: {},
+            });
+
             if (v.ruletype === 'battery') {
                 await this.setObjectNotExistsAsync(`${channelId}.batterySetpoint`, {
                     type: 'state',
@@ -302,6 +325,8 @@ class ZeroFeedIn extends utils.Adapter {
 
             await this.setStateAsync(`${this.namespace}.${channelId}.onTimerRemaining`, { val: 0, ack: true });
             await this.setStateAsync(`${this.namespace}.${channelId}.offTimerRemaining`, { val: 0, ack: true });
+
+            await this.setStateAsync(`${channelId}.active`, { val: v.enabled || false, ack: true });
 
             v.switchOnTime = finalOnTime;
             v.switchOffTime = finalOffTime;
@@ -387,6 +412,19 @@ class ZeroFeedIn extends utils.Adapter {
         if (state && !state.ack) {
             this.log.debug(`State changed: ${id} => ${state.val}`);
 
+            // --- Aktiv-Status manuell umschalten ---------------------------------
+            if (id.match(/consumer\.(\d+)_.*?\.active/)) {
+                const match = id.match(/consumer\.(\d+)_.*?\.active/);
+                const index = parseInt(match[1]);
+                const v = this.consumerList[index];
+                if (v) {
+                    v.enabled = state.val;
+                    this.log.info(`Consumer "${v.name}" became ${state.val ? 'activated' : 'deactivated'}.`);
+                    await this.setStateAsync(id, { val: state.val, ack: true });
+                }
+                return;
+            }
+
             // ControlMode Änderungen
             const match = id.match(/consumer\.(\d+)_.*?\.controlMode/);
             if (match) {
@@ -423,11 +461,7 @@ class ZeroFeedIn extends utils.Adapter {
         try {
             if (!this.feedInDatapoint) {
                 this.log.warn('No FeedIn datapoint set – skipping checkConsumers()');
-                await this.sendNotification(
-                    'smartloadmanager',
-                    'alert',
-                    '❗ Kein FeedIn-Datenpunkt gesetzt – Regelung übersprungen.',
-                );
+                await this.sendNotification('smartloadmanager', 'alert', '❗ No FeedIn data point set – rule skipped.');
                 this.checkRunning = false;
                 if (this.checkQueued) {
                     await this.checkConsumers();
@@ -456,6 +490,11 @@ class ZeroFeedIn extends utils.Adapter {
             this.log.debug(`Switch-on check for ${sortedOn.length} binary/heating-consumers.`);
 
             for (const v of sortedOn) {
+                // Überspringe deaktivierte Verbraucher
+                if (!v.enabled) {
+                    this.log.debug(`"${v.name}" is deactivated – skipped (power-on check).`);
+                    continue;
+                }
                 const idx = this.consumerList.indexOf(v);
                 const safeName = this.name2id(v.name);
                 const id = `${this.namespace}.consumer.${idx}_${safeName}`;
@@ -510,7 +549,7 @@ class ZeroFeedIn extends utils.Adapter {
                     if (v.enableDatapoint) {
                         const enableState = await this.getForeignStateAsync(v.enableDatapoint);
                         if (!enableState?.val) {
-                            this.log.debug(`"${v.name}" NICHT eingeschaltet – Hardware release missing.`);
+                            this.log.debug(`"${v.name}" NOT switched on – Hardware release missing.`);
                             continue;
                         }
                     }
@@ -577,6 +616,11 @@ class ZeroFeedIn extends utils.Adapter {
                 const safeName = this.name2id(v.name);
                 const id = `${this.namespace}.consumer.${idx}_${safeName}`;
                 const mode = await this.getStateAsync(`${id}.controlMode`);
+                // Überspringe deaktivierte Verbraucher
+                if (!v.enabled) {
+                    this.log.debug(`"${v.name}" is deactivated – will be skipped (power-off check).`);
+                    continue;
+                }
                 if (!mode || mode.val !== 2) {
                     continue;
                 }
@@ -704,6 +748,10 @@ class ZeroFeedIn extends utils.Adapter {
             // --- Batterie unverändert ---
             const batteryConsumers = this.consumerList.filter(c => c.ruletype === 'battery');
             for (const v of batteryConsumers) {
+                if (!v.enabled) {
+                    this.log.debug(`"${v.name}" is deactivated – battery control skipped.`);
+                    continue;
+                }
                 await this.controlBattery(v, feedIn);
             }
 

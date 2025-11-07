@@ -116,6 +116,7 @@
                         {
                             "type": "checkbox",
                             "attr": "enabled",
+                            "hidden": "true",
                             "title": {
                                 "en": "Active",
                                 "de": "Aktiv",
