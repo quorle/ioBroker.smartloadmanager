@@ -114,24 +114,6 @@
                             }
                         },
                         {
-                            "type": "checkbox",
-                            "attr": "enabled",
-                            "hidden": "true",
-                            "title": {
-                                "en": "Active",
-                                "de": "Aktiv",
-                                "ru": "Активный",
-                                "pt": "Activo",
-                                "nl": "Actief",
-                                "fr": "Activité",
-                                "it": "Attivo",
-                                "es": "Activo",
-                                "pl": "Aktywne",
-                                "uk": "Активний",
-                                "zh-cn": "活动"
-                            }
-                        },
-                        {
                             "type": "objectId",
                             "attr": "datapoint",
                             "title": {
