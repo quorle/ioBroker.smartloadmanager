@@ -1,4 +1,9 @@
 # Older changes
+## 0.0.2 (2025-09-03)
+
+- (quorle) Adjustments package.json
+- (quorle) Code changed
+
 ## 0.0.1 (2025-09-02)
 
 - (quorle) Release

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.0.8",
+    "version": "0.1.0",
     "news": {
+      "0.1.0": {
+        "en": "Added a checkbox for activating consumers from the settings to the object tree",
+        "de": "Hinzufügen eines Kontrollkästchens zur Aktivierung von Verbrauchern von den Einstellungen zum Objektbaum",
+        "ru": "Добавлен чекбокс для активации потребителей от настроек до дерева объектов",
+        "pt": "Adicionada uma caixa de seleção para ativar os consumidores das configurações para a árvore de objetos",
+        "nl": "Een selectievakje toegevoegd voor het activeren van consumenten van de instellingen naar de objectboom",
+        "fr": "Ajout d'une case à cocher pour activer les consommateurs depuis les paramètres vers l'arborescence des objets",
+        "it": "Aggiunto una casella di controllo per attivare i consumatori dalle impostazioni all'albero dell'oggetto",
+        "es": "Se agregó una casilla de verificación para activar a los consumidores desde la configuración hasta el árbol objeto",
+        "pl": "Dodano opcję aktywacji konsumentów od ustawień do drzewa obiektów",
+        "uk": "Додано прапорець для активації споживачів з налаштувань до дерева об'єкта",
+        "zh-cn": "从设置中添加一个激活消费者的复选框到对象树"
+      },
       "0.0.8": {
         "en": "Fix for binary consumers that do not turn off\nFix for heating elements that are not switched off at max temperature",
         "de": "Fix für binäre Verbraucher, die nicht ausschalten\nBefestigung für Heizelemente, die bei max Temperatur nicht abgeschaltet werden",
