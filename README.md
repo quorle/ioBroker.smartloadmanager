@@ -33,6 +33,8 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 
 ### **WORK IN PROGRESS**
 
+- (quorle) Update dependencies
+
 ### 0.1.0 (2025-11-07)
 
 - (quorle) Added a checkbox for activating consumers from the settings to the object tree
