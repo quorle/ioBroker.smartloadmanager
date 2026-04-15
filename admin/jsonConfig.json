@@ -77,6 +77,48 @@
                     "lg": 3,
                     "xl": 3,
                     "label": "notifyBattery"
+                },
+                "StaticText_PVForecastSettings": {
+                    "type": "staticText",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "StaticText_PVForecastSettings"
+                },
+                "enableForecast": {
+                    "type": "checkbox",
+                    "default": false,
+                    "newLine": true,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3,
+                    "label": "enableForecast"
+                },
+
+                "forecastJsonDatapoint": {
+                    "type": "objectId",
+                    "newLine": true,
+                    "label": "forecastJsonDatapoint",
+                    "tooltip": "tooltip_forecastJsonDatapoint",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastDefaultMinMinutes": {
+                    "type": "number",
+                    "label": "forecastDefaultMinMinutes",
+                    "tooltip": "tooltip_forecastDefaultMinMinutes",
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
                 }
             }
         },
@@ -152,17 +194,17 @@
                         {
                             "type": "staticText",
                             "title": {
-                                "en": "Battery management:",
-                                "de": "Batteriemanagment:",
-                                "ru": "Управление батареями:",
-                                "pt": "Gestão da bateria:",
-                                "nl": "Batterijbeheer:",
-                                "fr": "Gestion des batteries :",
-                                "it": "Gestione della batteria:",
-                                "es": "Gestión de baterías:",
-                                "pl": "Zarządzanie akumulatorem:",
-                                "uk": "Управління акумуляторами:",
-                                "zh-cn": "电池管理:"
+                                "en": "Battery management settings:",
+                                "de": "Einstellung Batteriemanagment:",
+                                "ru": "Настройки управления батареями:",
+                                "pt": "Configurações de gerenciamento de baterias:",
+                                "nl": "Instellingen voor batterijbeheer:",
+                                "fr": "Paramètres de gestion de la batterie :",
+                                "it": "Impostazioni di gestione della batteria:",
+                                "es": "Ajustes de gestión de baterías:",
+                                "pl": "Ustawienia zarządzania akumulatorem:",
+                                "uk": "Параметри керування акумуляторами:",
+                                "zh-cn": "电池管理设置 :"
                             }
                         },
                         {
@@ -240,17 +282,69 @@
                         {
                             "type": "staticText",
                             "title": {
-                                "en": "heating element:",
-                                "de": "Heizelement:",
-                                "ru": "нагревательный элемент:",
-                                "pt": "elemento de aquecimento:",
-                                "nl": "verwarmingselement:",
-                                "fr": "élément chauffant:",
-                                "it": "elemento riscaldante:",
-                                "es": "elemento de calefacción:",
-                                "pl": "element grzewczy:",
-                                "uk": "нагрівальний елемент:",
-                                "zh-cn": "加热元素:"
+                                "en": "PV Forecast Settings",
+                                "de": "Einstellung PV-Forecast:",
+                                "ru": "Настройки PV прогноза",
+                                "pt": "Configuração da Previsão do PV",
+                                "nl": "PV-voorspellingsinstellingen",
+                                "fr": "Paramètres des prévisions PV",
+                                "it": "Impostazioni di previsione PV",
+                                "es": "Ajustes de predicción PV",
+                                "pl": "Ustawienia prognozy PV",
+                                "uk": "Параметри прогнозу PV",
+                                "zh-cn": "PV 预测设置"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "useForecast",
+                            "title": {
+                                "en": "Use forecast for this consumer",
+                                "de": "Forecast für diesen Verbraucher verwenden",
+                                "ru": "Используйте прогноз для этого потребителя",
+                                "pt": "Usar previsão para este consumidor",
+                                "nl": "Gebruiksvoorspelling voor deze consument",
+                                "fr": "Utilisation prévue pour ce consommateur",
+                                "it": "Previsione dell'uso per questo consumatore",
+                                "es": "Previsión de uso para este consumidor",
+                                "pl": "Prognoza wykorzystania dla tego konsumenta",
+                                "uk": "Використовуйте прогноз для цього споживача",
+                                "zh-cn": "对该消费者使用预测"
+                            },
+                            "tooltip": "tooltip_useForecast"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "forecastMinMinutes",
+                            "title": {
+                                "en": "Forecast minimum duration (minutes)",
+                                "de": "Forecast Mindestdauer (Minuten)",
+                                "ru": "Прогноз минимальной продолжительности (минуты)",
+                                "pt": "Previsão da duração mínima (minutos)",
+                                "nl": "Verwachte minimumduur (minuten)",
+                                "fr": "Durée minimale prévue (minutes)",
+                                "it": "Durata minima di previsione (minuti)",
+                                "es": "Duración mínima prevista (minutos)",
+                                "pl": "Przewidywany minimalny czas trwania (minuty)",
+                                "uk": "Мінімальна тривалість прогнозу (хвилини)",
+                                "zh-cn": "预测最低时间(分钟)"
+                            },
+                            "tooltip": "tooltip_forecastMinMinutes"
+                        },
+                        {
+                            "type": "staticText",
+                            "title": {
+                                "en": "Heating element setting:",
+                                "de": "Einstellung Heizelement:",
+                                "ru": "Настройка нагревательного элемента:",
+                                "pt": "Configuração do elemento de aquecimento:",
+                                "nl": "Verwarmingselementinstelling:",
+                                "fr": "Réglage des éléments de chauffage:",
+                                "it": "Regolazione degli elementi riscaldanti:",
+                                "es": "Ajuste del elemento de calefacción:",
+                                "pl": "Ustawienia elementów grzewczych:",
+                                "uk": "Налаштування нагрівальних елементів:",
+                                "zh-cn": "加热元素设置 :"
                             },
                             "newLine": true
                         },
@@ -359,7 +453,7 @@
                                 "ru": "Потребительские настройки:",
                                 "pt": "Configurações do consumidor:",
                                 "nl": "Instellingen voor consumenten:",
-                                "fr": "Paramètres des consommateurs & #160;:",
+                                "fr": "Paramètres des consommateurs:",
                                 "it": "Impostazioni dei consumatori:",
                                 "es": "Ajustes del consumidor:",
                                 "pl": "Ustawienia konsumentów:",

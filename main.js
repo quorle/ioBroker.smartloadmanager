@@ -18,10 +18,21 @@ class ZeroFeedIn extends utils.Adapter {
         this.batteryTimer = null;
         this.checkRunning = false;
 
+        // 🔮 Forecast (PV forecast integration)
+        this.forecastEnabled = false;
+        this.forecastJsonDatapoint = null;
+        this.forecast = {
+            power: 0,
+            surplus: 0,
+            minutes: 0,
+            lastUpdate: 0,
+        };
+
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
+
     name2id(pName) {
         return (pName || '')
             .replace(this.FORBIDDEN_CHARS, '_') // ioBroker verbotene Zeichen
@@ -31,6 +42,7 @@ class ZeroFeedIn extends utils.Adapter {
             .replace(/_+/g, '_') // mehrere Unterstriche zusammenfassen
             .replace(/^_+|_+$/g, ''); // führende/trailing _ weg
     }
+
     // Wrapper für sichere Timer
     safeSetTimeout(fn, ms, ...args) {
         const safeMs = Math.min(Math.max(ms, 0), this.MAX_TIMEOUT);
@@ -48,6 +60,9 @@ class ZeroFeedIn extends utils.Adapter {
         return this.setInterval(fn, safeMs, ...args);
     }
 
+    // =====================================================================
+    // ============================ onReady ================================
+    // =====================================================================
     async onReady() {
         try {
             this.log.info(`Adapter started, PID: ${process.pid}`);
@@ -62,6 +77,10 @@ class ZeroFeedIn extends utils.Adapter {
 
             this.batteryControlModeDatapoint = this.config.batteryControlModeDatapoint || null;
             this.log.info(`Configured batteryControlModeDatapoint: ${this.batteryControlModeDatapoint}`);
+
+            // 🔮 Forecast config (PV forecast integration)
+            this.forecastEnabled = !!this.config.enableForecast;
+            this.forecastJsonDatapoint = this.config.forecastJsonDatapoint || null;
 
             this.consumerList = Array.isArray(this.config.consumer)
                 ? this.config.consumer.filter(
@@ -87,11 +106,23 @@ class ZeroFeedIn extends utils.Adapter {
 
             await this.checkAndCreateConsumerObjects();
             await this.createConsumerStates();
+
+            // 🔮 Forecast states (adapter-internal)
+            if (this.forecastEnabled) {
+                await this.createForecastStates();
+            }
+
             await this.initializeConsumerStatus();
             await this.subscribeStatesAsync('*');
             await this.subscribeForeignStatesAsync(this.feedInDatapoint);
             if (this.batteryControlModeDatapoint) {
                 await this.subscribeForeignStatesAsync(this.batteryControlModeDatapoint);
+            }
+
+            // 🔮 Forecast subscribe + initial parse
+            if (this.forecastEnabled && this.forecastJsonDatapoint) {
+                await this.subscribeForeignStatesAsync(this.forecastJsonDatapoint);
+                await this.processPvforecastJson();
             }
 
             await this.checkConsumers();
@@ -102,6 +133,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ===================== Consumer object checks ========================
+    // =====================================================================
     async checkAndCreateConsumerObjects() {
         for (const v of this.consumerList) {
             if (v.datapoint) {
@@ -119,6 +153,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ========================= createConsumerStates ======================
+    // =====================================================================
     async createConsumerStates() {
         // Übergeordnetes Device erstellen - löst "intermediate objects missing" Problem
         await this.setObjectNotExistsAsync('consumer', {
@@ -250,6 +287,47 @@ class ZeroFeedIn extends utils.Adapter {
                 native: {},
             });
 
+            // 🔮 Forecast options per consumer
+            await this.setObjectNotExistsAsync(`${channelId}.useForecast`, {
+                type: 'state',
+                common: {
+                    name: 'Use forecast',
+                    type: 'boolean',
+                    role: 'switch',
+                    read: true,
+                    write: true,
+                    def: v.useForecast || false,
+                },
+                native: {},
+            });
+
+            await this.setObjectNotExistsAsync(`${channelId}.forecastMinMinutes`, {
+                type: 'state',
+                common: {
+                    name: 'Forecast min minutes',
+                    type: 'number',
+                    role: 'value.interval',
+                    read: true,
+                    write: true,
+                    def: v.forecastMinMinutes || 0,
+                    unit: 'min',
+                },
+                native: {},
+            });
+
+            await this.setObjectNotExistsAsync(`${channelId}.forecastStatus`, {
+                type: 'state',
+                common: {
+                    name: 'Forecast status',
+                    type: 'string',
+                    role: 'text',
+                    read: true,
+                    write: false,
+                    def: '',
+                },
+                native: {},
+            });
+
             if (v.ruletype === 'battery') {
                 await this.setObjectNotExistsAsync(`${channelId}.batterySetpoint`, {
                     type: 'state',
@@ -328,11 +406,226 @@ class ZeroFeedIn extends utils.Adapter {
 
             await this.setStateAsync(`${channelId}.active`, { val: v.enabled || false, ack: true });
 
+            // 🔮 Forecast states init per consumer
+            await this.setStateAsync(`${channelId}.useForecast`, { val: v.useForecast || false, ack: true });
+            await this.setStateAsync(`${channelId}.forecastMinMinutes`, {
+                val: v.forecastMinMinutes || 0,
+                ack: true,
+            });
+            await this.setStateAsync(`${channelId}.forecastStatus`, { val: '', ack: true });
+
             v.switchOnTime = finalOnTime;
             v.switchOffTime = finalOffTime;
         }
     }
 
+    // =====================================================================
+    // ========================= Forecast states ===========================
+    // =====================================================================
+    async createForecastStates() {
+        await this.setObjectNotExistsAsync('forecast', {
+            type: 'channel',
+            common: { name: 'Forecast' },
+            native: {},
+        });
+
+        await this.setObjectNotExistsAsync('forecast.power', {
+            type: 'state',
+            common: {
+                name: 'Forecast Power',
+                type: 'number',
+                role: 'value.power',
+                read: true,
+                write: false,
+                unit: 'W',
+                def: 0,
+            },
+            native: {},
+        });
+
+        await this.setObjectNotExistsAsync('forecast.surplus', {
+            type: 'state',
+            common: {
+                name: 'Forecast Surplus',
+                type: 'number',
+                role: 'value.power',
+                read: true,
+                write: false,
+                unit: 'W',
+                def: 0,
+            },
+            native: {},
+        });
+
+        await this.setObjectNotExistsAsync('forecast.minutes', {
+            type: 'state',
+            common: {
+                name: 'Forecast Minutes',
+                type: 'number',
+                role: 'value.interval',
+                read: true,
+                write: false,
+                unit: 'min',
+                def: 0,
+            },
+            native: {},
+        });
+
+        await this.setObjectNotExistsAsync('forecast.lastUpdate', {
+            type: 'state',
+            common: {
+                name: 'Forecast Last Update',
+                type: 'number',
+                role: 'value.time',
+                read: true,
+                write: false,
+                def: 0,
+            },
+            native: {},
+        });
+    }
+
+    // =====================================================================
+    // ========================= Forecast JSON parse =======================
+    // =====================================================================
+    async processPvforecastJson() {
+        try {
+            if (!this.forecastEnabled || !this.forecastJsonDatapoint) {
+                return;
+            }
+
+            const state = await this.getForeignStateAsync(this.forecastJsonDatapoint);
+            if (!state || !state.val) {
+                return;
+            }
+
+            let data;
+            try {
+                data = typeof state.val === 'string' ? JSON.parse(state.val) : state.val;
+            } catch {
+                this.log.warn('[Forecast] Invalid JSON in pvforecast datapoint');
+                return;
+            }
+
+            if (!Array.isArray(data) || data.length === 0) {
+                return;
+            }
+
+            const now = Date.now();
+            let best = null;
+
+            for (const entry of data) {
+                if (!entry || typeof entry.t !== 'number' || typeof entry.y !== 'number') {
+                    continue;
+                }
+                if (entry.t < now) {
+                    continue;
+                }
+                best = entry;
+                break;
+            }
+
+            if (!best) {
+                return;
+            }
+
+            // pvforecast liefert kW → wir rechnen auf W
+            const power = Math.round(best.y * 1000);
+            const minutes = Math.max(0, Math.round((best.t - now) / 60000));
+            const surplus = power - (this.config.baseload || 0);
+
+            this.forecast.power = power;
+            this.forecast.surplus = surplus > 0 ? surplus : 0;
+            this.forecast.minutes = minutes;
+            this.forecast.lastUpdate = Date.now();
+
+            await this.setStateAsync(`${this.namespace}.forecast.power`, { val: power, ack: true });
+            await this.setStateAsync(`${this.namespace}.forecast.surplus`, {
+                val: this.forecast.surplus,
+                ack: true,
+            });
+            await this.setStateAsync(`${this.namespace}.forecast.minutes`, { val: minutes, ack: true });
+            await this.setStateAsync(`${this.namespace}.forecast.lastUpdate`, {
+                val: this.forecast.lastUpdate,
+                ack: true,
+            });
+
+            this.log.debug(
+                `[Forecast] JSON parsed → power=${power}W, surplus=${this.forecast.surplus}W, minutes=${minutes}`,
+            );
+        } catch (error) {
+            this.log.error(`[Forecast] Error processing pvforecast JSON: ${error.message}`);
+        }
+    }
+
+    // =====================================================================
+    // ========================= Forecast helpers ==========================
+    // =====================================================================
+    getForecastPower(_v) {
+        return this.forecast?.power || 0;
+    }
+
+    getForecastMinutes(_v) {
+        return this.forecast?.minutes || 0;
+    }
+
+    isForecastAllowingSwitchOn(v) {
+        if (!this.forecastEnabled || !v.useForecast) {
+            return false;
+        }
+        const minMinutes = v.forecastMinMinutes || 0;
+        if (this.forecast.minutes > minMinutes) {
+            return false;
+        }
+        if (this.forecast.surplus >= v.performance) {
+            return true;
+        }
+        return false;
+    }
+
+    isForecastDelayingSwitchOff(v, _currentSurplus) {
+        if (!this.forecastEnabled || !v.useForecast) {
+            return false;
+        }
+        const minMinutes = v.forecastMinMinutes || 0;
+        if (this.forecast.minutes > minMinutes) {
+            return false;
+        }
+        if (this.forecast.surplus >= v.switchOnPoint) {
+            return true;
+        }
+        return false;
+    }
+
+    async setForecastState(v, idx, active, reason, power, minutes) {
+        try {
+            const safeName = this.name2id(v.name);
+            const channelId = `consumer.${idx}_${safeName}`;
+            const text = active
+                ? `${reason || 'forecast'} (${power || this.forecast.power || 0}W / ${minutes || this.forecast.minutes || 0}min)`
+                : '';
+            await this.setStateAsync(`${this.namespace}.${channelId}.forecastStatus`, {
+                val: text,
+                ack: true,
+            });
+        } catch (err) {
+            this.log.warn(`[Forecast] Failed to set forecastStatus: ${err.message}`);
+        }
+    }
+
+    async sendForecastNotification(type, message) {
+        try {
+            if (this.config.notifyForecast) {
+                await this.sendNotification('smartloadmanager', 'notify', message);
+            }
+        } catch (err) {
+            this.log.warn(`[Forecast] Failed to send forecast notification: ${err.message}`);
+        }
+    }
+
+    // =====================================================================
+    // ========================= Time window helper ========================
+    // =====================================================================
     timeWithinWindow(onTime, offTime, name) {
         if (!onTime || !offTime) {
             return true;
@@ -356,8 +649,20 @@ class ZeroFeedIn extends utils.Adapter {
         return within;
     }
 
+    // =====================================================================
+    // ========================= onStateChange =============================
+    // =====================================================================
     async onStateChange(id, state) {
         if (!state) {
+            return;
+        }
+
+        // 🔮 Forecast JSON datapoint changed
+        if (this.forecastEnabled && this.forecastJsonDatapoint && id === this.forecastJsonDatapoint) {
+            if (state.ack === true) {
+                await this.processPvforecastJson();
+                await this.checkConsumers();
+            }
             return;
         }
 
@@ -450,6 +755,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ============================ checkConsumers =========================
+    // =====================================================================
     async checkConsumers() {
         if (this.checkRunning) {
             this.checkQueued = true;
@@ -590,6 +898,20 @@ class ZeroFeedIn extends utils.Adapter {
                         await this.switchConsumerWithDelay(v, true, v.switchOnDelay || 0);
                         feedIn -= v.performance;
                         this.log.debug(`Remaining surplus after switch-on: ${feedIn - baseload} W`);
+                        await this.setForecastState(v, idx, false, '', null, null);
+                    } else if (!gridUsage && !isOn && this.isForecastAllowingSwitchOn(v)) {
+                        const forecastPower = this.getForecastPower(v);
+                        const minutes = this.getForecastMinutes(v);
+                        this.log.debug(
+                            `[Forecast] Early switch-on allowed for "${v.name}": ${forecastPower} W in ${minutes} min.`,
+                        );
+                        await this.setForecastState(v, idx, true, 'forecastSwitchOn', forecastPower, minutes);
+                        await this.sendForecastNotification(
+                            v.ruletype === 'percent' ? 'percent' : 'binary',
+                            `🔮 Forecast: "${v.name}" will be switched on in ${minutes} minutes (${forecastPower} W expected).`,
+                        );
+                        await this.switchConsumerWithDelay(v, true, v.switchOnDelay || 0);
+                        feedIn -= v.performance;
                     } else if (gridUsage && !isOn) {
                         this.log.debug(`Not switched on: grid usage active.`);
                     } else if (!isOn) {
@@ -733,6 +1055,21 @@ class ZeroFeedIn extends utils.Adapter {
                 const shouldSwitchOff = !withinWindow || gridUsage || surplus < v.switchOffPoint;
 
                 if (!v.alwaysOffAtTime && shouldSwitchOff) {
+                    // 🔮 Forecast delay switch-off (PV forecast integration)
+                    if (this.isForecastDelayingSwitchOff(v, surplus)) {
+                        const forecastPower = this.getForecastPower(v);
+                        const minutes = this.getForecastMinutes(v);
+                        this.log.debug(
+                            `[Forecast] Switch-off delayed for "${v.name}": ${forecastPower} W in ${minutes} min.`,
+                        );
+                        await this.setForecastState(v, idx, true, 'forecastDelayOff', forecastPower, minutes);
+                        await this.sendForecastNotification(
+                            v.ruletype === 'percent' ? 'percent' : 'binary',
+                            `🔮 Forecast: "${v.name}" remains active (${forecastPower} W expected in ${minutes} min).`,
+                        );
+                        continue;
+                    }
+
                     if (v.timer && v.timerEnd && v.pendingAction === false) {
                         const remaining = Math.max(0, Math.round((v.timerEnd - Date.now()) / 1000));
                         this.log.debug(`Active timer for ${v.name}: ${remaining}s remaining`);
@@ -741,6 +1078,7 @@ class ZeroFeedIn extends utils.Adapter {
                             `Switching off: "${v.name}" - surplus ${surplus}W < switchOffPoint ${v.switchOffPoint}W, offDelay ${v.switchOffDelay || 0}s.`,
                         );
                         await this.switchConsumerWithDelay(v, false, v.switchOffDelay || 0);
+                        await this.setForecastState(v, idx, false, '', null, null);
                     }
                 }
             }
@@ -778,6 +1116,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ========================= controlPercentConsumer ====================
+    // =====================================================================
     async controlPercentConsumer(v) {
         try {
             const withinWindow = this.timeWithinWindow(v.switchOnTime, v.switchOffTime);
@@ -840,6 +1181,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // =============================== controlBattery ======================
+    // =====================================================================
     async controlBattery(v, feedIn) {
         try {
             this.log.debug(`[Battery] Checking for ${v.name}`);
@@ -996,6 +1340,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ========================= switchConsumerWithDelay ===================
+    // =====================================================================
     async switchConsumerWithDelay(consumer, turnOn, delaySeconds) {
         const delay =
             delaySeconds !== undefined
@@ -1160,6 +1507,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ========================= sendNotification ==========================
+    // =====================================================================
     // Zentrale, einheitliche Notification-Funktion
     // Aufruf: await this.sendNotification('smartloadmanager', 'info'|'notify'|'alert', 'Nachricht');
     async sendNotification(scope, category, message) {
@@ -1286,6 +1636,9 @@ class ZeroFeedIn extends utils.Adapter {
         }
     }
 
+    // =====================================================================
+    // ========================= initializeConsumerStatus ==================
+    // =====================================================================
     async initializeConsumerStatus() {
         // Initiale Status-Updates
         for (const v of this.consumerList) {
@@ -1316,6 +1669,9 @@ class ZeroFeedIn extends utils.Adapter {
         return h * 60 + m;
     }
 
+    // =====================================================================
+    // =============================== onUnload ============================
+    // =====================================================================
     async onUnload(callback) {
         try {
             if (this.percentTimer) {

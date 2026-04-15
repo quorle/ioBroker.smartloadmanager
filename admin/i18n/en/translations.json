@@ -102,7 +102,15 @@
     "enableNotificationManager": "Use Notification Manager",
     "Active": "Active",
     "name": "Name",
-    "controlMode":"Control Mode",
+    "controlMode": "Control Mode",
     "onTimerRemaining": "Timer On Remaining",
-    "offTimerRemaining": "Timer Off Remaining"
+    "offTimerRemaining": "Timer Off Remaining",
+    "enableForecast": "Enable Forecast",
+    "forecastDefaultMinMinutes": "Forecast Default Min Minutes",
+    "tooltip_enableForecast": "When activated, PV forecast data is used for intelligent feedforward control.",
+    "tootltip_forecastDefaultMinMinutes": "Fallback if no minute data point is available.",
+    "tooltip_forecastJsonDatapoint": "tooltip_forecastJsonDatapoint",
+    "StaticText_PVForecastSettings": "PV Forecast Settings",
+    "tooltip_useForecast": "Use forecast for this consumer",
+    "tooltip_forecastMinMinutes": "Forecast minimum duration (minutes)"
 }
