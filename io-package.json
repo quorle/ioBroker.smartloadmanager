@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "Update dependencies",
+        "de": "Abhängigkeiten aktualisieren",
+        "ru": "Обновление зависимостей",
+        "pt": "Atualizar dependências",
+        "nl": "Afhankelijkheden bijwerken",
+        "fr": "Mise à jour des dépendances",
+        "it": "Dipendenze di aggiornamento",
+        "es": "Actualizar las dependencias",
+        "pl": "Aktualizuj zależności",
+        "uk": "Оновлення залежності",
+        "zh-cn": "更新依赖关系"
+      },
       "0.1.1": {
         "en": "Update dependencies",
         "de": "Abhängigkeiten aktualisieren",
