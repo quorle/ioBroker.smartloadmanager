@@ -61,11 +61,6 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 - (quorle) Adjustments package.json
 - (quorle) Code changed
 
-### 0.0.3 (2025-09-03)
-
-- (quorle) Adjustments package.json
-- (quorle) Code changed
-
 ## License
 
 MIT License
