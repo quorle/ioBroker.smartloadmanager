@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.2.0",
+    "version": "0.4.1",
     "news": {
+      "0.4.1": {
+        "en": "Fix forecast notifications for percentage and battery consumers, limit duplicate notifications, clear invalid forecast data and log all forecast diagnostics only at debug level.",
+        "de": "Prognosemeldungen für Prozent- und Batterieverbraucher korrigiert, doppelte Meldungen begrenzt, ungültige Prognosedaten verworfen und sämtliche Prognosediagnosen ausschließlich auf Debug-Stufe protokolliert.",
+        "ru": "Исправлены уведомления прогноза для процентных потребителей и батарей, ограничены повторы, очищены недействительные данные; диагностика прогноза выводится только на уровне debug.",
+        "pt": "Corrigidas notificações de previsão para consumidores percentuais e baterias, limitadas repetições, eliminados dados inválidos e diagnóstico apenas no nível debug.",
+        "nl": "Prognosemeldingen voor procentuele verbruikers en batterijen hersteld, herhalingen beperkt, ongeldige gegevens gewist en prognosediagnose uitsluitend op debugniveau gelogd.",
+        "fr": "Correction des notifications de prévision pour consommateurs en pourcentage et batteries, limitation des doublons, suppression des données invalides et diagnostic uniquement au niveau debug.",
+        "it": "Corrette le notifiche di previsione per utenze percentuali e batterie, limitati i duplicati, eliminati i dati non validi e diagnostica solo a livello debug.",
+        "es": "Corregidas las notificaciones de previsión para consumidores porcentuales y baterías, limitados los duplicados, borrados los datos inválidos y diagnóstico solo en nivel debug.",
+        "pl": "Poprawiono powiadomienia prognozy dla odbiorników procentowych i akumulatorów, ograniczono duplikaty, usunięto nieprawidłowe dane; diagnostyka wyłącznie na poziomie debug.",
+        "uk": "Виправлено повідомлення прогнозу для відсоткових споживачів і батарей, обмежено повтори, очищено недійсні дані; діагностика прогнозу лише на рівні debug.",
+        "zh-cn": "修复百分比用电设备和电池的预测通知，限制重复通知，清除无效预测数据，所有预测诊断仅在 debug 级别记录。"
+      },
       "0.2.0": {
         "en": "Added sustained PV forecast control and minimum run/off times; fixed consumer commands, percent regulation, battery control, time windows and timers; updated translations, tests and workflows.",
         "de": "PV-Prognosesteuerung und Mindestlaufzeiten ergänzt; Verbrauchersteuerung, Zeitfenster und Timer korrigiert; Übersetzungen, Tests und Workflows aktualisiert.",

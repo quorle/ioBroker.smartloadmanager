@@ -61,6 +61,15 @@ automatisch aus. Dafür `controlMode: 0` verwenden.
 
 `enableForecast` aktivieren, `forecastJsonDatapoint` etwa auf
 `pvforecast.0.summary.JSONData` setzen und beim Verbraucher `useForecast` aktivieren.
+Auch `pvforecast.0.plants.<Anlagenname>.JSONData` ist möglich; dann wird nur diese
+Anlage berücksichtigt. Die globale Aktivierung und „Prognose verwenden“ beim
+jeweiligen Verbraucher sind beide erforderlich. „Prognoseentscheidungsbenachrichtigungen“
+aktiviert die Prognosesteuerung nicht selbst und erzeugt erst bei einer tatsächlichen
+Prognoseentscheidung eine Nachricht. In 0.2.0 stehen Datenimporte nur im Debug-Log.
+Version 0.4.1 zeigt Konfiguration, Datenimporte und aktivierte
+Entscheidungsnachrichten nur im Debug-Log an. Gleiche Entscheidungsnachrichten werden
+innerhalb von fünf Minuten zusammengefasst. Für externe Nachrichten zusätzlich den
+Notification Manager oder einen Nachrichtendienst konfigurieren.
 Beispiel für das erwartete Format (Zeitstempel sind Unix-Millisekunden):
 
 ```js

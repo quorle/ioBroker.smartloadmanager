@@ -22,6 +22,8 @@ class ZeroFeedIn extends utils.Adapter {
         // 🔮 Forecast (PV forecast integration)
         this.forecastEnabled = false;
         this.forecastJsonDatapoint = null;
+        this.forecastNotificationTimes = new Map();
+        this.forecastLogSignature = '';
         this.forecast = {
             power: 0,
             surplus: 0,
@@ -86,6 +88,17 @@ class ZeroFeedIn extends utils.Adapter {
             // 🔮 Forecast config (PV forecast integration)
             this.forecastEnabled = !!this.config.enableForecast;
             this.forecastJsonDatapoint = this.config.forecastJsonDatapoint || null;
+            this.log.debug(
+                `[Forecast] ${this.forecastEnabled ? 'Enabled' : 'Disabled'}; source: ${this.forecastJsonDatapoint || 'not configured'}; decision notifications: ${this.config.notifyForecast ? 'enabled' : 'disabled'}.`,
+            );
+            if (this.forecastEnabled && !this.forecastJsonDatapoint) {
+                this.log.debug('[Forecast] No JSON data point configured; forecast control cannot run.');
+            }
+            if (this.config.notifyForecast && !this.forecastEnabled) {
+                this.log.debug(
+                    '[Forecast] Decision notifications do not enable forecast control. Enable forecast control and select a JSON data point first.',
+                );
+            }
             if (this.forecastEnabled && this.forecastJsonDatapoint) {
                 this.forecast.unit = await this.detectForecastPowerUnit();
             }
@@ -118,6 +131,12 @@ class ZeroFeedIn extends utils.Adapter {
             }
 
             this.log.info(`Loaded consumers: ${this.consumerList.map(v => v.name).join(', ')}`);
+            if (this.forecastEnabled) {
+                const forecastConsumers = this.consumerList.filter(v => v.enabled && v.useForecast);
+                this.log.debug(
+                    `[Forecast] Enabled consumers using forecast: ${forecastConsumers.map(v => v.name).join(', ') || 'none; activate useForecast for the desired consumers'}.`,
+                );
+            }
 
             await this.checkAndCreateConsumerObjects();
             await this.createConsumerStates();
@@ -504,6 +523,19 @@ class ZeroFeedIn extends utils.Adapter {
     // =====================================================================
     // ========================= Forecast JSON parse =======================
     // =====================================================================
+    async clearForecast(reason) {
+        this.forecastLogSignature = '';
+        this.forecast.points = [];
+        this.forecast.power = 0;
+        this.forecast.surplus = 0;
+        this.forecast.minutes = 0;
+        this.forecast.lastUpdate = 0;
+        for (const field of ['power', 'surplus', 'minutes', 'lastUpdate']) {
+            await this.setStateAsync(`${this.namespace}.forecast.${field}`, { val: 0, ack: true });
+        }
+        this.log.debug(`[Forecast] ${reason}; forecast control is unavailable until valid data arrives.`);
+    }
+
     async processPvforecastJson() {
         try {
             if (!this.forecastEnabled || !this.forecastJsonDatapoint) {
@@ -512,6 +544,7 @@ class ZeroFeedIn extends utils.Adapter {
 
             const state = await this.getForeignStateAsync(this.forecastJsonDatapoint);
             if (!state || !state.val) {
+                await this.clearForecast('JSON data point is missing or empty');
                 return;
             }
 
@@ -521,13 +554,13 @@ class ZeroFeedIn extends utils.Adapter {
                     baseload: this.config.baseload || 0,
                 });
             } catch (error) {
-                this.forecast.points = [];
-                this.log.warn(`[Forecast] Invalid pvforecast JSON: ${error.message}`);
+                await this.clearForecast(`Invalid pvforecast JSON: ${error.message}`);
                 return;
             }
 
             const best = this.forecast.points[0];
             if (!best) {
+                await this.clearForecast('JSON contains no valid future forecast points');
                 return;
             }
             const power = best.power;
@@ -549,11 +582,15 @@ class ZeroFeedIn extends utils.Adapter {
                 ack: true,
             });
 
-            this.log.debug(
-                `[Forecast] ${this.forecast.points.length} values parsed (${this.forecast.unit || 'auto'}) - next: ${power}W in ${minutes}min`,
-            );
+            const signature = `${this.forecast.points.length}:${best.timestamp}:${power}:${best.surplus}`;
+            if (signature !== this.forecastLogSignature) {
+                this.log.debug(
+                    `[Forecast] ${this.forecast.points.length} values parsed (${this.forecast.unit || 'auto'}) - next: ${power}W in ${minutes}min`,
+                );
+                this.forecastLogSignature = signature;
+            }
         } catch (error) {
-            this.log.error(`[Forecast] Error processing pvforecast JSON: ${error.message}`);
+            this.log.debug(`[Forecast] Error processing pvforecast JSON: ${error.message}`);
         }
     }
 
@@ -656,17 +693,29 @@ class ZeroFeedIn extends utils.Adapter {
                 ack: true,
             });
         } catch (err) {
-            this.log.warn(`[Forecast] Failed to set forecastStatus: ${err.message}`);
+            this.log.debug(`[Forecast] Failed to set forecastStatus: ${err.message}`);
         }
     }
 
     async sendForecastNotification(type, message) {
         try {
             if (this.config.notifyForecast) {
+                const now = Date.now();
+                for (const [key, sentAt] of this.forecastNotificationTimes) {
+                    if (now - sentAt >= 5 * 60000) {
+                        this.forecastNotificationTimes.delete(key);
+                    }
+                }
+                const key = `${type}:${message}`;
+                if (this.forecastNotificationTimes.has(key)) {
+                    return;
+                }
+                this.log.debug(`[Forecast] ${message}`);
                 await this.sendNotification('smartloadmanager', 'notify', message);
+                this.forecastNotificationTimes.set(key, now);
             }
         } catch (err) {
-            this.log.warn(`[Forecast] Failed to send forecast notification: ${err.message}`);
+            this.log.debug(`[Forecast] Failed to send forecast notification: ${err.message}`);
         }
     }
 
@@ -1291,6 +1340,10 @@ class ZeroFeedIn extends utils.Adapter {
             if (newPercent < currentPercent && this.isForecastDelayingSwitchOff(v, currentSurplus, currentPower)) {
                 newPercent = currentPercent;
                 this.log.debug(`[Forecast] ${v.name}: holding ${currentPercent}% during a short forecast-backed dip`);
+                await this.sendForecastNotification(
+                    'percent',
+                    `${v.name}: holding ${currentPercent}% during a forecast-backed dip.`,
+                );
             }
 
             if (newPercent !== currentPercent) {
@@ -1410,6 +1463,10 @@ class ZeroFeedIn extends utils.Adapter {
                 powerToSet = Math.min(oldPower, v.performance || oldPower);
                 modeToSet = 2;
                 this.log.debug(`[Forecast] ${v.name}: holding ${powerToSet}W charging power during a short dip`);
+                await this.sendForecastNotification(
+                    'battery',
+                    `${v.name}: holding ${powerToSet}W charging power during a forecast-backed dip.`,
+                );
             }
 
             const oldMode = this.batteryControlModeDatapoint

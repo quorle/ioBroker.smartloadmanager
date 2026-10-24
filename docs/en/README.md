@@ -52,6 +52,13 @@ its existing device state unchanged; use `controlMode: 0` to switch it off.
 
 Enable `enableForecast`, select e.g. `pvforecast.0.summary.JSONData` as
 `forecastJsonDatapoint`, and enable `useForecast` for the consumer.
+Alternatively select `pvforecast.0.plants.<plant name>.JSONData` to use one plant.
+Both global forecast control and the individual consumer's forecast option must be
+enabled. Decision notifications do not enable forecast control and are emitted only
+when a forecast actually affects control. Version 0.2.0 logs imports at debug level.
+Version 0.4.1 logs configuration, imports and enabled decision
+notifications only at debug level, suppressing identical decisions for five minutes.
+External delivery additionally requires Notification Manager or a messenger service.
 The expected JSON array uses Unix timestamps in milliseconds:
 
 ```js

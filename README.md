@@ -32,6 +32,11 @@ It can optionally integrate `ioBroker.pvforecast` through `summary.JSONData`. Su
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### 0.4.1 (2026-10-24)
+
+- (quorle) Make forecast configuration, data imports and decision notifications visible only in the debug log; report forecast decisions for percentage and battery consumers and limit identical notifications to once per five minutes.
+- (quorle) Clear cached forecast data and report missing, invalid or expired source data instead of silently retaining previous forecasts.
+
 ### 0.2.0 (2026-10-24)
 
 - (quorle) Added sustained PV forecast evaluation, configurable W/kW units, safety margins, minimum on/off times and limited forecast dip bridging.
