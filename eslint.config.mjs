@@ -7,6 +7,7 @@ export default [
     {
         // specify files to exclude from linting here
         ignores: [
+            '.release-tools/**',
             '.dev-server/',
             '.vscode/',
             '*.test.js',

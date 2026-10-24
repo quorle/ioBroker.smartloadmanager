@@ -1,22 +1,22 @@
 {
   "common": {
     "name": "smartloadmanager",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "news": {
-      "0.1.2": {
-        "en": "Update dependencies",
-        "de": "Abhängigkeiten aktualisieren",
-        "ru": "Обновление зависимостей",
-        "pt": "Atualizar dependências",
-        "nl": "Afhankelijkheden bijwerken",
-        "fr": "Mise à jour des dépendances",
-        "it": "Dipendenze di aggiornamento",
-        "es": "Actualizar las dependencias",
-        "pl": "Aktualizuj zależności",
-        "uk": "Оновлення залежності",
-        "zh-cn": "更新依赖关系"
+      "0.2.0": {
+        "en": "Added sustained PV forecast control and minimum run/off times; fixed consumer commands, percent regulation, battery control, time windows and timers; updated translations, tests and workflows.",
+        "de": "PV-Prognosesteuerung und Mindestlaufzeiten ergänzt; Verbrauchersteuerung, Zeitfenster und Timer korrigiert; Übersetzungen, Tests und Workflows aktualisiert.",
+        "ru": "Добавлены управление по прогнозу ФЭ и минимальные времена работы; исправлены управление потребителями, временные окна и таймеры; обновлены переводы, тесты и рабочие процессы.",
+        "pt": "Adicionado controlo por previsão solar e tempos mínimos de funcionamento; corrigidos consumidores, horários e temporizadores; atualizados traduções, testes e fluxos de trabalho.",
+        "nl": "PV-prognosesturing en minimale aan/uit-tijden toegevoegd; schakelopdrachten, procentregeling, batterij, tijdvensters en timers hersteld; vertalingen, tests en workflows bijgewerkt.",
+        "fr": "Ajout des prévisions solaires et durées minimales ; correction des commandes, plages horaires et minuteries ; mise à jour des traductions, tests et workflows.",
+        "it": "Aggiunti controllo tramite previsioni FV e tempi minimi di accensione/spegnimento; corretti comandi, regolazione percentuale, batteria, fasce orarie e timer; aggiornati traduzioni, test e workflow.",
+        "es": "Añadidos control por previsión FV y tiempos mínimos; corregidos consumidores, horarios y temporizadores; actualizados traducciones, pruebas y flujos de trabajo.",
+        "pl": "Dodano prognozę PV i minimalne czasy pracy; poprawiono sterowanie odbiornikami, okna czasowe i zegary; zaktualizowano tłumaczenia, testy i przepływy pracy.",
+        "uk": "Додано керування за прогнозом ФЕ та мінімальні часи роботи; виправлено керування споживачами, часові вікна та таймери; оновлено переклади, тести та робочі процеси.",
+        "zh-cn": "新增光伏预测控制和最短运行时间；修复用电设备控制、时间窗口和定时器；更新翻译、测试和工作流。"
       },
-      "0.1.1": {
+      "0.1.2": {
         "en": "Update dependencies",
         "de": "Abhängigkeiten aktualisieren",
         "ru": "Обновление зависимостей",
@@ -83,7 +83,7 @@
       },
       "0.0.1": {
         "en": "Release",
-        "de": "Release",
+        "de": "Veröffentlichung",
         "ru": "Выпуск",
         "pt": "Lançar",
         "nl": "Loslaten",
@@ -163,7 +163,7 @@
     ],
     "globalDependencies": [
       {
-        "admin": ">=7.6.17"
+        "admin": ">=7.6.20"
       }
     ]
   },
@@ -185,19 +185,46 @@
       },
       "description": {
         "en": "Notifications from SmartLoadManager",
-        "de": "Benachrichtigungen vom SmartLoadManager"
+        "de": "Benachrichtigungen vom SmartLoadManager",
+        "ru": "Уведомления от SmartLoadManager",
+        "pt": "Notificações do SmartLoadManager",
+        "nl": "Meldingen van SmartLoadManager",
+        "fr": "Notifications de SmartLoadManager",
+        "it": "Notifiche da SmartLoadManager",
+        "es": "Notificaciones de SmartLoadManager",
+        "pl": "Powiadomienia z SmartLoadManager",
+        "uk": "Сповіщення від SmartLoadManager",
+        "zh-cn": "来自 SmartLoadManager 的通知"
       },
       "categories": [
         {
           "category": "info",
           "name": {
             "en": "Info",
-            "de": "Info"
+            "de": "Information",
+            "ru": "Информация",
+            "pt": "Informação",
+            "nl": "Informatie",
+            "fr": "Information",
+            "it": "Informazioni",
+            "es": "Información",
+            "pl": "Informacja",
+            "uk": "Інформація",
+            "zh-cn": "信息"
           },
           "severity": "notify",
           "description": {
             "en": "Information about consumer switching or battery adjustments",
-            "de": "Informationen zu Verbraucherschaltungen oder Batterieanpassungen"
+            "de": "Informationen zu Verbraucherschaltungen oder Batterieanpassungen",
+            "ru": "Информация о переключении потребителей или настройке батареи",
+            "pt": "Informações sobre comutação de consumidores ou ajustes da bateria",
+            "nl": "Informatie over het schakelen van verbruikers of batterijaanpassingen",
+            "fr": "Informations sur la commutation des consommateurs ou les réglages de batterie",
+            "it": "Informazioni sulla commutazione delle utenze o sulle regolazioni della batteria",
+            "es": "Información sobre la conmutación de consumidores o los ajustes de batería",
+            "pl": "Informacje o przełączaniu odbiorników lub regulacji baterii",
+            "uk": "Інформація про перемикання споживачів або налаштування батареї",
+            "zh-cn": "有关用电设备切换或电池调整的信息"
           },
           "regex": [],
           "limit": 1
@@ -206,12 +233,30 @@
           "category": "notify",
           "name": {
             "en": "Notify",
-            "de": "Benachrichtigen"
+            "de": "Benachrichtigung",
+            "ru": "Уведомление",
+            "pt": "Notificação",
+            "nl": "Melding",
+            "fr": "Notification",
+            "it": "Notifica",
+            "es": "Notificación",
+            "pl": "Powiadomienie",
+            "uk": "Сповіщення",
+            "zh-cn": "通知"
           },
           "severity": "notify",
           "description": {
             "en": "Notify about events",
-            "de": "Benachrichtigen über Ereignisse"
+            "de": "Über Ereignisse benachrichtigen",
+            "ru": "Уведомлять о событиях",
+            "pt": "Notificar sobre eventos",
+            "nl": "Melden over gebeurtenissen",
+            "fr": "Notifier les événements",
+            "it": "Notifica gli eventi",
+            "es": "Notificar sobre eventos",
+            "pl": "Powiadamiaj o zdarzeniach",
+            "uk": "Сповіщати про події",
+            "zh-cn": "事件通知"
           },
           "regex": [],
           "limit": 1
@@ -220,12 +265,30 @@
           "category": "alert",
           "name": {
             "en": "Alert",
-            "de": "Alarm"
+            "de": "Alarm",
+            "ru": "Тревога",
+            "pt": "Alerta",
+            "nl": "Alarm",
+            "fr": "Alerte",
+            "it": "Allarme",
+            "es": "Alerta",
+            "pl": "Alarm",
+            "uk": "Тривога",
+            "zh-cn": "警报"
           },
           "severity": "alert",
           "description": {
             "en": "Alarm or failures in the adapter",
-            "de": "Alarm oder Ausfälle im Adapter"
+            "de": "Alarm oder Ausfälle im Adapter",
+            "ru": "Тревоги или сбои адаптера",
+            "pt": "Alarmes ou falhas no adaptador",
+            "nl": "Alarmen of storingen in de adapter",
+            "fr": "Alarmes ou défaillances de l’adaptateur",
+            "it": "Allarmi o guasti nell'adattatore",
+            "es": "Alarmas o fallos en el adaptador",
+            "pl": "Alarmy lub awarie adaptera",
+            "uk": "Тривоги або збої адаптера",
+            "zh-cn": "适配器中的警报或故障"
           },
           "regex": [],
           "limit": 1
@@ -263,13 +326,19 @@
     "pushoverRecipients": "",
     "enableNotificationManager": false,
     "enableForecast": false,
-    "forecastDefaultMinMinutes": 0,
+    "forecastDefaultMinMinutes": 30,
+    "forecastPowerUnit": "auto",
+    "forecastSafetyPercent": 80,
+    "forecastMaxStartMinutes": 30,
+    "forecastMinCurrentPercent": 50,
+    "forecastBridgeMinutes": 5,
+    "forecastMaxGridImport": 100,
     "enableNotifications": false,
     "notifyForecastBinary": false,
     "notifyForecastPercent": false,
     "notifyForecastBattery": false,
     "forecastJsonDatapoint": "",
-    "notifyForecast": ""
+    "notifyForecast": false
   },
   "objects": [],
   "instanceObjects": []

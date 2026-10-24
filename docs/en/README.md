@@ -2,6 +2,80 @@
 
 # ioBroker.smartloadmanager
 
+## Version 0.2.0 examples
+
+Requires Node.js >=22.19.0. Device commands use `ack: false`; the device adapter
+provides the acknowledgement. Feed-in must represent grid connection power in watts.
+Enable `feedinNegativ` when export is negative. Baseload is an additional reserve;
+do not subtract household consumption twice if it is already included in the meter reading.
+
+### Binary loads and heating
+
+Example: `performance: 1000`, `switchOnPoint: 1200`, `switchOffPoint: 0`,
+`switchOnDelay: 20`, `switchOffDelay: 10`. A 1200 W surplus after baseload starts
+the on timer. Import or surplus below the off threshold starts the off timer.
+`minimumOnMinutes: 10` and `minimumOffMinutes: 5` reduce cycling; import above
+`forecastMaxGridImport` overrides minimum runtime. Set minimum times to 0 to disable them.
+
+Use `datapoint` for boolean switching and `numericDatapoint` for numeric 0/1.
+Heating consumers additionally support temperature, enable and heartbeat inputs.
+Maximum temperature and missing enable/heartbeat prevent activation.
+Heartbeat checks the input's truth value, not the age of its last update.
+A missing or nonfinite configured temperature sensor prevents activation and
+stops automatic heating. “Switch off only at switch-off time” intentionally
+disables normal surplus shutdown until the time window ends; heating protection remains active.
+
+### Percentage and battery control
+
+A 2000 W percent consumer at 50% consumes 1000 W. With 400 W additional export,
+the target becomes 70%. With 200 W import it becomes 40%. Below `minPercentStart`,
+the target becomes 0%. Disabled consumers are not regulated. This calculation
+assumes the load is included in the grid meter reading.
+
+Configure a battery's `batterySetpoint`, `performance`, and optional `batterySOC`
+and `batteryTargetSOC`. With 800 W surplus and a 1500 W rating, the charging command
+is 800 W. Reaching target SOC sets charging power to 0. The optional global battery
+mode datapoint uses 0 (off), 1 (target reached), and 2 (charging); verify that these
+values match the device adapter.
+
+`controlMode`: 0 = off, 1 = manual on, 2 = automatic. Manual on sets a percent load
+to 100% or battery charging power to its configured rating. Automatic regulators
+respect manual modes.
+Battery control includes already requested charging power and corrects it by the
+measured grid surplus. `batteryDelaySeconds` and `delaySecondsProzent` remain
+effective during frequent meter updates; 0 means immediate regulation.
+Missing configured SOC/target SOC values stop charging. Time windows are also
+checked every 15 seconds. Disabling a consumer cancels pending switches but leaves
+its existing device state unchanged; use `controlMode: 0` to switch it off.
+
+### PV forecast example
+
+Enable `enableForecast`, select e.g. `pvforecast.0.summary.JSONData` as
+`forecastJsonDatapoint`, and enable `useForecast` for the consumer.
+The expected JSON array uses Unix timestamps in milliseconds:
+
+```js
+const now = Date.now();
+const forecast = [0, 15, 30, 45].map(minutes => ({
+    t: now + minutes * 60000,
+    y: 3.5,
+}));
+// JSON.stringify(forecast), with forecastPowerUnit = "kW"
+```
+
+With 500 W baseload this gives 3000 W forecast surplus, reduced to 2400 W at
+`forecastSafetyPercent: 80`. A 2000 W consumer requires a sustained
+`forecastMinMinutes: 30` window starting within `forecastMaxStartMinutes: 30`.
+At `forecastMinCurrentPercent: 50`, at least 1000 W must already be available.
+
+`forecastBridgeMinutes: 5` limits dip bridging; `forecastMaxGridImport: 100`
+prevents bridging above 100 W import. Past forecast points are ignored.
+Select `W` explicitly for small watt readings: automatic detection treats values
+up to 100 as kW. Inspect `forecast.*` and each consumer's forecast status states.
+
+Time windows may cross midnight (22:00–06:00). Equal start/end times mean all day.
+Automated tests use simulated devices; no physical device installation was available.
+
 ## 🔧 Description
 
 The **smartloadmanager** adapter dynamically controls consumers based on a PV feed-in value.  
@@ -168,14 +242,13 @@ Each consumer gets its own channel with the following states:
 - No SOC history, no long-term logic
 - No multiple use of identical datapoints
 - Battery control based only on feed-in, not discharge power
-- No minimum percentage for percent consumers (e.g. 10 % min for wallbox)
 - Heating without direct power measurement – only thresholds and enable checks
 
 ---
 
 ## 🛣️ Future features
 
-- PV forecast-based control (beta)
+- ~~PV forecast-based control (beta)~~
 - Combined consumer support
 - ~~Prioritization profiles~~
 - Overheating or fault handling per device
@@ -183,3 +256,13 @@ Each consumer gets its own channel with the following states:
 - Configurable group or room logic
 
 ---
+
+## PV forecast control
+
+SmartLoadManager can use `pvforecast.<instance>.summary.JSONData`. Enable forecast control, select the JSON data point and enable it for the desired consumers.
+
+The adapter evaluates a continuous forecast window instead of a single value. A configurable safety factor reduces optimistic forecasts. Forecast-assisted switch-on additionally requires part of the required power to be present as real surplus. Short drops can be bridged for a limited time, but only up to the configured maximum grid import.
+
+Minimum run and off times prevent rapid cycling. Forecast decisions never override time windows, heating temperature limits, hardware enable/heartbeat signals or battery SOC limits.
+
+Recommended starting values: 80% safety factor, 30-minute forecast window, 30-minute maximum lead time, 50% current-surplus requirement, 5-minute dip bridging, 100 W maximum grid import and 10/5-minute minimum run/off times.

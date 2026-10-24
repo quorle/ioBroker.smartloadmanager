@@ -15,6 +15,8 @@
 
 The **smartloadmanager** adapter is used for dynamic control of loads based on a PV feed-in value. The goal is to consume surplus electricity locally, thus minimizing or completely avoiding feed-in to the public grid. It supports both on/off loads and percentage-controlled devices and battery storage.
 
+It can optionally integrate `ioBroker.pvforecast` through `summary.JSONData`. Sustained forecast windows, conservative safety margins, minimum run/off times and limited dip bridging are used to make forecast-assisted decisions without rapid cycling.
+
 ---
 
 ## Documentation
@@ -30,6 +32,21 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### 0.2.0 (2026-10-24)
+
+- (quorle) Added sustained PV forecast evaluation, configurable W/kW units, safety margins, minimum on/off times and limited forecast dip bridging.
+- (quorle) Fixed binary commands to use `ack: false` without fabricating device acknowledgements; corrected battery commands and negative feed-in handling.
+- (quorle) Fixed percent regulation to include existing load power, stop below minimum power, and respect activation and automatic/manual modes.
+- (quorle) Fixed manual percent commands, switch-on thresholds, overnight time windows, stale forecasts and repeatedly postponed regulation timers.
+- (quorle) Recheck delayed activations, cancel disabled consumer timers, periodically evaluate time windows, stop heating/charging on missing configured sensors, and stabilize battery feedback regulation while honoring its delay.
+- (quorle) Migrated translations to short JSON format, synchronized all eleven languages, completed notification translations and corrected Admin configuration schema fields.
+- (quorle) Updated adapter-core and testing dependencies, aligned Node.js typings/configuration, and added Node.js 26 to the 22/24/26 CI matrix.
+- (quorle) Replaced the Dependabot `pull_request_target` trigger and removed obsolete workflows and tracked editor backups.
+- (quorle) Added regression tests for actual consumer control, configured controller integration tests, and expanded English/German documentation with examples.
+- (quorle) Require Node.js >=22.19.0; include documentation and forecast runtime code in the npm package while excluding unit tests.
+
+See [English examples](docs/en/README.md#version-020-examples) and [deutsche Beispiele](docs/de/README.md#beispiele-für-version-020).
+
 ### 0.1.2 (2026-04-15)
 
 - (quorle) Update dependencies
@@ -59,6 +76,8 @@ The **smartloadmanager** adapter is used for dynamic control of loads based on a
 
 - (quorle) Adjustments package.json
 - (quorle) Code changed
+
+Older release notes: [CHANGELOG_OLD.md](CHANGELOG_OLD.md).
 
 ## License
 

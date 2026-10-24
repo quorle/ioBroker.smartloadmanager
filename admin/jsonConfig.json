@@ -98,7 +98,6 @@
                     "xl": 3,
                     "label": "enableForecast"
                 },
-
                 "forecastJsonDatapoint": {
                     "type": "objectId",
                     "newLine": true,
@@ -114,6 +113,97 @@
                     "type": "number",
                     "label": "forecastDefaultMinMinutes",
                     "tooltip": "tooltip_forecastDefaultMinMinutes",
+                    "default": 30,
+                    "min": 15,
+                    "max": 360,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastPowerUnit": {
+                    "type": "select",
+                    "label": "forecastPowerUnit",
+                    "default": "auto",
+                    "options": [
+                        { "label": "forecastUnitAuto", "value": "auto" },
+                        { "label": "W", "value": "W" },
+                        { "label": "kW", "value": "kW" }
+                    ],
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastSafetyPercent": {
+                    "type": "number",
+                    "label": "forecastSafetyPercent",
+                    "tooltip": "tooltip_forecastSafetyPercent",
+                    "default": 80,
+                    "min": 50,
+                    "max": 100,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastMaxStartMinutes": {
+                    "type": "number",
+                    "label": "forecastMaxStartMinutes",
+                    "default": 30,
+                    "min": 0,
+                    "max": 180,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastMinCurrentPercent": {
+                    "type": "number",
+                    "label": "forecastMinCurrentPercent",
+                    "tooltip": "tooltip_forecastMinCurrentPercent",
+                    "default": 50,
+                    "min": 0,
+                    "max": 100,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastBridgeMinutes": {
+                    "type": "number",
+                    "label": "forecastBridgeMinutes",
+                    "default": 5,
+                    "min": 0,
+                    "max": 30,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "forecastMaxGridImport": {
+                    "type": "number",
+                    "label": "forecastMaxGridImport",
+                    "tooltip": "tooltip_forecastMaxGridImport",
+                    "default": 100,
+                    "min": 0,
+                    "max": 5000,
+                    "xs": 12,
+                    "sm": 12,
+                    "md": 3,
+                    "lg": 3,
+                    "xl": 3
+                },
+                "notifyForecast": {
+                    "type": "checkbox",
+                    "label": "notifyForecast",
+                    "default": false,
                     "xs": 12,
                     "sm": 12,
                     "md": 3,
@@ -135,7 +225,13 @@
                     "lg": 8,
                     "xl": 8,
                     "showSecondAddAt": 10,
-                    "useCardFor": ["xs", "sm", "md", "lg", "xl"],
+                    "useCardFor": [
+                        "xs",
+                        "sm",
+                        "md",
+                        "lg",
+                        "xl"
+                    ],
                     "compact": true,
                     "items": [
                         {
@@ -194,6 +290,19 @@
                         {
                             "type": "staticText",
                             "title": {
+                                "en": "Battery management settings:",
+                                "de": "Einstellung Batteriemanagment:",
+                                "ru": "Настройки управления батареями:",
+                                "pt": "Configurações de gerenciamento de baterias:",
+                                "nl": "Instellingen voor batterijbeheer:",
+                                "fr": "Paramètres de gestion de la batterie :",
+                                "it": "Impostazioni di gestione della batteria:",
+                                "es": "Ajustes de gestión de baterías:",
+                                "pl": "Ustawienia zarządzania akumulatorem:",
+                                "uk": "Параметри керування акумуляторами:",
+                                "zh-cn": "电池管理设置 :"
+                            },
+                            "text": {
                                 "en": "Battery management settings:",
                                 "de": "Einstellung Batteriemanagment:",
                                 "ru": "Настройки управления батареями:",
@@ -293,6 +402,19 @@
                                 "pl": "Ustawienia prognozy PV",
                                 "uk": "Параметри прогнозу PV",
                                 "zh-cn": "PV 预测设置"
+                            },
+                            "text": {
+                                "en": "PV Forecast Settings",
+                                "de": "Einstellung PV-Forecast:",
+                                "ru": "Настройки PV прогноза",
+                                "pt": "Configuração da Previsão do PV",
+                                "nl": "PV-voorspellingsinstellingen",
+                                "fr": "Paramètres des prévisions PV",
+                                "it": "Impostazioni di previsione PV",
+                                "es": "Ajustes de predicción PV",
+                                "pl": "Ustawienia prognozy PV",
+                                "uk": "Параметри прогнозу PV",
+                                "zh-cn": "PV 预测设置"
                             }
                         },
                         {
@@ -329,10 +451,54 @@
                                 "uk": "Мінімальна тривалість прогнозу (хвилини)",
                                 "zh-cn": "预测最低时间(分钟)"
                             },
-                            "tooltip": "tooltip_forecastMinMinutes"
+                            "tooltip": "tooltip_forecastMinMinutes",
+                            "default": 30,
+                            "min": 15,
+                            "max": 360
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minimumOnMinutes",
+                            "title": {
+                                "en": "Minimum run time (minutes)",
+                                "de": "Mindestlaufzeit (Minuten)",
+                                "ru": "Минимальное время работы (минуты)",
+                                "pt": "Tempo mínimo de funcionamento (minutos)",
+                                "nl": "Minimale looptijd (minuten)",
+                                "fr": "Durée minimale de fonctionnement (minutes)",
+                                "it": "Tempo minimo di funzionamento (minuti)",
+                                "es": "Tiempo mínimo de funcionamiento (minutos)",
+                                "pl": "Minimalny czas pracy (minuty)",
+                                "uk": "Мінімальний час роботи (хвилини)",
+                                "zh-cn": "最短运行时间（分钟）"
+                            },
+                            "default": 10,
+                            "min": 0,
+                            "max": 1440
+                        },
+                        {
+                            "type": "number",
+                            "attr": "minimumOffMinutes",
+                            "title": {
+                                "en": "Minimum off time (minutes)",
+                                "de": "Mindeststillstandszeit (Minuten)",
+                                "ru": "Минимальное время простоя (минуты)",
+                                "pt": "Tempo mínimo desligado (minutos)",
+                                "nl": "Minimale uitschakeltijd (minuten)",
+                                "fr": "Durée minimale d’arrêt (minutes)",
+                                "it": "Tempo minimo di spegnimento (minuti)",
+                                "es": "Tiempo mínimo de apagado (minutos)",
+                                "pl": "Minimalny czas wyłączenia (minuty)",
+                                "uk": "Мінімальний час вимкнення (хвилини)",
+                                "zh-cn": "最短停机时间（分钟）"
+                            },
+                            "default": 5,
+                            "min": 0,
+                            "max": 1440
                         },
                         {
                             "type": "staticText",
+                            "newLine": true,
                             "title": {
                                 "en": "Heating element setting:",
                                 "de": "Einstellung Heizelement:",
@@ -346,7 +512,19 @@
                                 "uk": "Налаштування нагрівальних елементів:",
                                 "zh-cn": "加热元素设置 :"
                             },
-                            "newLine": true
+                            "text": {
+                                "en": "Heating element setting:",
+                                "de": "Einstellung Heizelement:",
+                                "ru": "Настройка нагревательного элемента:",
+                                "pt": "Configuração do elemento de aquecimento:",
+                                "nl": "Verwarmingselementinstelling:",
+                                "fr": "Réglage des éléments de chauffage:",
+                                "it": "Regolazione degli elementi riscaldanti:",
+                                "es": "Ajuste del elemento de calefacción:",
+                                "pl": "Ustawienia elementów grzewczych:",
+                                "uk": "Налаштування нагрівальних елементів:",
+                                "zh-cn": "加热元素设置 :"
+                            }
                         },
                         {
                             "type": "objectId",
@@ -447,6 +625,7 @@
                         },
                         {
                             "type": "staticText",
+                            "newLine": true,
                             "title": {
                                 "en": "Consumer settings:",
                                 "de": "Verbrauchereinstellungen:",
@@ -460,7 +639,19 @@
                                 "uk": "Параметри споживача:",
                                 "zh-cn": "消费者环境:"
                             },
-                            "newLine": true
+                            "text": {
+                                "en": "Consumer settings:",
+                                "de": "Verbrauchereinstellungen:",
+                                "ru": "Потребительские настройки:",
+                                "pt": "Configurações do consumidor:",
+                                "nl": "Instellingen voor consumenten:",
+                                "fr": "Paramètres des consommateurs:",
+                                "it": "Impostazioni dei consumatori:",
+                                "es": "Ajustes del consumidor:",
+                                "pl": "Ustawienia konsumentów:",
+                                "uk": "Параметри споживача:",
+                                "zh-cn": "消费者环境:"
+                            }
                         },
                         {
                             "type": "number",
